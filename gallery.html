@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Lohshree Engineers Pvt. Ltd.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: { colors: { industrialNavy: '#0B192C', accentGold: '#D4AF37', whatsappGreen: '#25D366' } }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-slate-800 dark:bg-gray-900 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
+
+    <header class="bg-industrialNavy text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
+                <div class="w-10 h-10 bg-accentGold text-industrialNavy font-bold rounded flex items-center justify-center text-xl">LE</div>
+                <div>
+                    <span class="font-extrabold text-lg tracking-wider block leading-none">LOHSHREE</span>
+                    <span class="text-xs text-gray-400 tracking-widest uppercase">Engineers Pvt. Ltd.</span>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                <a href="index.html" class="text-gray-300 hover:text-accentGold transition">Home</a>
+                <a href="index.html#products" class="text-gray-300 hover:text-accentGold transition">Our Products</a>
+                <a href="gallery.html" class="text-accentGold transition">Gallery</a>
+                <button id="themeToggle" class="text-gray-300 hover:text-accentGold transition">
+                    <svg id="moonIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-16 bg-white dark:bg-gray-900 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-industrialNavy dark:text-white mb-4">Engineering Gallery</h1>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">A visual showcase of our precision manufacturing process, custom components, and solvent extraction machinery parts.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                
+                <div class="group relative rounded-xl overflow-hidden shadow-lg bg-gray-200 dark:bg-slate-800 aspect-square">
+                    <img src="assets/slide1.jpg" alt="Drive Shaft" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white font-semibold">Custom Drive Shaft</p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-xl overflow-hidden shadow-lg bg-gray-200 dark:bg-slate-800 aspect-square">
+                    <video autoplay loop muted playsinline class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <source src="assets/slide2.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">Video</div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white font-semibold">CNC Machining Process</p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-xl overflow-hidden shadow-lg bg-gray-200 dark:bg-slate-800 aspect-square">
+                    <img src="assets/slide3.gif" alt="Rotary Valve" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p class="text-white font-semibold">Rotary Valve Assembly</p>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-100 dark:bg-gray-800 py-12 text-center text-sm text-gray-600 dark:text-gray-400">
+        <div class="font-bold text-lg text-industrialNavy dark:text-white mb-2">LOHSHREE ENGINEERS PVT. LTD.</div>
+        <p>© 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- DARK MODE LOGIC ---
+        const themeToggleBtn = document.getElementById('themeToggle');
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+        themeToggleBtn.addEventListener('click', function() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

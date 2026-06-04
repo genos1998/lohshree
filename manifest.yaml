@@ -1,0 +1,51 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lohshree-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lohshree
+  template:
+    metadata:
+      labels:
+        app: lohshree
+    spec:
+      containers:
+      - name: web
+        image: docker.io/genos1998/lohshree-site:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lohshree-service
+spec:
+  selector:
+    app: lohshree
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lohshree-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: lohshree.check.net
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: lohshree-service
+            port:
+              number: 80
