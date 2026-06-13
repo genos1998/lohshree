@@ -3,524 +3,1093 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lohshree Engineers Pvt. Ltd.</title>
-    
-    <!-- Tailwind CSS Play CDN -->
+    <title>Lohshree Engineers Pvt. Ltd. — Precision Solvent Extraction Parts</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        industrialNavy: '#0B192C',
-                        accentGold: '#D4AF37',
-                        whatsappGreen: '#25D366'
+                        brand:      '#C8185A',
+                        brandDark:  '#9E0F43',
+                        brandLight: '#FEF2F7',
+                        ink:        '#111827',
                     }
                 }
             }
         }
     </script>
-    
-    <!-- Inline CSS for minor adjustments -->
     <style>
-        /* Hide scrollbar for clean look but keep functionality */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C8185A; }
+
+        /* Hero diagonal clip */
+        .hero-image-wrap { clip-path: polygon(9% 0, 100% 0, 100% 100%, 0 100%); }
+
+        /* Logo marquee */
+        @keyframes marquee {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .logo-track { animation: marquee 30s linear infinite; width: max-content; }
+        .logo-track:hover { animation-play-state: paused; }
+
+        /* Product card row hover */
+        .prod-row { cursor: pointer; transition: background 0.18s ease; }
+        .prod-row:hover { background: #FEF2F7; }
+
+        /* Modal */
+        #productModal { transition: opacity 0.25s ease, visibility 0.25s ease; }
+        #modalInner   { transition: transform 0.32s cubic-bezier(0.22,1,0.36,1); }
+
+        /* Active nav link */
+        .nav-link { position: relative; }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; right: 0;
+            height: 2px;
+            background: #C8185A;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-800 dark:bg-gray-900 dark:text-slate-200 font-sans antialiased transition-colors duration-300">
+<body class="bg-white text-ink font-sans antialiased">
 
-    <!-- HEADER & NAVIGATION -->
-    <header class="bg-industrialNavy text-white sticky top-0 z-50 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo area -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                <div class="w-10 h-10 bg-accentGold text-industrialNavy font-bold rounded flex items-center justify-center text-xl">LE</div>
-                <div>
-                    <span class="font-extrabold text-lg tracking-wider block leading-none" data-i18n="company_name">LOHSHREE</span>
-                    <span class="text-xs text-gray-400 tracking-widest uppercase" data-i18n="company_second_name">Engineers Pvt. Ltd.</span>
-                </div>
+
+<!-- ══════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════ -->
+<header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <!-- Full-width inner, no max-width cap to match body layout -->
+    <div class="w-full px-6 xl:px-10 h-[72px] flex items-center justify-between gap-4">
+
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-2.5 flex-shrink-0">
+            <div class="w-9 h-9 bg-brand text-white font-black rounded flex items-center justify-center text-base leading-none">LE</div>
+            <div>
+                <div class="font-extrabold text-sm tracking-wider leading-none text-ink" data-i18n="company_name">LOHSHREE</div>
+                <div class="text-[9px] text-gray-400 tracking-widest uppercase leading-tight" data-i18n="company_second_name">Engineers Pvt. Ltd.</div>
+            </div>
+        </a>
+
+        <!-- Nav — tracking-wide (not widest) so items don't overflow -->
+        <nav class="hidden xl:flex items-center gap-5 text-[11px] font-bold tracking-wide uppercase text-gray-500 flex-1 justify-center">
+            <a href="#home"       class="nav-link active hover:text-brand transition whitespace-nowrap" data-i18n="nav_home">Home</a>
+            <a href="#about"      class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_about">About Us</a>
+            <a href="#products"   class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_products">Products</a>
+            <a href="#expertise"  class="nav-link hover:text-brand transition whitespace-nowrap">Inspection</a>
+            <a href="#clients"    class="nav-link hover:text-brand transition whitespace-nowrap">Industries</a>
+            <a href="gallery.html" class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_gallery">Gallery</a>
+            <a href="#clients"    class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_reviews">Reviews</a>
+            <a href="#contact"    class="nav-link hover:text-brand transition whitespace-nowrap">Contact Us</a>
+        </nav>
+
+        <!-- Right actions -->
+        <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
+            <!-- Search -->
+            <div class="flex items-center bg-gray-50 border border-gray-200 rounded px-3 py-1.5 gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input id="navSearch" type="text" placeholder="Search products..."
+                       data-i18n-placeholder="search_placeholder"
+                       class="bg-transparent text-[11px] focus:outline-none w-32 text-gray-700 placeholder-gray-400">
             </div>
 
-            <!-- Nav Links & Controls -->
-            <div class="hidden lg:flex items-center space-x-6 text-sm font-medium">
-                <a href="#home" class="text-gray-300 hover:text-accentGold transition" data-i18n="nav_home">Home</a>
-                <a href="#about" class="text-gray-300 hover:text-accentGold transition" data-i18n="nav_about">About Us</a>
-                <a href="#products" class="text-gray-300 hover:text-accentGold transition" data-i18n="nav_products">Our Products</a>
-                <a href="#expertise" class="text-gray-300 hover:text-accentGold transition" data-i18n="nav_expertise">Expertise</a>
-                <a href="#reviews" class="text-gray-300 hover:text-accentGold transition" data-i18n="nav_reviews">Reviews</a>
-                <a href="gallery.html" class="text-gray-300 hover:text-accentGold transition" data-i18n="nav_gallery">Gallery</a>
-                
-                <!-- Search Bar -->
-                <div class="relative flex items-center bg-slate-800 border border-slate-600 rounded-md px-3 py-1">
-                    <input
-                        id="navSearch"
-                        type="text"
-                        placeholder="What are you looking for..."
-                        data-i18n-placeholder="search_placeholder"
-                        class="bg-transparent text-xs focus:outline-none w-52 text-white placeholder-gray-400">
-                    <svg class="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </div>
+            <!-- Language -->
+            <select id="langToggle" class="border border-gray-200 text-[11px] rounded px-2 py-1.5 focus:outline-none text-gray-600 bg-white">
+                <option value="en">EN</option>
+                <option value="mr">मराठी</option>
+            </select>
 
-                <!-- Language Selector -->
-                <select id="langToggle" class="bg-slate-800 border border-slate-600 text-white text-xs rounded px-2 py-1 focus:outline-none">
-                    <option value="en">English</option>
-                    <option value="mr">मराठी</option>
-                </select>
+            <!-- Download Catalog -->
+            <a href="assets/catalog.pdf" download
+               class="hidden xl:flex items-center gap-1.5 text-[11px] font-bold text-gray-500 hover:text-brand transition px-3 py-2 whitespace-nowrap">
+                <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                DOWNLOAD CATALOG
+            </a>
 
-                <!-- Dark Mode Toggle -->
-                <button id="themeToggle" class="text-gray-300 hover:text-accentGold transition">
-                    <!-- Sun Icon (Hidden by default, shown in dark mode) -->
-                    <svg id="sunIcon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 3.22a1 1 0 011.415 0l.708.708a1 1 0 11-1.414 1.414l-.708-.708a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-3.22 4.22a1 1 0 010 1.415l-.708.708a1 1 0 11-1.414-1.414l.708-.708a1 1 0 011.415 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-3.22a1 1 0 01-1.415 0l-.708-.708a1 1 0 111.414-1.414l.708.708a1 1 0 010 1.415zM3 10a1 1 0 011-1h1a1 1 0 110 2H4a1 1 0 01-1-1zm3.22-4.22a1 1 0 010-1.415l.708-.708a1 1 0 011.414 1.414l-.708.708a1 1 0 01-1.415 0zM10 6a4 4 0 100 8 4 4 0 000-8z" clip-rule="evenodd"></path></svg>
-                    <!-- Moon Icon (Shown by default) -->
-                    <svg id="moonIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                </button>
-            </div>
+            <!-- Get a Quote CTA -->
+            <button onclick="document.getElementById('contactMenu').classList.toggle('hidden')"
+                class="bg-brand hover:bg-brandDark text-white text-[11px] font-black px-5 py-2.5 tracking-wide transition flex items-center gap-1.5 whitespace-nowrap flex-shrink-0">
+                GET A QUOTE
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
         </div>
-    </header>
+    </div>
+</header>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="relative bg-industrialNavy text-white py-20 lg:py-32">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6 z-10">
-                <div class="inline-flex items-center bg-slate-800 border border-slate-700 px-3 py-1 rounded-full text-xs text-accentGold font-semibold tracking-wider uppercase" data-i18n="hero_badge">
-                    35+ Years of Excellence
-                </div>
-                <h1 class="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
-                    <span data-i18n="hero_title_1">PRECISION ENGINEERING IN</span> <span class="text-accentGold" data-i18n="hero_title_2">SOLVENT EXTRACTION</span> <span data-i18n="hero_title_3">MACHINE PARTS</span>
-                </h1>
-                <p class="text-lg text-slate-300 max-w-xl" data-i18n="hero_sub">
-                    Trusted quality. Reliable performance. Powering soybean, mustard, and castor oil extraction plants globally.
-                </p>
-                <div class="pt-4">
-                    <a href="#products" class="bg-accentGold hover:bg-yellow-500 text-industrialNavy font-bold px-8 py-3.5 rounded-md shadow-lg transition duration-200 inline-block text-sm uppercase tracking-wider" data-i18n="hero_btn">
-                        Explore Our Product Range
-                    </a>
-                </div>
+
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════ -->
+<section id="home" class="relative min-h-[88vh] overflow-hidden bg-white">
+
+    <!-- ── Right side image (absolute, covers right 57% with diagonal cut) ── -->
+    <div class="absolute right-0 top-0 bottom-0 w-[57%] pointer-events-none"
+         style="clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);">
+
+        <!-- Slideshow -->
+        <div id="hero-slider" class="absolute inset-0 pointer-events-auto">
+            <div class="slide absolute inset-0 opacity-100 z-10 transition-opacity duration-1000">
+                <img src="assets/slide1.jpg" alt="" class="w-full h-full object-cover">
             </div>
-            <!-- Hero Image Placeholder -->
-            <div id="hero-slider" class="relative h-64 lg:h-96 w-full rounded-xl overflow-hidden bg-slate-800 border-4 border-slate-700 shadow-2xl flex items-center justify-center group">
-                
-                <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-100 z-10">
-                    <img src="assets/slide1.jpg" alt="Machine Part" class="w-full h-full object-cover">
-                </div>
-                
-                <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0">
-                    <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                        <source src="assets/slide2.mp4" type="video/mp4">
-                    </video>
-                </div>
-                
-                <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-0 z-0">
-                    <img src="assets/slide3.gif" alt="Extraction Plant" class="w-full h-full object-cover">
-                </div>
-
-                <button id="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 backdrop-blur-sm text-white p-3 rounded-full transition cursor-pointer lg:opacity-0 group-hover:opacity-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <button id="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 backdrop-blur-sm text-white p-3 rounded-full transition cursor-pointer lg:opacity-0 group-hover:opacity-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
-
+            <div class="slide absolute inset-0 opacity-0 z-0 transition-opacity duration-1000">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                    <source src="assets/slide2.mp4" type="video/mp4">
+                </video>
             </div>
+            <div class="slide absolute inset-0 opacity-0 z-0 transition-opacity duration-1000">
+                <img src="assets/slide3.gif" alt="" class="w-full h-full object-cover">
+            </div>
+            <!-- subtle left-edge blend -->
+            <div class="absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-transparent z-20 pointer-events-none"></div>
         </div>
-    </section>
 
-    <!-- ABOUT US -->
-    <section id="about" class="py-20 bg-stone-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-4xl">
-            <h2 class="text-3xl font-bold mb-6 text-industrialNavy dark:text-white" data-i18n="about_title">About Us</h2>
-            <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-4" data-i18n="about_p1">
-                Lohshree Engineers Pvt. Ltd. has been serving the industry for over 35 years, specializing in the manufacturing of high-quality solvent extraction machine parts.
+        <!-- Pink accent stripe — far right edge -->
+        <div class="absolute right-0 top-0 bottom-0 w-4 bg-brand z-30"></div>
+        <!-- Pink geometric accent — bottom right corner -->
+        <div class="absolute bottom-0 right-4 z-20 w-20 h-[32%] bg-brand/90"
+             style="clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%)"></div>
+    </div>
+
+    <!-- ── Left text content — fills the full left column ── -->
+    <div class="relative z-10 h-full min-h-[88vh] flex items-center">
+        <!-- Use full-bleed left padding so text starts near viewport edge -->
+        <div class="w-full pl-8 sm:pl-12 lg:pl-20 xl:pl-28 pr-4 lg:w-[46%] py-24 lg:py-0">
+
+            <!-- Badge -->
+            <div class="flex items-center gap-3 mb-7">
+                <div class="w-10 h-px bg-brand flex-shrink-0"></div>
+                <span class="text-[10px] font-black text-brand tracking-[0.2em] uppercase" data-i18n="hero_badge">35+ Years of Excellence</span>
+            </div>
+
+            <!-- Headline — full width of the left column -->
+            <h1 class="font-black leading-[1.03] tracking-tight mb-6" style="font-size: clamp(2.8rem, 4.5vw, 4.2rem);">
+                <span class="text-ink block" data-i18n="hero_title_1">PRECISION<br>ENGINEERING.</span>
+                <span class="text-brand block" data-i18n="hero_title_2">BUILT TO EXTRACT<br>PERFORMANCE.</span>
+            </h1>
+
+            <!-- Sub -->
+            <p class="text-gray-500 text-sm leading-relaxed mb-9" data-i18n="hero_sub">
+                Manufacturers of high-precision shafts, trunnions, valves and fabricated components for solvent extraction plants and heavy industrial applications.
             </p>
-            <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed" data-i18n="about_p2">
-                With decades of expertise and a commitment to excellence, we provide precision-engineered components ensuring reliable performance in extraction plants globally.
-            </p>
-        </div>
-    </section>
 
-    <!-- OUR PRODUCT RANGE (6 Columns) -->
-    <section id="products" class="py-20 bg-gray-50 dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-industrialNavy dark:text-white" data-i18n="products_title">Our Product Range</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6" id="productGrid">
-                <!-- Card 1: Shafts -->
-                <div class="product-card bg-stone-100 dark:bg-gray-900 p-6 rounded-lg shadow border border-gray-100 dark:border-gray-700 hover:border-accentGold transition">
-                    <h3 class="font-bold text-lg mb-4 text-industrialNavy dark:text-white border-b pb-2">Shafts</h3>
-                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li>Drive Shaft</li>
-                        <li>Tension Shaft</li>
-                        <li>Drum Shaft</li>
-                    </ul>
-                </div>
-                <!-- Card 2: Transmission -->
-                <div class="product-card bg-stone-100 dark:bg-gray-900 p-6 rounded-lg shadow border border-gray-100 dark:border-gray-700 hover:border-accentGold transition">
-                    <h3 class="font-bold text-lg mb-4 text-industrialNavy dark:text-white border-b pb-2">Transmission</h3>
-                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li>Spur Gear</li>
-                        <li>Sprockets</li>
-                        <li>Bulk Flow Parts</li>
-                    </ul>
-                </div>
-                <!-- Card 3: Valves -->
-                <div class="product-card bg-stone-100 dark:bg-gray-900 p-6 rounded-lg shadow border border-gray-100 dark:border-gray-700 hover:border-accentGold transition">
-                    <h3 class="font-bold text-lg mb-4 text-industrialNavy dark:text-white border-b pb-2">Valves</h3>
-                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li>Rotary Valve</li>
-                        <li>Mechanical Seal</li>
-                        <li>Bush Type</li>
-                    </ul>
-                </div>
-                <!-- Card 4: Fabricated -->
-                <div class="product-card bg-stone-100 dark:bg-gray-900 p-6 rounded-lg shadow border border-gray-100 dark:border-gray-700 hover:border-accentGold transition">
-                    <h3 class="font-bold text-lg mb-4 text-industrialNavy dark:text-white border-b pb-2">Fabricated</h3>
-                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li>M.S. Rails</li>
-                        <li>Monorails</li>
-                        <li>Damper Assemblies</li>
-                    </ul>
-                </div>
-                <!-- Card 5: Auxiliary -->
-                <div class="product-card bg-stone-100 dark:bg-gray-900 p-6 rounded-lg shadow border border-gray-100 dark:border-gray-700 hover:border-accentGold transition">
-                    <h3 class="font-bold text-lg mb-4 text-industrialNavy dark:text-white border-b pb-2">Auxiliary</h3>
-                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li>Jet Cleaner</li>
-                        <li>Bindicators</li>
-                        <li>Sight Glasses</li>
-                    </ul>
-                </div>
-                <!-- Card 6: Custom & More -->
-                <div class="product-card bg-industrialNavy dark:bg-slate-800 text-white p-6 rounded-lg shadow border-2 border-accentGold flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-bold text-lg mb-4 border-b border-slate-600 pb-2 text-accentGold">Custom & More</h3>
-                        <ul class="space-y-2 text-sm text-gray-300">
-                            <li>Gun Metal Bushes</li>
-                            <li>Redler Parts</li>
-                        </ul>
-                    </div>
-                    <a href="#contact" class="mt-6 text-sm font-semibold hover:text-accentGold flex items-center transition">
-                        + View Full Inventory <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Download CTA -->
-            <div class="mt-12 text-center">
-                <a href="assets/catalog.pdf" download="Lohshree_Product_Catalog.pdf" class="inline-flex items-center space-x-2 bg-transparent border-2 border-industrialNavy dark:border-gray-500 text-industrialNavy dark:text-white font-semibold py-3 px-6 rounded hover:bg-industrialNavy hover:text-white dark:hover:bg-gray-700 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    <span data-i18n="download_btn">Download Full Product Catalog (PDF)</span>
+            <!-- CTAs -->
+            <div class="flex flex-wrap gap-3">
+                <a href="#products"
+                   class="inline-flex items-center gap-2 bg-ink text-white text-[11px] font-black px-7 py-3.5 tracking-widest hover:bg-gray-700 transition">
+                    EXPLORE PRODUCTS
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#expertise"
+                   class="inline-flex items-center gap-2 border-2 border-ink text-ink text-[11px] font-black px-7 py-3.5 tracking-widest hover:bg-gray-50 transition">
+                    OUR CAPABILITIES
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
                 </a>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- WHY CHOOSE US -->
-    <section id="expertise" class="py-20 bg-stone-100 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12 text-industrialNavy dark:text-white" data-i18n="choose_title">Why Choose Us</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                <div class="p-4">
-                    <div class="text-accentGold mb-3 flex justify-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg></div>
-                    <h3 class="font-bold text-lg dark:text-white mb-2" data-i18n="feat_1">35+ Years Experience</h3>
-                </div>
-                <div class="p-4">
-                    <div class="text-accentGold mb-3 flex justify-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
-                    <h3 class="font-bold text-lg dark:text-white mb-2" data-i18n="feat_2">Precision Engineering</h3>
-                </div>
-                <div class="p-4">
-                    <div class="text-accentGold mb-3 flex justify-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                    <h3 class="font-bold text-lg dark:text-white mb-2" data-i18n="feat_3">On-Time Delivery</h3>
-                </div>
-                <div class="p-4">
-                    <div class="text-accentGold mb-3 flex justify-center"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
-                    <h3 class="font-bold text-lg dark:text-white mb-2" data-i18n="feat_4">Trusted Relationships</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section id="reviews" class="py-20 bg-industrialNavy text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center mb-12" data-i18n="reviews_title">Trusted by Industry Leaders</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Review 1 -->
-                <div class="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
-                    <div class="text-accentGold mb-4 tracking-widest text-sm">★★★★★</div>
-                    <p class="text-gray-300 italic mb-6">"The durability of Lohshree parts is unmatched. Our custom rotary valves reduced plant downtime significantly."</p>
-                    <div>
-                        <p class="font-bold text-sm">— Plant Manager</p>
-                        <p class="text-xs text-gray-400">Global Oilseed Corp.</p>
-                    </div>
-                </div>
-                <!-- Review 2 -->
-                <div class="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
-                    <div class="text-accentGold mb-4 tracking-widest text-sm">★★★★★</div>
-                    <p class="text-gray-300 italic mb-6">"Excellent precision and delivery. They have been a trusted partner in our manufacturing process for a decade."</p>
-                    <div>
-                        <p class="font-bold text-sm">— Chief Engineer</p>
-                        <p class="text-xs text-gray-400">Agro-Extraction Facilities</p>
-                    </div>
-                </div>
-                <!-- Review 3 -->
-                <div class="bg-slate-800 p-6 rounded-lg shadow-lg border border-slate-700">
-                    <div class="text-accentGold mb-4 tracking-widest text-sm">★★★★★</div>
-                    <p class="text-gray-300 italic mb-6">"Exact dimensions and superior quality. Their mechanical seals outperform standard industry variants."</p>
-                    <div>
-                        <p class="font-bold text-sm">— Procurement Head</p>
-                        <p class="text-xs text-gray-400">Castor Oil Refineries</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- VISION -->
-    <section id="vision" class="py-16 bg-gray-50 dark:bg-gray-800 text-center border-b border-gray-200 dark:border-gray-700">
-        <div class="max-w-3xl mx-auto px-4">
-            <h2 class="text-2xl font-bold mb-4 text-industrialNavy dark:text-white" data-i18n="vision_title">Our Vision</h2>
-            <p class="text-gray-600 dark:text-gray-400" data-i18n="vision_text">
-                To provide world-class engineering solutions and become a leading name in solvent extraction machinery components through quality, innovation, and customer satisfaction.
-            </p>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer id="contact" class="bg-stone-100 dark:bg-gray-900 py-12 text-center text-sm text-gray-600 dark:text-gray-400">
-        <div class="font-bold text-lg text-industrialNavy dark:text-white mb-2">LOHSHREE ENGINEERS PVT. LTD.</div>
-        <p class="mb-1">📞 Phone: 9820120832 / 34</p>
-        <p class="mb-4">📧 Email: lohshreeind@gmail.com</p>
-        <p>© 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.</p>
-    </footer>
-
-    <!-- FLOATING CONTACT BUTTON -->
-    <div class="fixed bottom-6 right-6 z-50">
-        <!-- Main button -->
-        <button id="contactToggle"
-            class="bg-whatsappGreen text-white font-bold px-5 py-3 rounded-full shadow-2xl flex items-center space-x-2 hover:scale-105 transition transform duration-200">
-            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.07-1.11l-.29-.17-3.39.63.64-3.31-.18-.31A8 8 0 1 1 12 20zm4.36-5.64c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/>
+    <!-- Slide controls — bottom-right of the image -->
+    <div class="absolute bottom-8 right-[22%] z-40 flex gap-2">
+        <button id="prevSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
-            <span class="text-sm tracking-wide" data-i18n="contact_float">CONTACT US</span>
         </button>
+        <button id="nextSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </div>
+</section>
 
-        <!-- Dropdown -->
-        <div id="contactMenu"
-            class="hidden mt-3 w-64 bg-stone-100 dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <a href="tel:+919820120832"
-            class="block px-4 py-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                <div class="font-semibold text-sm text-industrialNavy dark:text-white">Call: 9820120832</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Tap to open dialer</div>
-            </a>
 
-            <a href="tel:+919820120834"
-            class="block px-4 py-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                <div class="font-semibold text-sm text-industrialNavy dark:text-white">Call: 9820120834</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Tap to open dialer</div>
-            </a>
+<!-- ══════════════════════════════════════════════
+     STATS BAR
+══════════════════════════════════════════════ -->
+<section class="bg-white border-y border-gray-100">
+    <div class="max-w-[1280px] mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
 
-            <a href="https://wa.me/919820120832"
-            target="_blank"
-            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                <div class="font-semibold text-sm text-whatsappGreen">WhatsApp</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Tap to chat</div>
-            </a>
-
-            <a href="mailto:lohshreeind@gmail.com"
-            class="block px-4 py-3 border-t border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                <div class="font-semibold text-sm text-industrialNavy dark:text-white">
-                    Email Us
+            <div class="flex items-center gap-4 px-8 py-8">
+                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                </svg>
+                <div>
+                    <div class="text-3xl font-black text-ink">25+</div>
+                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Years of Excellence</div>
                 </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">
-                    lohshreeind@gmail.com
+            </div>
+
+            <div class="flex items-center gap-4 px-8 py-8">
+                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <div>
+                    <div class="text-3xl font-black text-ink">500+</div>
+                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Happy Clients<br>Worldwide</div>
                 </div>
+            </div>
+
+            <div class="flex items-center gap-4 px-8 py-8">
+                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+                </svg>
+                <div>
+                    <div class="text-3xl font-black text-ink">1000+</div>
+                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Precision Engineered<br>Parts Delivered</div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4 px-8 py-8">
+                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div>
+                    <div class="text-3xl font-black text-ink">20+</div>
+                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Countries<br>Served</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     ABOUT (brief, inline) & OUR VISION
+══════════════════════════════════════════════ -->
+<section class="py-20 bg-white border-b border-gray-100">
+
+    <div class="max-w-[1600px] mx-auto px-6">
+
+        <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-20">
+
+            <!-- =====================================
+                 ABOUT US
+            ====================================== -->
+            <div>
+
+                <div class="text-[11px] font-black text-brand tracking-[0.2em] uppercase mb-3">
+                    ABOUT US
+                </div>
+
+                <h2 class="text-4xl font-black text-ink mb-5 leading-tight">
+                    35 YEARS OF MANUFACTURING PRECISION.
+                </h2>
+
+                <div class="w-12 h-0.5 bg-brand mb-6"></div>
+
+                <p class="text-gray-700 text-base leading-relaxed mb-4">
+                    Lohshree Engineers Pvt. Ltd. has been serving the solvent
+                    extraction industry for over 35 years, manufacturing
+                    high-quality machine parts that keep plants running at peak
+                    efficiency.
+                </p>
+
+                <p class="text-gray-700 text-base leading-relaxed">
+                    From drive shafts and trunnions to custom fabricated
+                    assemblies, every component we make is engineered to exacting
+                    tolerances and delivered on time.
+                </p>
+
+            </div>
+
+            <!-- =====================================
+                 OUR VISION
+            ====================================== -->
+            <div>
+
+                <div class="text-[11px] font-black text-brand tracking-[0.2em] uppercase mb-3">
+                    OUR VISION
+                </div>
+
+                <h2 class="text-4xl font-black text-ink leading-tight mb-5">
+                    BUILT FOR THE NEXT
+                    <br>
+                    <span class="text-brand">
+                        35 YEARS AND BEYOND.
+                    </span>
+                </h2>
+
+                <div class="w-12 h-0.5 bg-brand mb-6"></div>
+
+                <p class="text-gray-700 text-base leading-relaxed">
+                    To become the most trusted name in solvent extraction
+                    machinery components through relentless precision,
+                    customer-first thinking, and the kind of quality that makes
+                    plants run for decades without worry.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="py-16 bg-white">
+    <div class="max-w-[2000px] mx-auto px-6">
+
+        <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-stretch">
+
+            <!-- =========================================
+                 LEFT : PRODUCTS
+            ========================================== -->
+            <div class="max-w-[920px] mx-auto w-full">
+
+                <div class="mb-8">
+                    <div class="text-[11px] font-black text-brand tracking-[0.2em] uppercase mb-2">
+                        OUR PRODUCTS
+                    </div>
+
+                    <h2 class="text-4xl font-black text-ink leading-tight mb-4">
+                        ENGINEERED FOR RELIABILITY.
+                    </h2>
+
+                    <div class="w-12 h-0.5 bg-brand"></div>
+                </div>
+
+                <!-- More even grid -->
+                <div
+                    id="productGrid"
+                    class="grid grid-cols-2 auto-rows-[150px] border border-gray-100 rounded-xl overflow-hidden divide-x divide-y divide-gray-100">
+                </div>
+
+                <div class="mt-6">
+                    <button
+                        onclick="document.getElementById('navSearch').focus()"
+                        class="flex items-center gap-2 text-brand text-sm font-black tracking-widest uppercase hover:gap-3 transition-all">
+                        VIEW ALL PRODUCTS →
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- =========================================
+                 RIGHT : WHY CHOOSE US
+            ========================================== -->
+            <div class="relative overflow-hidden rounded-2xl bg-gray-50 min-h-[580px]">
+
+                <!-- Make the image much wider -->
+                <div
+                    class="absolute top-12 bottom-12 -right-52 w-[84%]">
+
+                    <img
+                        src="assets/whyChooseUS.jpg"
+                        alt="CNC Machining"
+                        class="w-full h-full object-cover">
+                </div>
+
+                <!-- Content stays a bit tighter on the left -->
+                <div class="relative z-10 h-full flex items-center">
+                    <div class="max-w-[46%] px-10 lg:px-12 py-12">
+
+                        <div class="text-[11px] font-black text-brand tracking-[0.2em] uppercase mb-3">
+                            WHY CHOOSE US
+                        </div>
+
+                        <h2 class="text-4xl font-black text-ink leading-tight mb-4">
+                            QUALITY IS OUR
+                            <br>
+                            COMMITMENT.
+                        </h2>
+
+                        <div class="w-12 h-0.5 bg-brand mb-6"></div>
+
+                        <p class="text-[16px] font-black text-ink leading-relaxed mb-8">
+                            We combine advanced machinery, skilled workforce and
+                            stringent quality control to deliver components that
+                            exceed expectations.
+                        </p>
+
+                        <ul class="space-y-5">
+                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
+                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                State-of-the-art Manufacturing Facility
+                            </li>
+
+                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
+                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Stringent Quality Assurance
+                            </li>
+
+                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
+                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                On-time Delivery, Every Time
+                            </li>
+
+                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
+                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Customer-centric Approach
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     TRUSTED BY (Logo Marquee)
+══════════════════════════════════════════════ -->
+<section id="clients" class="py-16 bg-white border-t border-b border-gray-100">
+    <div class="max-w-[1280px] mx-auto px-6">
+
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <div class="text-[10px] font-black text-brand tracking-[0.2em] uppercase mb-2" data-i18n="reviews_title">Trusted by Industry Leaders</div>
+                <h3 class="text-2xl font-black text-ink">THE COMPANIES WE POWER.</h3>
+            </div>
+            <div class="flex gap-2">
+                <button id="logoPrev"
+                    class="w-9 h-9 rounded-full border border-gray-200 hover:border-brand hover:text-brand flex items-center justify-center text-gray-400 transition text-sm">
+                    ←
+                </button>
+                <button id="logoNext"
+                    class="w-9 h-9 rounded-full border border-gray-200 hover:border-brand hover:text-brand flex items-center justify-center text-gray-400 transition text-sm">
+                    →
+                </button>
+            </div>
+        </div>
+
+        <!-- Auto-scroll marquee -->
+        <div class="overflow-hidden border-t border-b border-gray-100 py-8">
+            <div class="logo-track flex items-center gap-16" id="logoTrack">
+                <!-- Set A -->
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Adani</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-xl uppercase tracking-widest cursor-default">BÜHLER</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Wilmar</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-2xl uppercase italic cursor-default">Cargill</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-sm uppercase tracking-widest cursor-default">Shree Renuka Sugars</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Dalmia</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-sm uppercase tracking-widest cursor-default">DANGOTE SUGAR</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Vedanta</div>
+                <!-- Set B (duplicate for seamless loop) -->
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Adani</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-xl uppercase tracking-widest cursor-default">BÜHLER</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Wilmar</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-2xl uppercase italic cursor-default">Cargill</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-sm uppercase tracking-widest cursor-default">Shree Renuka Sugars</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Dalmia</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-sm uppercase tracking-widest cursor-default">DANGOTE SUGAR</div>
+                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Vedanta</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer id="contact" class="bg-gray-900 text-gray-400 pt-16 pb-0">
+    <div class="max-w-[1280px] mx-auto px-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-gray-800">
+
+            <!-- Col 1: Brand + social -->
+            <div>
+                <div class="flex items-center gap-2.5 mb-5">
+                    <div class="w-9 h-9 bg-brand text-white font-black rounded flex items-center justify-center text-base">LE</div>
+                    <div>
+                        <div class="font-extrabold text-sm tracking-widest text-white leading-none">LOHSHREE</div>
+                        <div class="text-[9px] text-gray-500 tracking-widest uppercase">Engineers Pvt. Ltd.</div>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 leading-relaxed mb-7">
+                    Precision parts. Powerful performance.<br>Trusted by industries worldwide.
+                </p>
+                <!-- Social icons -->
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 rounded border border-gray-700 hover:border-brand hover:text-brand flex items-center justify-center transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z"/>
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/919820120832" target="_blank"
+                       class="w-9 h-9 rounded border border-gray-700 hover:border-[#25D366] hover:text-[#25D366] flex items-center justify-center transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm4.36 13.36c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/>
+                        </svg>
+                    </a>
+                    <a href="https://youtube.com" target="_blank"
+                       class="w-9 h-9 rounded border border-gray-700 hover:border-red-500 hover:text-red-500 flex items-center justify-center transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.4 2.8 12 2.8 12 2.8s-4.4 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.4.3 4.4s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.3 22.1 12 22.1 12 22.1s4.4 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.4v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.6 3.6-6.6 3.5z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:lohshreeind@gmail.com"
+                       class="w-9 h-9 rounded border border-gray-700 hover:border-brand hover:text-brand flex items-center justify-center transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div>
+                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-5">Quick Links</h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="#home"       class="hover:text-brand transition">Home</a></li>
+                    <li><a href="#about"      class="hover:text-brand transition">About Us</a></li>
+                    <li><a href="#products"   class="hover:text-brand transition">Our Products</a></li>
+                    <li><a href="#expertise"  class="hover:text-brand transition">Inspection</a></li>
+                    <li><a href="gallery.html" class="hover:text-brand transition">Gallery</a></li>
+                    <li><a href="#clients"    class="hover:text-brand transition">Industries</a></li>
+                    <li><a href="#clients"    class="hover:text-brand transition">Reviews</a></li>
+                    <li><a href="#contact"    class="hover:text-brand transition">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Products -->
+            <div>
+                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-5">Products</h4>
+                <ul class="space-y-2.5 text-sm" id="footerProductLinks">
+                    <!-- Injected by JS -->
+                </ul>
+            </div>
+
+            <!-- Col 4: Contact + Certifications -->
+            <div>
+                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-5">Contact Us</h4>
+                <div class="space-y-3.5 text-sm mb-8">
+                    <a href="tel:+919820120832" class="flex items-center gap-3 hover:text-brand transition">
+                        <svg class="w-4 h-4 flex-shrink-0 text-brand" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        +91 98201 20832
+                    </a>
+                    <a href="tel:+919820120834" class="flex items-center gap-3 hover:text-brand transition">
+                        <svg class="w-4 h-4 flex-shrink-0 text-brand" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        +91 98201 20834
+                    </a>
+                    <a href="mailto:lohshreeind@gmail.com" class="flex items-center gap-3 hover:text-brand transition">
+                        <svg class="w-4 h-4 flex-shrink-0 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        lohshreeind@gmail.com
+                    </a>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>Plot No. 123, Industrial Area,<br>Mumbai, Maharashtra, India</span>
+                    </div>
+                </div>
+
+                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-4">Certifications</h4>
+                <div class="flex gap-3">
+                    <div class="w-14 h-14 border border-gray-700 rounded flex flex-col items-center justify-center">
+                        <div class="text-[8px] font-black text-white leading-none">ISO</div>
+                        <div class="text-[8px] font-bold text-gray-400 leading-none mt-0.5">9001:2015</div>
+                    </div>
+                    <div class="w-10 h-14 border border-gray-700 rounded flex items-center justify-center">
+                        <span class="text-xl font-black text-white italic">CE</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="py-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-600">
+            <p>© 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-gray-400 transition">Privacy Policy</a>
+                <span class="text-gray-700">|</span>
+                <a href="#" class="hover:text-gray-400 transition">Terms &amp; Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════════
+     PRODUCT MODAL
+══════════════════════════════════════════════ -->
+<div id="productModal"
+     class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
+     style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;">
+    <div id="modalInner"
+         class="w-full max-w-lg bg-white rounded-2xl shadow-2xl max-h-[88vh] flex flex-col border border-gray-200"
+         style="transform: translateY(24px); transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);">
+
+        <!-- Modal header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <div id="modalIconBox" class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"></div>
+                <div>
+                    <h3 id="modalTitle"   class="text-base font-black text-ink"></h3>
+                    <p  id="modalTagline" class="text-xs text-gray-400 mt-0.5"></p>
+                </div>
+            </div>
+            <button onclick="closeModal()"
+                class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition flex-shrink-0">
+                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Product list -->
+        <div id="modalProducts" class="overflow-y-auto p-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-1"></div>
+
+        <!-- Modal footer -->
+        <div class="px-6 py-3.5 bg-gray-50 border-t border-gray-100 rounded-b-2xl flex-shrink-0">
+            <a href="assets/catalog.pdf" download
+                class="text-sm text-brand hover:underline flex items-center gap-1.5 justify-center font-bold">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                Download Full Product Catalog
             </a>
         </div>
     </div>
+</div>
 
-    <!-- LOGIC SCRIPTS -->
-    <script>
-        // --- 1. DARK MODE TOGGLE ---
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const sunIcon = document.getElementById('sunIcon');
-        const moonIcon = document.getElementById('moonIcon');
 
-        // Check local storage or system preference
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            sunIcon.classList.remove('hidden');
-            moonIcon.classList.add('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+<!-- ══════════════════════════════════════════════
+     FLOATING CONTACT BUTTON
+══════════════════════════════════════════════ -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
 
-        themeToggleBtn.addEventListener('click', function() {
-            sunIcon.classList.toggle('hidden');
-            moonIcon.classList.toggle('hidden');
+    <!-- Dropdown -->
+    <div id="contactMenu"
+         class="hidden mb-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
 
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
-        });
+        <a href="tel:+919820120832"
+           class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
+            <div class="w-9 h-9 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-blue-500" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div>
+                <div class="font-semibold text-sm text-ink">Call: 9820120832</div>
+                <div class="text-xs text-gray-400">Tap to open dialer</div>
+            </div>
+        </a>
 
-        // --- 2. LIVE PRODUCT SEARCH FILTER ---
-        const searchInput = document.getElementById('navSearch');
-        const productCards = document.querySelectorAll('.product-card');
+        <a href="tel:+919820120834"
+           class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
+            <div class="w-9 h-9 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-blue-500" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div>
+                <div class="font-semibold text-sm text-ink">Call: 9820120834</div>
+                <div class="text-xs text-gray-400">Tap to open dialer</div>
+            </div>
+        </a>
 
-        searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            
-            productCards.forEach(card => {
-                const textContent = card.innerText.toLowerCase();
-                if (textContent.includes(searchTerm)) {
-                    card.style.display = 'block'; // Or flex/col depending on card setup
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            
-            // If search is active, smoothly scroll to products section
-            if (searchTerm.length === 1) { // Only trigger scroll on first keypress
-                document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-            }
-        });
+        <a href="https://wa.me/919820120832" target="_blank"
+           class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
+            <div class="w-9 h-9 bg-green-50 border border-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-[#25D366]" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm4.36 13.36c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/></svg>
+            </div>
+            <div>
+                <div class="font-semibold text-sm text-[#25D366]">WhatsApp</div>
+                <div class="text-xs text-gray-400">Tap to chat instantly</div>
+            </div>
+        </a>
 
-        // --- 3. BILINGUAL SUPPORT (ENGLISH / MARATHI) ---
-        const translations = {
-            en: {
-                company_name: "LOHSHREE",company_second_name:"Engineers Pvt. Ltd.",
-                nav_home: "Home", nav_about: "About Us", nav_products: "Our Products", 
-                nav_expertise: "Expertise", nav_reviews: "Reviews", nav_gallery: "Gallery",
-                search_placeholder: "What are you looking for...",
-                hero_badge: "35+ Years of Excellence",
-                hero_title_1: "PRECISION ENGINEERING IN", hero_title_2: "SOLVENT EXTRACTION", hero_title_3: "MACHINE PARTS",
-                hero_sub: "Trusted quality. Reliable performance. Powering soybean, mustard, and castor oil extraction plants globally.",
-                hero_btn: "Explore Our Product Range",
-                about_title: "About Us",
-                about_p1: "Lohshree Engineers Pvt. Ltd. has been serving the industry for over 35 years, specializing in the manufacturing of high-quality solvent extraction machine parts.",
-                about_p2: "With decades of expertise and a commitment to excellence, we provide precision-engineered components ensuring reliable performance in extraction plants globally.",
-                products_title: "Our Product Range", download_btn: "Download Full Product Catalog (PDF)",
-                choose_title: "Why Choose Us", feat_1: "35+ Years Experience", feat_2: "Precision Engineering", feat_3: "On-Time Delivery", feat_4: "Trusted Relationships",
-                reviews_title: "Trusted by Industry Leaders", vision_title: "Our Vision",
-                vision_text: "To provide world-class engineering solutions and become a leading name in solvent extraction machinery components through quality, innovation, and customer satisfaction.",
-                contact_float: "CONTACT US"
-            },
-            mr: {
-                company_name: "लोहश्री",company_second_name:"इंजिनियर्स प्रा. लि.",
-                nav_home: "मुख्यपृष्ठ", nav_about: "आमच्याबद्दल", nav_products: "आमची उत्पादने", 
-                nav_expertise: "कौशल्य", nav_reviews: "पुनरावलोकने", nav_gallery: "गॅलरी",
-                search_placeholder: "आपण काय शोधत आहात...",
-                hero_badge: "३५+ वर्षांची उत्कृष्टता",
-                hero_title_1: "सॉल्व्हेंट एक्स्ट्रॅक्शन", hero_title_2: "मशीन पार्ट्समध्ये", hero_title_3: "अचूक अभियांत्रिकी",
-                hero_sub: "विश्वसनीय गुणवत्ता. जागतिक स्तरावर तेल काढणी प्रकल्पांना गती देणे.",
-                hero_btn: "उत्पादने पहा",
-                about_title: "आमच्याबद्दल",
-                about_p1: "लोहश्री इंजिनियर्स प्रा. लि. ३५ हून अधिक वर्षांपासून उद्योगाची सेवा करत आहे, उच्च दर्जाचे सॉल्व्हेंट एक्स्ट्रॅक्शन मशीन पार्ट्स तयार करण्यात विशेष प्राविण्य.",
-                about_p2: "दशकांचा अनुभव आणि उत्कृष्टतेच्या वचनबद्धतेसह, आम्ही जागतिक स्तरावर निष्कर्षण वनस्पतींमध्ये विश्वसनीय कार्यप्रदर्शन सुनिश्चित करणारे अचूक घटक प्रदान करतो.",
-                products_title: "आमची उत्पादन श्रेणी", download_btn: "पूर्ण उत्पादन कॅटलॉग डाउनलोड करा (PDF)",
-                choose_title: "आम्हाला का निवडावे?", feat_1: "३५+ वर्षांचा अनुभव", feat_2: "अचूक अभियांत्रिकी", feat_3: "वेळेवर वितरण", feat_4: "विश्वसनीय नातेसंबंध",
-                reviews_title: "उद्योग नेत्यांचा विश्वास", vision_title: "आमचा दृष्टिकोन",
-                vision_text: "गुणवत्ता, नाविन्य आणि ग्राहकांच्या समाधानातून जागतिक दर्जाचे अभियांत्रिकी उपाय प्रदान करणे आणि सॉल्व्हेंट एक्स्ट्रॅक्शन मशिनरी घटकांमध्ये अग्रगण्य नाव बनणे.",
-                contact_float: "संपर्क साधा"
-            }
-        };
+        <a href="mailto:lohshreeind@gmail.com"
+           class="flex items-center gap-3 px-4 py-3.5 hover:bg-gray-50 transition">
+            <div class="w-9 h-9 bg-red-50 border border-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <div>
+                <div class="font-semibold text-sm text-ink">Email Us</div>
+                <div class="text-xs text-gray-400">lohshreeind@gmail.com</div>
+            </div>
+        </a>
+    </div>
 
-        // --- 4. HERO SLIDESHOW LOGIC (UPDATED WITH ARROWS) ---
-        const slides = document.querySelectorAll('#hero-slider .slide');
-        const prevBtn = document.getElementById('prevSlide');
-        const nextBtn = document.getElementById('nextSlide');
-        let currentSlide = 0;
-        let slideInterval;
+    <!-- Main toggle button: 3 channel icons + label -->
+    <button id="contactToggle"
+        class="bg-ink text-white pl-3 pr-5 py-3 rounded-full shadow-2xl flex items-center gap-2.5 hover:scale-105 transition-transform duration-200">
+        <div class="flex items-center gap-1">
+            <div class="w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div class="w-7 h-7 bg-[#25D366] rounded-full flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm4.36 13.36c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/></svg>
+            </div>
+            <div class="w-7 h-7 bg-brand rounded-full flex items-center justify-center">
+                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+            </div>
+        </div>
+        <span class="text-sm font-black tracking-widest uppercase" data-i18n="contact_float">Contact Us</span>
+    </button>
+</div>
 
-        function showSlide(index) {
-            // Fade out the current slide
-            slides[currentSlide].classList.remove('opacity-100', 'z-10');
-            slides[currentSlide].classList.add('opacity-0', 'z-0');
-            
-            // Update the index to the new slide
-            currentSlide = index;
-            
-            // Handle wrapping (if going past the end, loop to start. If going before start, loop to end)
-            if (currentSlide >= slides.length) currentSlide = 0;
-            if (currentSlide < 0) currentSlide = slides.length - 1;
-            
-            // Fade in the new slide
-            slides[currentSlide].classList.remove('opacity-0', 'z-0');
-            slides[currentSlide].classList.add('opacity-100', 'z-10');
-        }
 
-        // Functions to move forward and back
-        function moveNext() {
-            showSlide(currentSlide + 1);
-            resetTimer(); // Reset the auto-play timer when clicked
-        }
+<!-- ══════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════ -->
+<script>
+'use strict';
 
-        function movePrev() {
-            showSlide(currentSlide - 1);
-            resetTimer(); // Reset the auto-play timer when clicked
-        }
+// ── PRODUCT CATALOG ────────────────────────────────────────────────
+const catalog = [
+    {
+        id: 'shafts', title: 'Shafts', displayTitle: 'SHAFTS',
+        shortDesc: 'Precision shafts for heavy-duty mills.',
+        tagline: 'Drive, tension, drum & conveyor shafts',
+        stroke: '#3b82f6', bg: '#eff6ff',
+        icon: `<line x1="3" y1="12" x2="21" y2="12" stroke-width="2.5" stroke-linecap="round"/>
+               <rect x="7" y="8" width="3" height="8" rx="1" stroke-width="1.5"/>
+               <rect x="14" y="8" width="3" height="8" rx="1" stroke-width="1.5"/>`,
+        items: [
+            { name:'Drive Shaft',          spec:'MS / SS / Alloy · Ø20–200 mm · up to 6 m' },
+            { name:'Tension Shaft',        spec:'EN8 / EN24 · precision-ground finish' },
+            { name:'Drum Shaft',           spec:'MS / Cast Iron · flanged ends available' },
+            { name:'Worm Shaft',           spec:'Case-hardened EN8 · various leads' },
+            { name:'Agitator Shaft',       spec:'SS 304 / 316 · polished surface' },
+            { name:'Screw Conveyor Shaft', spec:'MS seamless pipe core · bolted flights' },
+            { name:'Jack Shaft',           spec:'EN24 alloy · keyway & threaded ends' },
+            { name:'Idler Shaft',          spec:'MS / SS · tolerance h6' },
+        ]
+    },
+    {
+        id: 'trunnions', title: 'Trunnions', displayTitle: 'TRUNNIONS',
+        shortDesc: 'Built for strength and durability.',
+        tagline: 'Drum trunnions, pins & bearing housings',
+        stroke: '#f59e0b', bg: '#fffbeb',
+        icon: `<rect x="5" y="9" width="14" height="6" rx="3" stroke-width="1.5"/>
+               <line x1="2" y1="12" x2="5" y2="12" stroke-width="2" stroke-linecap="round"/>
+               <line x1="19" y1="12" x2="22" y2="12" stroke-width="2" stroke-linecap="round"/>`,
+        items: [
+            { name:'Drum Trunnion',           spec:'MS / CI · heavy-duty rotating drums' },
+            { name:'Trunnion Shaft',          spec:'Forged alloy steel · high-load bearing' },
+            { name:'Eccentric Trunnion',      spec:'MS / EN24 · adjustable throw' },
+            { name:'Trunnion Bearing Housing',spec:'Split housing · heavy-duty seals' },
+            { name:'Fixed Trunnion Pin',      spec:'EN36 case-hardened · various diameters' },
+            { name:'Hollow Trunnion',         spec:'MS / SS · feed & discharge ends' },
+        ]
+    },
+    {
+        id: 'valves', title: 'Valves', displayTitle: 'VALVES',
+        shortDesc: 'Engineered for smooth flow & leakage control.',
+        tagline: 'Rotary, mechanical seal & bush types',
+        stroke: '#f43f5e', bg: '#fff1f2',
+        icon: `<path stroke-width="1.5" stroke-linecap="round"
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4
+                       m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4
+                       m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>`,
+        items: [
+            { name:'Rotary Valve',     spec:'CI / SS body · adjustable vanes' },
+            { name:'Mechanical Seal',  spec:'Cartridge type · all shaft diameters' },
+            { name:'Bush Type Valve',  spec:'Bronze / PTFE bush · low friction' },
+            { name:'Ball Valve',       spec:'Full bore · SS / CI · 15–200 NB' },
+            { name:'Butterfly Valve',  spec:'Wafer / Lug type · rubber lined' },
+            { name:'Pinch Valve',      spec:'Natural rubber sleeve' },
+            { name:'Check Valve',      spec:'Swing / Lift type · all sizes' },
+        ]
+    },
+    {
+        id: 'fabricated', title: 'Fabricated Components', displayTitle: 'FABRICATED COMPONENTS',
+        shortDesc: 'Custom fabricated parts & structures.',
+        tagline: 'Rails, frames, dampers & hoppers',
+        stroke: '#64748b', bg: '#f1f5f9',
+        icon: `<path stroke-width="1.5"
+                    d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z
+                       M4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z
+                       M16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>`,
+        items: [
+            { name:'M.S. Rails',        spec:'Machine-bed rails · drilled & tapped' },
+            { name:'Monorails',         spec:'Overhead lifting tracks · various spans' },
+            { name:'Damper Assemblies', spec:'Louvre & blade type · custom size' },
+            { name:'Hoppers',           spec:'MS / SS · square-to-round transitions' },
+            { name:'Structural Frames', spec:'Custom fabrication to drawing' },
+            { name:'Brackets & Mounts', spec:'Machined & welded assemblies' },
+            { name:'Chutes & Slides',   spec:'MS / SS / UHMWPE lined' },
+        ]
+    },
+    {
+        id: 'auxiliary', title: 'Auxiliary Components', displayTitle: 'AUXILIARY COMPONENTS',
+        shortDesc: 'Supporting high-precision applications.',
+        tagline: 'Jet cleaners, indicators & sight glasses',
+        stroke: '#a855f7', bg: '#faf5ff',
+        icon: `<path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94
+                       l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>`,
+        items: [
+            { name:'Jet Cleaner',       spec:'Spray nozzle assemblies · CI / SS' },
+            { name:'Bindicators',       spec:'Rotary paddle type · 230V AC' },
+            { name:'Sight Glasses',     spec:'Borosilicate · all flange ratings' },
+            { name:'Level Indicators',  spec:'Gauge glass / magnetic float type' },
+            { name:'Sampling Valves',   spec:'Point & extended-reach types' },
+            { name:'Strainer Assembly', spec:'Y / basket type · all NB sizes' },
+        ]
+    },
+    {
+        id: 'custom', title: 'Custom & More', displayTitle: 'CUSTOM & MORE',
+        shortDesc: 'Tailored parts for unique plant requirements.',
+        tagline: 'Bushes, Redler parts & bespoke components',
+        stroke: '#C8185A', bg: '#FEF2F7',
+        icon: `<path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4
+                       m5-16l2.286 6.857L21 12l-5.714 2.143L13 21
+                       l-2.286-6.857L5 12l5.714-2.143L13 3z"/>`,
+        items: [
+            { name:'Gun Metal Bushes',    spec:'LG2 / LG4 bronze · all ID / OD combos' },
+            { name:'Redler Parts',        spec:'En-masse conveyor flights & chains' },
+            { name:'Bronze Bushings',     spec:'Porous sintered & solid type' },
+            { name:'Custom Turned Parts', spec:'To customer drawing or sample' },
+            { name:'Alloy Components',    spec:'SS304 / 316 / 410, EN8 / 24 / 36' },
+            { name:'Sand Castings',       spec:'CI / SG iron / aluminium / bronze' },
+        ]
+    },
+];
 
-        // Auto-play timer logic
-        function startTimer() {
-            slideInterval = setInterval(moveNext, 4000); // 4000ms = 4 seconds per slide
-        }
 
-        function resetTimer() {
-            clearInterval(slideInterval); // Stop the current timer
-            startTimer(); // Start a fresh one
-        }
+// ── RENDER PRODUCT GRID ─────────────────────────────────────────────
+function renderGrid() {
+    const grid = document.getElementById('productGrid');
+    // Grid is grid-cols-2 with 6 items = 3 rows
+    grid.innerHTML = catalog.map((cat, i) => {
+        const isLastInRow = (i % 2 === 1);   // every 2nd item ends a row
+        const isLastRow   = (i >= 4);          // last 2 items = last row
+        const borderR = isLastInRow ? '' : 'border-r border-gray-100';
+        const borderB = isLastRow   ? '' : 'border-b border-gray-100';
 
-        // Initialize the slideshow if slides exist
-        if (slides.length > 0) {
-            nextBtn.addEventListener('click', moveNext);
-            prevBtn.addEventListener('click', movePrev);
-            startTimer(); // Kick off the auto-play
-        }
+        return `
+        <div class="prod-row group flex flex-col p-6 ${borderR} ${borderB}"
+             data-search="${cat.displayTitle} ${cat.items.map(it=>it.name).join(' ')}"
+             onclick="openModal('${cat.id}')">
 
-        const langToggle = document.getElementById('langToggle');
-        
-        langToggle.addEventListener('change', function(e) {
-            const lang = e.target.value;
-            const elements = document.querySelectorAll('[data-i18n]');
-            
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    el.innerText = translations[lang][key];
-                }
-            });
-            // Placeholder translations
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (translations[lang][key]) {
-                    el.placeholder = translations[lang][key];
-                }
-            });
-        });
+            <!-- Icon + title -->
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                     style="background:${cat.bg}">
+                    <svg class="w-5 h-5" fill="none" stroke="${cat.stroke}" viewBox="0 0 24 24">${cat.icon}</svg>
+                </div>
+                <h3 class="font-black text-[13px] tracking-wide text-ink group-hover:text-brand transition leading-tight">${cat.displayTitle}</h3>
+            </div>
 
-        const contactToggle = document.getElementById('contactToggle');
-        const contactMenu = document.getElementById('contactMenu');
+            <!-- Short description fills the card space -->
+            <p class="text-[12px] text-gray-400 leading-snug flex-1 mb-3">${cat.shortDesc}</p>
 
-        contactToggle.addEventListener('click', () => {
-            contactMenu.classList.toggle('hidden');
-        });
+            <!-- Arrow CTA pinned to bottom -->
+            <div class="flex items-center gap-1 text-brand text-[11px] font-black">
+                <span>View Products</span>
+                <svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
+        </div>`;
+    }).join('');
+}
+renderGrid();
 
-        // optional: close when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!contactToggle.contains(e.target) && !contactMenu.contains(e.target)) {
-                contactMenu.classList.add('hidden');
-            }
-        });
-    </script>
+
+// ── FOOTER PRODUCT LINKS ────────────────────────────────────────────
+document.getElementById('footerProductLinks').innerHTML = catalog.map(cat => `
+    <li><a href="#" onclick="event.preventDefault(); openModal('${cat.id}')"
+           class="hover:text-brand transition">${cat.title}</a></li>
+`).join('');
+
+
+// ── PRODUCT MODAL ───────────────────────────────────────────────────
+const modal      = document.getElementById('productModal');
+const modalInner = document.getElementById('modalInner');
+
+modal.style.visibility = 'hidden';
+modal.style.opacity    = '0';
+modalInner.style.transform = 'translateY(24px)';
+
+function openModal(catId) {
+    const cat = catalog.find(c => c.id === catId);
+    if (!cat) return;
+
+    document.getElementById('modalTitle').textContent   = cat.title;
+    document.getElementById('modalTagline').textContent = cat.tagline;
+
+    const box = document.getElementById('modalIconBox');
+    box.style.backgroundColor = cat.bg;
+    box.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="${cat.stroke}" viewBox="0 0 24 24">${cat.icon}</svg>`;
+
+    document.getElementById('modalProducts').innerHTML = cat.items.map(item => `
+        <div class="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-100 hover:border-brand/30 transition">
+            <div class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style="background:${cat.stroke}"></div>
+            <div>
+                <div class="font-bold text-sm text-ink">${item.name}</div>
+                <div class="text-xs text-gray-400 mt-0.5">${item.spec}</div>
+            </div>
+        </div>
+    `).join('');
+
+    modal.style.visibility = 'visible';
+    modal.style.opacity    = '1';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => { modalInner.style.transform = 'translateY(0)'; });
+}
+
+function closeModal() {
+    modal.style.opacity = '0';
+    modalInner.style.transform = 'translateY(24px)';
+    setTimeout(() => {
+        modal.style.visibility = 'hidden';
+        document.body.style.overflow = '';
+    }, 260);
+}
+
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+// ── LIVE SEARCH ─────────────────────────────────────────────────────
+document.getElementById('navSearch').addEventListener('input', function () {
+    const term = this.value.toLowerCase().trim();
+    document.querySelectorAll('.prod-row').forEach(card => {
+        card.style.display = (!term || card.dataset.search.toLowerCase().includes(term)) ? '' : 'none';
+    });
+    if (term.length === 1) document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+});
+
+
+// ── CONTACT TOGGLE ──────────────────────────────────────────────────
+const contactToggle = document.getElementById('contactToggle');
+const contactMenu   = document.getElementById('contactMenu');
+contactToggle.addEventListener('click', () => contactMenu.classList.toggle('hidden'));
+document.addEventListener('click', e => {
+    if (!contactToggle.contains(e.target) && !contactMenu.contains(e.target))
+        contactMenu.classList.add('hidden');
+});
+
+
+// ── HERO SLIDESHOW ──────────────────────────────────────────────────
+const slides = document.querySelectorAll('#hero-slider .slide');
+let cur = 0, timer;
+
+function goTo(n) {
+    slides[cur].classList.replace('opacity-100','opacity-0');
+    slides[cur].style.zIndex = '0';
+    cur = (n + slides.length) % slides.length;
+    slides[cur].style.zIndex = '10';
+    slides[cur].classList.replace('opacity-0','opacity-100');
+}
+const autoNext = () => goTo(cur + 1);
+function reset() { clearInterval(timer); timer = setInterval(autoNext, 4200); }
+
+if (slides.length) {
+    document.getElementById('nextSlide').addEventListener('click', () => { goTo(cur+1); reset(); });
+    document.getElementById('prevSlide').addEventListener('click', () => { goTo(cur-1); reset(); });
+    timer = setInterval(autoNext, 4200);
+}
+
+
+// ── LOGO CAROUSEL ARROWS (pause/scroll) ─────────────────────────────
+const track = document.getElementById('logoTrack');
+let offset = 0;
+document.getElementById('logoNext').addEventListener('click', () => {
+    offset += 200;
+    track.style.animation = 'none';
+    track.style.transform = `translateX(-${offset}px)`;
+});
+document.getElementById('logoPrev').addEventListener('click', () => {
+    offset = Math.max(0, offset - 200);
+    track.style.animation = 'none';
+    track.style.transform = `translateX(-${offset}px)`;
+});
+
+
+// ── BILINGUAL ───────────────────────────────────────────────────────
+const T = {
+    en: {
+        company_name:'LOHSHREE', company_second_name:'Engineers Pvt. Ltd.',
+        nav_home:'Home', nav_about:'About Us', nav_products:'Products',
+        nav_gallery:'Gallery', nav_reviews:'Reviews',
+        search_placeholder:'Search products...',
+        hero_badge:'35+ Years of Excellence',
+        hero_title_1:'PRECISION\nENGINEERING.',
+        hero_title_2:'BUILT TO EXTRACT\nPERFORMANCE.',
+        hero_sub:'Manufacturers of high-precision shafts, trunnions, valves and fabricated components for solvent extraction plants and heavy industrial applications.',
+        about_title:'35 YEARS OF MANUFACTURING PRECISION.',
+        about_p1:'Lohshree Engineers Pvt. Ltd. has been serving the solvent extraction industry for over 35 years, manufacturing high-quality machine parts that keep plants running at peak efficiency.',
+        about_p2:'From drive shafts and trunnions to custom fabricated assemblies, every component we make is engineered to exacting tolerances and delivered on time.',
+        products_title:'ENGINEERED FOR RELIABILITY.',
+        choose_title:'QUALITY IS OUR COMMITMENT.',
+        choose_sub:'We combine advanced CNC machinery, skilled craftsmen, and stringent quality control to deliver components that exceed expectations — every single time.',
+        feat_1:'State-of-the-art Manufacturing Facility', feat_2:'Stringent Quality Assurance',
+        feat_3:'On-time Delivery, Every Time', feat_4:'Customer-centric Approach',
+        vision_title:'Our Vision',
+        vision_text:'To become the most trusted name in solvent extraction machinery components — through relentless precision, customer-first thinking, and the kind of quality that makes plants run for decades without worry.',
+        reviews_title:'Trusted by Industry Leaders',
+        contact_float:'Contact Us', view_all:'VIEW ALL PRODUCTS',
+    },
+    mr: {
+        company_name:'लोहश्री', company_second_name:'इंजिनियर्स प्रा. लि.',
+        nav_home:'मुख्यपृष्ठ', nav_about:'आमच्याबद्दल', nav_products:'उत्पादने',
+        nav_gallery:'गॅलरी', nav_reviews:'पुनरावलोकने',
+        search_placeholder:'उत्पादने शोधा...',
+        hero_badge:'३५+ वर्षांची उत्कृष्टता',
+        hero_title_1:'अचूक अभियांत्रिकी.',
+        hero_title_2:'एक्स्ट्रॅक्शन कार्यक्षमता वाढवा.',
+        hero_sub:'सोल्व्हेंट एक्स्ट्रॅक्शन प्लांट्ससाठी उच्च-परिशुद्धता शाफ्ट, ट्रनियन, व्हॉल्व्ह आणि फॅब्रिकेटेड घटकांचे उत्पादक.',
+        about_title:'३५ वर्षांचे उत्पादन कौशल्य.',
+        about_p1:'लोहश्री इंजिनियर्स प्रा. लि. ३५ हून अधिक वर्षांपासून सेवा देत आहे, उच्च-गुणवत्तेचे मशीन पार्ट्स उत्पादन करत आहे.',
+        about_p2:'प्रत्येक घटक अचूक सहनशीलतेनुसार बनवला जातो आणि वेळेवर वितरित केला जातो.',
+        products_title:'विश्वासार्हतेसाठी अभियंत्रित.',
+        choose_title:'गुणवत्ता आमची बांधिलकी.',
+        choose_sub:'प्रगत सीएनसी यंत्रे, कुशल कारागीर आणि कठोर गुणवत्ता नियंत्रणाच्या माध्यमातून आम्ही अपेक्षांपेक्षा अधिक घटक वितरित करतो.',
+        feat_1:'अत्याधुनिक उत्पादन सुविधा', feat_2:'कठोर गुणवत्ता आश्वासन',
+        feat_3:'वेळेवर वितरण, प्रत्येक वेळी', feat_4:'ग्राहक-केंद्रित दृष्टीकोन',
+        vision_title:'आमचा दृष्टिकोन',
+        vision_text:'सोल्व्हेंट एक्स्ट्रॅक्शन मशीनरी घटकांमध्ये सर्वात विश्वासू नाव बनणे — अखंड अचूकता आणि ग्राहक-प्रथम विचारसरणीद्वारे.',
+        reviews_title:'उद्योग नेत्यांचा विश्वास',
+        contact_float:'संपर्क साधा', view_all:'सर्व उत्पादने पहा',
+    }
+};
+
+document.getElementById('langToggle').addEventListener('change', function () {
+    const lang = this.value;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (T[lang][k]) el.innerText = T[lang][k];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const k = el.getAttribute('data-i18n-placeholder');
+        if (T[lang][k]) el.placeholder = T[lang][k];
+    });
+});
+</script>
 </body>
 </html>
