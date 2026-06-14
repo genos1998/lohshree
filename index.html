@@ -20,9 +20,9 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #ff77f1; }
+        ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #C8185A; }
 
         /* Hero diagonal clip */
@@ -55,73 +55,74 @@
         }
     </style>
 </head>
-<body class="bg-white text-ink font-sans antialiased">
+<body class="bg-[#fff8fb] text-ink font-sans antialiased">
 
 
 <!-- ══════════════════════════════════════════════
      HEADER
 ══════════════════════════════════════════════ -->
-<header class="bg-white border-b border-gray-100 sticky top-0 z-50">
-    <!-- Full-width inner, no max-width cap to match body layout -->
-    <div class="w-full px-6 xl:px-10 h-[72px] flex items-center justify-between gap-4">
+<header class="sticky top-0 z-50 bg-[#fff8fb]/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+    <div class="max-w-[1600px] mx-auto px-6 xl:px-10 h-[76px] flex items-center justify-between gap-6">
 
         <!-- Logo -->
-        <a href="#home" class="flex items-center gap-2.5 flex-shrink-0">
-            <div class="w-9 h-9 bg-brand text-white font-black rounded flex items-center justify-center text-base leading-none">LE</div>
-            <div>
-                <div class="font-extrabold text-sm tracking-wider leading-none text-ink" data-i18n="company_name">LOHSHREE</div>
-                <div class="text-[9px] text-gray-400 tracking-widest uppercase leading-tight" data-i18n="company_second_name">Engineers Pvt. Ltd.</div>
+        <a href="#home" class="flex items-center gap-3 flex-shrink-0 group">
+            <div class="w-10 h-10 bg-brand text-white font-black rounded-xl flex items-center justify-center text-sm leading-none group-hover:bg-brandDark transition">
+                LE
+            </div>
+            <div class="leading-none">
+                <div class="font-extrabold text-sm tracking-[0.18em] text-ink uppercase" data-i18n="company_name">
+                    LOHSHREE
+                </div>
+                <div class="text-[9px] text-gray-400 tracking-[0.22em] uppercase mt-1" data-i18n="company_second_name">
+                    Engineers Pvt. Ltd.
+                </div>
             </div>
         </a>
 
-        <!-- Nav — tracking-wide (not widest) so items don't overflow -->
-        <nav class="hidden xl:flex items-center gap-5 text-[11px] font-bold tracking-wide uppercase text-gray-500 flex-1 justify-center">
+        <!-- Nav -->
+        <nav class="hidden xl:flex items-center gap-12 text-[11px] font-bold tracking-[0.14em] uppercase text-gray-500 flex-1 justify-center">
             <a href="#home"       class="nav-link active hover:text-brand transition whitespace-nowrap" data-i18n="nav_home">Home</a>
             <a href="#about"      class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_about">About Us</a>
             <a href="#products"   class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_products">Products</a>
-            <a href="#expertise"  class="nav-link hover:text-brand transition whitespace-nowrap">Inspection</a>
             <a href="#clients"    class="nav-link hover:text-brand transition whitespace-nowrap">Industries</a>
             <a href="gallery.html" class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_gallery">Gallery</a>
-            <a href="#clients"    class="nav-link hover:text-brand transition whitespace-nowrap" data-i18n="nav_reviews">Reviews</a>
             <a href="#contact"    class="nav-link hover:text-brand transition whitespace-nowrap">Contact Us</a>
         </nav>
 
         <!-- Right actions -->
-        <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
+        <div class="hidden lg:flex items-center gap-3 flex-shrink-0">
+
             <!-- Search -->
-            <div class="flex items-center bg-gray-50 border border-gray-200 rounded px-3 py-1.5 gap-2">
+            <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full px-4 py-2 gap-2">
                 <svg class="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                <input id="navSearch" type="text" placeholder="Search products..."
-                       data-i18n-placeholder="search_placeholder"
-                       class="bg-transparent text-[11px] focus:outline-none w-32 text-gray-700 placeholder-gray-400">
+                <input
+                    id="navSearch"
+                    type="text"
+                    placeholder="Search products..."
+                    data-i18n-placeholder="search_placeholder"
+                    class="bg-transparent text-[11px] focus:outline-none w-32 xl:w-40 text-gray-700 placeholder-gray-400"
+                >
             </div>
 
             <!-- Language -->
-            <select id="langToggle" class="border border-gray-200 text-[11px] rounded px-2 py-1.5 focus:outline-none text-gray-600 bg-white">
+            <select id="langToggle" class="border border-gray-200 text-[11px] rounded-full px-3 py-2 focus:outline-none text-gray-600 bg-[#fff8fb]">
                 <option value="en">EN</option>
                 <option value="mr">मराठी</option>
             </select>
 
             <!-- Download Catalog -->
             <a href="assets/catalog.pdf" download
-               class="hidden xl:flex items-center gap-1.5 text-[11px] font-bold text-gray-500 hover:text-brand transition px-3 py-2 whitespace-nowrap">
+               class="hidden xl:flex items-center gap-2 bg-brand text-white hover:bg-brandDark transition-all duration-300 px-4 py-2.5 rounded-full text-[11px] font-black tracking-widest whitespace-nowrap shadow-sm hover:shadow-md">
                 <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                 </svg>
                 DOWNLOAD CATALOG
             </a>
-
-            <!-- Get a Quote CTA -->
-            <button onclick="document.getElementById('contactMenu').classList.toggle('hidden')"
-                class="bg-brand hover:bg-brandDark text-white text-[11px] font-black px-5 py-2.5 tracking-wide transition flex items-center gap-1.5 whitespace-nowrap flex-shrink-0">
-                GET A QUOTE
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-                </svg>
-            </button>
         </div>
+
     </div>
 </header>
 
@@ -129,7 +130,7 @@
 <!-- ══════════════════════════════════════════════
      HERO
 ══════════════════════════════════════════════ -->
-<section id="home" class="relative min-h-[88vh] overflow-hidden bg-white">
+<section id="home" class="relative min-h-[88vh] overflow-hidden bg-[#fff8fb]">
 
     <!-- ── Right side image (absolute, covers right 57% with diagonal cut) ── -->
     <div class="absolute right-0 top-0 bottom-0 w-[57%] pointer-events-none"
@@ -203,12 +204,12 @@
 
     <!-- Slide controls — bottom-right of the image -->
     <div class="absolute bottom-8 right-[22%] z-40 flex gap-2">
-        <button id="prevSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
+        <button id="prevSlide" class="w-9 h-9 bg-[#fff8fb]/90 hover:bg-[#fff8fb] border border-gray-200 flex items-center justify-center transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
         </button>
-        <button id="nextSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
+        <button id="nextSlide" class="w-9 h-9 bg-[#fff8fb]/90 hover:bg-[#fff8fb] border border-gray-200 flex items-center justify-center transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
@@ -216,91 +217,47 @@
     </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════════
-     STATS BAR
-══════════════════════════════════════════════ -->
-<section class="bg-white border-y border-gray-100">
-    <div class="max-w-[1280px] mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
-
-            <div class="flex items-center gap-4 px-8 py-8">
-                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-                </svg>
-                <div>
-                    <div class="text-3xl font-black text-ink">25+</div>
-                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Years of Excellence</div>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4 px-8 py-8">
-                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                <div>
-                    <div class="text-3xl font-black text-ink">500+</div>
-                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Happy Clients<br>Worldwide</div>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4 px-8 py-8">
-                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
-                </svg>
-                <div>
-                    <div class="text-3xl font-black text-ink">1000+</div>
-                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Precision Engineered<br>Parts Delivered</div>
-                </div>
-            </div>
-
-            <div class="flex items-center gap-4 px-8 py-8">
-                <svg class="w-8 h-8 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                <div>
-                    <div class="text-3xl font-black text-ink">20+</div>
-                    <div class="text-xs text-gray-500 leading-tight mt-0.5">Countries<br>Served</div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
 <!-- ══════════════════════════════════════════════
      ABOUT (brief, inline) & OUR VISION
 ══════════════════════════════════════════════ -->
-<section class="py-20 bg-white border-b border-gray-100">
+<section id="about" class="relative scroll-mt-[72px] overflow-hidden bg-[#ffd2e5] border-pink-100">
 
-    <div class="max-w-[1600px] mx-auto px-6">
+    <div class="absolute inset-x-0 top-0 h-px bg-brand/20"></div>
+    <div class="absolute inset-y-0 left-0 w-1/2 bg-[linear-gradient(90deg,#ffd2e5_0%,#ffd2e5_20%,#ffe7f1_45%,#fff8fb_90%)]"></div>
+    <div class="absolute inset-y-0 right-0 w-1/2 bg-[linear-gradient(90deg,#fff8fb_0%,#ffe7f1_45%,#ffd2e5_75%,#ffd2e5_100%)]"></div>
+    <div class="absolute inset-y-0 left-[calc(48%-18px)] z-10 hidden w-[220px] -translate-x-1/2 lg:block"
+         style="filter: drop-shadow(-12px 0px 24px rgba(200,24,90,0.18)) drop-shadow(18px 0px 34px rgba(200,24,90,0.10));">
+        <div class="absolute inset-y-0 left-0 w-full bg-[linear-gradient(248deg,#e878a6_25%,#f3a4c5_40%,#fff4f9_80%)]"
+             style="clip-path: polygon(0 0, 55% 0, 100% 50%, 45% 50%);"></div>
+        <div class="absolute inset-y-0 left-0 w-full bg-[linear-gradient(292deg,#e878a6_25%,#f3a4c5_40%,#fff4f9_80%)]"
+             style="clip-path: polygon(45% 50%, 100% 50%, 55% 100%, 0 100%);"></div>
+    </div>
 
-        <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-20">
+    <div class="relative max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
+
+        <div class="relative grid gap-10 lg:grid-cols-2 lg:gap-[180px] min-h-[360px] lg:min-h-[430px]">
 
             <!-- =====================================
                  ABOUT US
             ====================================== -->
-            <div>
+            <div class="relative z-10 py-14 sm:py-16 lg:py-20 lg:pr-16">
 
-                <div class="text-[11px] font-black text-brand tracking-[0.2em] uppercase mb-3">
+                <div class="text-[9px] font-black text-brand tracking-[0.18em] uppercase mb-3">
                     ABOUT US
                 </div>
 
-                <h2 class="text-4xl font-black text-ink mb-5 leading-tight">
+                <h2 class="max-w-[470px] text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink mb-7 leading-[1.05] uppercase" data-i18n="about_title">
                     35 YEARS OF MANUFACTURING PRECISION.
                 </h2>
 
-                <div class="w-12 h-0.5 bg-brand mb-6"></div>
-
-                <p class="text-gray-700 text-base leading-relaxed mb-4">
+                <p class="max-w-[455px] text-slate-700 text-sm sm:text-[15px] leading-relaxed mb-5" data-i18n="about_p1">
                     Lohshree Engineers Pvt. Ltd. has been serving the solvent
                     extraction industry for over 35 years, manufacturing
                     high-quality machine parts that keep plants running at peak
                     efficiency.
                 </p>
 
-                <p class="text-gray-700 text-base leading-relaxed">
+                <p class="max-w-[455px] text-slate-700 text-sm sm:text-[15px] leading-relaxed" data-i18n="about_p2">
                     From drive shafts and trunnions to custom fabricated
                     assemblies, every component we make is engineered to exacting
                     tolerances and delivered on time.
@@ -311,23 +268,21 @@
             <!-- =====================================
                  OUR VISION
             ====================================== -->
-            <div>
+            <div class="relative z-10 py-14 sm:py-16 lg:py-20 lg:pl-16">
 
-                <div class="text-[11px] font-black text-brand tracking-[0.2em] uppercase mb-3">
+                <div class="text-[9px] font-black text-brand tracking-[0.18em] uppercase mb-3">
                     OUR VISION
                 </div>
 
-                <h2 class="text-4xl font-black text-ink leading-tight mb-5">
+                <h2 class="max-w-[520px] text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink leading-[1.05] mb-7 uppercase">
                     BUILT FOR THE NEXT
                     <br>
-                    <span class="text-brand">
-                        35 YEARS AND BEYOND.
-                    </span>
+                    <span class="text-brand">35 YEARS AND BEYOND.</span>
                 </h2>
 
-                <div class="w-12 h-0.5 bg-brand mb-6"></div>
+                <div class="w-12 h-0.5 bg-brand mb-7"></div>
 
-                <p class="text-gray-700 text-base leading-relaxed">
+                <p class="max-w-[455px] text-slate-700 text-sm sm:text-[15px] leading-relaxed" data-i18n="vision_text">
                     To become the most trusted name in solvent extraction
                     machinery components through relentless precision,
                     customer-first thinking, and the kind of quality that makes
@@ -343,7 +298,7 @@
 </section>
 
 
-<section class="py-16 bg-white">
+<section class="py-16 bg-[#fff8fb]">
     <div class="max-w-[2000px] mx-auto px-6">
 
         <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-stretch">
@@ -368,7 +323,7 @@
                 <!-- More even grid -->
                 <div
                     id="productGrid"
-                    class="grid grid-cols-2 auto-rows-[150px] border border-gray-100 rounded-xl overflow-hidden divide-x divide-y divide-gray-100">
+                    class="grid grid-cols-2 auto-rows-[150px] border border-pink-200 rounded-xl overflow-hidden divide-x divide-y divide-pink-200">
                 </div>
 
                 <div class="mt-6">
@@ -464,7 +419,7 @@
 <!-- ══════════════════════════════════════════════
      TRUSTED BY (Logo Marquee)
 ══════════════════════════════════════════════ -->
-<section id="clients" class="py-16 bg-white border-t border-b border-gray-100">
+<section id="clients" class="py-16 bg-[#fff8fb] border-t border-b border-gray-100">
     <div class="max-w-[1280px] mx-auto px-6">
 
         <div class="flex items-end justify-between mb-10">
@@ -515,124 +470,141 @@
 <!-- ══════════════════════════════════════════════
      FOOTER
 ══════════════════════════════════════════════ -->
-<footer id="contact" class="bg-gray-900 text-gray-400 pt-16 pb-0">
-    <div class="max-w-[1280px] mx-auto px-6">
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-gray-800">
+<footer id="contact" class="bg-gray-900 text-gray-400 pt-12 pb-0 relative overflow-hidden">
 
-            <!-- Col 1: Brand + social -->
+    <!-- Gear Watermark -->
+    <div class="absolute bottom-0 right-0 opacity-[0.08] pointer-events-none select-none translate-x-1/4 translate-y-1/4">
+        <svg
+            width="360"
+            height="360"
+            viewBox="0 0 100 100"
+            fill="none"
+            stroke="white"
+            stroke-width="0.9"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <path d="
+                M43.3 4L41 15.6c-3.2.9-6.2 2.3-8.9 4L21.8 13.9l-9 9 5.7 10.3c-1.7 2.7-3.1 5.7-4 8.9L4 44v12.8l11.6 2.3c.9 3.2 2.3 6.2 4 8.9L13.9 78.2l9 9 10.3-5.7c2.7 1.7 5.7 3.1 8.9 4L44 96.8h12.8l2.3-11.6c3.2-.9 6.2-2.3 8.9-4l10.3 5.7 9-9-5.7-10.3c1.7-2.7 3.1-5.7 4-8.9L97 56V43.2l-11.6-2.3c-.9-3.2-2.3-6.2-4-8.9l5.7-10.3-9-9-10.3 5.7c-2.7-1.7-5.7-3.1-8.9-4L56.8 3H43.3z
+                M50 30a20 20 0 1 1 0 40 20 20 0 0 1 0-40z
+                M50 36a14 14 0 1 0 0 28 14 14 0 0 0 0-28z"/>
+        </svg>
+    </div>
+
+    <div class="max-w-[1280px] mx-auto px-6">
+
+        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 pb-10 border-b border-gray-800">
+
+            <!-- Brand -->
             <div>
-                <div class="flex items-center gap-2.5 mb-5">
-                    <div class="w-9 h-9 bg-brand text-white font-black rounded flex items-center justify-center text-base">LE</div>
+
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-brand text-white font-black rounded flex items-center justify-center">
+                        LE
+                    </div>
+
                     <div>
-                        <div class="font-extrabold text-sm tracking-widest text-white leading-none">LOHSHREE</div>
-                        <div class="text-[9px] text-gray-500 tracking-widest uppercase">Engineers Pvt. Ltd.</div>
+                        <div class="font-extrabold text-sm tracking-widest text-white">
+                            LOHSHREE
+                        </div>
+                        <div class="text-[9px] text-gray-500 tracking-widest uppercase">
+                            Engineers Pvt. Ltd.
+                        </div>
                     </div>
                 </div>
-                <p class="text-sm text-gray-500 leading-relaxed mb-7">
-                    Precision parts. Powerful performance.<br>Trusted by industries worldwide.
+
+                <p class="text-sm text-gray-500 leading-relaxed max-w-md mb-6">
+                    Precision engineered components for solvent extraction plants,
+                    heavy industrial machinery and mission-critical applications.
                 </p>
-                <!-- Social icons -->
-                <div class="flex gap-3">
-                    <a href="#" class="w-9 h-9 rounded border border-gray-700 hover:border-brand hover:text-brand flex items-center justify-center transition">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z"/>
-                        </svg>
-                    </a>
-                    <a href="https://wa.me/919820120832" target="_blank"
-                       class="w-9 h-9 rounded border border-gray-700 hover:border-[#25D366] hover:text-[#25D366] flex items-center justify-center transition">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm4.36 13.36c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/>
-                        </svg>
-                    </a>
-                    <a href="https://youtube.com" target="_blank"
-                       class="w-9 h-9 rounded border border-gray-700 hover:border-red-500 hover:text-red-500 flex items-center justify-center transition">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.4 2.8 12 2.8 12 2.8s-4.4 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.3.7 11.5v2.1c0 2.2.3 4.4.3 4.4s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.3 22.1 12 22.1 12 22.1s4.4 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.2.3-4.4v-2.1C23.3 9.2 23 7 23 7zM9.7 15.5V8.4l6.6 3.6-6.6 3.5z"/>
-                        </svg>
-                    </a>
-                    <a href="mailto:lohshreeind@gmail.com"
-                       class="w-9 h-9 rounded border border-gray-700 hover:border-brand hover:text-brand flex items-center justify-center transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                    </a>
+
+                <div class="flex items-center gap-3">
+
+                    <div class="w-12 h-12 border border-gray-700 rounded flex flex-col items-center justify-center">
+                        <div class="text-[8px] font-black text-white">
+                            ISO
+                        </div>
+                        <div class="text-[7px] text-gray-400">
+                            9001:2015
+                        </div>
+                    </div>
+
+                    <div class="w-12 h-12 border border-gray-700 rounded flex items-center justify-center">
+                        <span class="text-lg font-black text-white italic">
+                            CE
+                        </span>
+                    </div>
+
                 </div>
+
             </div>
 
-            <!-- Col 2: Quick Links -->
+            <!-- Contact -->
             <div>
-                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-5">Quick Links</h4>
-                <ul class="space-y-2.5 text-sm">
-                    <li><a href="#home"       class="hover:text-brand transition">Home</a></li>
-                    <li><a href="#about"      class="hover:text-brand transition">About Us</a></li>
-                    <li><a href="#products"   class="hover:text-brand transition">Our Products</a></li>
-                    <li><a href="#expertise"  class="hover:text-brand transition">Inspection</a></li>
-                    <li><a href="gallery.html" class="hover:text-brand transition">Gallery</a></li>
-                    <li><a href="#clients"    class="hover:text-brand transition">Industries</a></li>
-                    <li><a href="#clients"    class="hover:text-brand transition">Reviews</a></li>
-                    <li><a href="#contact"    class="hover:text-brand transition">Contact Us</a></li>
-                </ul>
-            </div>
 
-            <!-- Col 3: Products -->
-            <div>
-                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-5">Products</h4>
-                <ul class="space-y-2.5 text-sm" id="footerProductLinks">
-                    <!-- Injected by JS -->
-                </ul>
-            </div>
+                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-5">
+                    Contact
+                </h4>
 
-            <!-- Col 4: Contact + Certifications -->
-            <div>
-                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-5">Contact Us</h4>
-                <div class="space-y-3.5 text-sm mb-8">
-                    <a href="tel:+919820120832" class="flex items-center gap-3 hover:text-brand transition">
-                        <svg class="w-4 h-4 flex-shrink-0 text-brand" fill="currentColor" viewBox="0 0 24 24">
+                <div class="space-y-3 text-sm">
+
+                    <a href="tel:+919820120832"
+                       class="flex items-center gap-3 hover:text-brand transition">
+                        <svg class="w-4 h-4 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                         </svg>
                         +91 98201 20832
                     </a>
-                    <a href="tel:+919820120834" class="flex items-center gap-3 hover:text-brand transition">
-                        <svg class="w-4 h-4 flex-shrink-0 text-brand" fill="currentColor" viewBox="0 0 24 24">
+
+                    <a href="tel:+919820120834"
+                       class="flex items-center gap-3 hover:text-brand transition">
+                        <svg class="w-4 h-4 text-brand flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                         </svg>
                         +91 98201 20834
                     </a>
-                    <a href="mailto:lohshreeind@gmail.com" class="flex items-center gap-3 hover:text-brand transition">
-                        <svg class="w-4 h-4 flex-shrink-0 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+
+                    <a href="mailto:lohshreeind@gmail.com"
+                       class="flex items-center gap-3 hover:text-brand transition">
+                        <svg class="w-4 h-4 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                         lohshreeind@gmail.com
                     </a>
-                    <div class="flex items-start gap-3">
-                        <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        <span>Plot No. 123, Industrial Area,<br>Mumbai, Maharashtra, India</span>
-                    </div>
-                </div>
 
-                <h4 class="text-[10px] font-black text-white tracking-[0.2em] uppercase mb-4">Certifications</h4>
-                <div class="flex gap-3">
-                    <div class="w-14 h-14 border border-gray-700 rounded flex flex-col items-center justify-center">
-                        <div class="text-[8px] font-black text-white leading-none">ISO</div>
-                        <div class="text-[8px] font-bold text-gray-400 leading-none mt-0.5">9001:2015</div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-4 h-4 text-brand flex-shrink-0 mt-0.5"
+                             fill="none"
+                             stroke="currentColor"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+
+                        <span>
+                            Plot No. 123, Industrial Area,<br>
+                            Mumbai, Maharashtra, India
+                        </span>
                     </div>
-                    <div class="w-10 h-14 border border-gray-700 rounded flex items-center justify-center">
-                        <span class="text-xl font-black text-white italic">CE</span>
-                    </div>
+
                 </div>
             </div>
-
         </div>
 
-        <!-- Bottom bar -->
-        <div class="py-6 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-600">
-            <p>© 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.</p>
+        <!-- Bottom Bar -->
+        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-xs text-gray-600">
+            <p>
+                © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
+            </p>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-gray-400 transition">Privacy Policy</a>
-                <span class="text-gray-700">|</span>
-                <a href="#" class="hover:text-gray-400 transition">Terms &amp; Conditions</a>
+                <a href="#" class="hover:text-gray-400 transition">
+                    Privacy Policy
+                </a>
+                <a href="#" class="hover:text-gray-400 transition">
+                    Terms & Conditions
+                </a>
             </div>
         </div>
     </div>
@@ -646,7 +618,7 @@
      class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
      style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;">
     <div id="modalInner"
-         class="w-full max-w-lg bg-white rounded-2xl shadow-2xl max-h-[88vh] flex flex-col border border-gray-200"
+         class="w-full max-w-lg bg-[#fff8fb] rounded-2xl shadow-2xl max-h-[88vh] flex flex-col border border-gray-200"
          style="transform: translateY(24px); transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);">
 
         <!-- Modal header -->
@@ -690,7 +662,7 @@
 
     <!-- Dropdown -->
     <div id="contactMenu"
-         class="hidden mb-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+         class="hidden mb-3 w-72 bg-[#fff8fb] rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
 
         <a href="tel:+919820120832"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
@@ -887,8 +859,8 @@ function renderGrid() {
     grid.innerHTML = catalog.map((cat, i) => {
         const isLastInRow = (i % 2 === 1);   // every 2nd item ends a row
         const isLastRow   = (i >= 4);          // last 2 items = last row
-        const borderR = isLastInRow ? '' : 'border-r border-gray-100';
-        const borderB = isLastRow   ? '' : 'border-b border-gray-100';
+        const borderR = isLastInRow ? '' : 'border-r border-pink-200';
+        const borderB = isLastRow   ? '' : 'border-b border-pink-200';
 
         return `
         <div class="prod-row group flex flex-col p-6 ${borderR} ${borderB}"
@@ -921,10 +893,18 @@ renderGrid();
 
 
 // ── FOOTER PRODUCT LINKS ────────────────────────────────────────────
-document.getElementById('footerProductLinks').innerHTML = catalog.map(cat => `
-    <li><a href="#" onclick="event.preventDefault(); openModal('${cat.id}')"
-           class="hover:text-brand transition">${cat.title}</a></li>
-`).join('');
+const footerLinks = document.getElementById('footerProductLinks');
+
+if (footerLinks) {
+    footerLinks.innerHTML = catalog.map(cat => `
+        <li>
+            <a href="#" onclick="event.preventDefault(); openModal('${cat.id}')"
+               class="hover:text-brand transition">
+                ${cat.title}
+            </a>
+        </li>
+    `).join('');
+}
 
 
 // ── PRODUCT MODAL ───────────────────────────────────────────────────
@@ -1036,7 +1016,7 @@ const T = {
     en: {
         company_name:'LOHSHREE', company_second_name:'Engineers Pvt. Ltd.',
         nav_home:'Home', nav_about:'About Us', nav_products:'Products',
-        nav_gallery:'Gallery', nav_reviews:'Reviews',
+        nav_gallery:'Gallery',
         search_placeholder:'Search products...',
         hero_badge:'35+ Years of Excellence',
         hero_title_1:'PRECISION\nENGINEERING.',
@@ -1058,7 +1038,7 @@ const T = {
     mr: {
         company_name:'लोहश्री', company_second_name:'इंजिनियर्स प्रा. लि.',
         nav_home:'मुख्यपृष्ठ', nav_about:'आमच्याबद्दल', nav_products:'उत्पादने',
-        nav_gallery:'गॅलरी', nav_reviews:'पुनरावलोकने',
+        nav_gallery:'गॅलरी',
         search_placeholder:'उत्पादने शोधा...',
         hero_badge:'३५+ वर्षांची उत्कृष्टता',
         hero_title_1:'अचूक अभियांत्रिकी.',
