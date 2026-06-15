@@ -55,20 +55,21 @@
         }
     </style>
 </head>
-<body class="bg-[#fff8fb] text-ink font-sans antialiased">
+<body class="bg-white text-ink font-sans antialiased">
 
 
 <!-- ══════════════════════════════════════════════
      HEADER
 ══════════════════════════════════════════════ -->
-<header class="sticky top-0 z-50 bg-[#fff8fb]/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-    <div class="max-w-[1600px] mx-auto px-6 xl:px-10 h-[76px] flex items-center justify-between gap-6">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+    <div class="max-w mx-auto px-6 xl:px-10 h-[76px] flex items-center justify-between gap-6">
 
         <!-- Logo -->
         <a href="#home" class="flex items-center gap-3 flex-shrink-0 group">
-            <div class="w-10 h-10 bg-brand text-white font-black rounded-xl flex items-center justify-center text-sm leading-none group-hover:bg-brandDark transition">
-                LE
-            </div>
+            <img
+                src="logo.png"
+                alt="Lohshree Engineers"
+                class="w-12 h-12 object-contain">
             <div class="leading-none">
                 <div class="font-extrabold text-sm tracking-[0.18em] text-ink uppercase" data-i18n="company_name">
                     LOHSHREE
@@ -107,7 +108,7 @@
             </div>
 
             <!-- Language -->
-            <select id="langToggle" class="border border-gray-200 text-[11px] rounded-full px-3 py-2 focus:outline-none text-gray-600 bg-[#fff8fb]">
+            <select id="langToggle" class="border border-gray-200 text-[11px] rounded-full px-3 py-2 focus:outline-none text-gray-600 bg-white">
                 <option value="en">EN</option>
                 <option value="mr">मराठी</option>
             </select>
@@ -130,11 +131,11 @@
 <!-- ══════════════════════════════════════════════
      HERO
 ══════════════════════════════════════════════ -->
-<section id="home" class="relative min-h-[88vh] overflow-hidden bg-[#fff8fb]">
+<section id="home" class="relative min-h-[88vh] overflow-hidden bg-white">
 
     <!-- ── Right side image (absolute, covers right 57% with diagonal cut) ── -->
     <div class="absolute right-0 top-0 bottom-0 w-[57%] pointer-events-none"
-         style="clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);">
+         style="clip-path: polygon(100% 0, 100% 0, 100% 100%, 0 100%);">
 
         <!-- Slideshow -->
         <div id="hero-slider" class="absolute inset-0 pointer-events-auto">
@@ -191,25 +192,18 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
                     </svg>
                 </a>
-                <a href="#expertise"
-                   class="inline-flex items-center gap-2 border-2 border-ink text-ink text-[11px] font-black px-7 py-3.5 tracking-widest hover:bg-gray-50 transition">
-                    OUR CAPABILITIES
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </a>
             </div>
         </div>
     </div>
 
     <!-- Slide controls — bottom-right of the image -->
     <div class="absolute bottom-8 right-[22%] z-40 flex gap-2">
-        <button id="prevSlide" class="w-9 h-9 bg-[#fff8fb]/90 hover:bg-[#fff8fb] border border-gray-200 flex items-center justify-center transition shadow-sm">
+        <button id="prevSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
         </button>
-        <button id="nextSlide" class="w-9 h-9 bg-[#fff8fb]/90 hover:bg-[#fff8fb] border border-gray-200 flex items-center justify-center transition shadow-sm">
+        <button id="nextSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
@@ -298,8 +292,8 @@
 </section>
 
 
-<section class="py-16 bg-[#fff8fb]">
-    <div class="max-w-[2000px] mx-auto px-6">
+<section id="products" class="py-16 bg-white scroll-mt-[72px]">
+    <div class="max-w-[2500px] mx-auto px-6">
 
         <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-stretch">
 
@@ -339,11 +333,11 @@
             <!-- =========================================
                  RIGHT : WHY CHOOSE US
             ========================================== -->
-            <div class="relative overflow-hidden rounded-2xl bg-gray-50 min-h-[580px]">
+            <div class="relative overflow-hidden rounded-l-2xl min-h-[580px] -mr-6">
 
                 <!-- Make the image much wider -->
                 <div
-                    class="absolute top-12 bottom-12 -right-52 w-[84%]">
+                    class="absolute top-12 bottom-12 -right-60 w-[84%]">
 
                     <img
                         src="assets/whyChooseUS.jpg"
@@ -419,48 +413,119 @@
 <!-- ══════════════════════════════════════════════
      TRUSTED BY (Logo Marquee)
 ══════════════════════════════════════════════ -->
-<section id="clients" class="py-16 bg-[#fff8fb] border-t border-b border-gray-100">
-    <div class="max-w-[1280px] mx-auto px-6">
+<section
+    id="clients"
+    class="py-12"
+    style="background:linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #ffd4f3 100%
+    );">
+    <div class="max-w-[1400px] mx-auto px-6">
 
-        <div class="flex items-end justify-between mb-10">
-            <div>
-                <div class="text-[10px] font-black text-brand tracking-[0.2em] uppercase mb-2" data-i18n="reviews_title">Trusted by Industry Leaders</div>
-                <h3 class="text-2xl font-black text-ink">THE COMPANIES WE POWER.</h3>
-            </div>
-            <div class="flex gap-2">
-                <button id="logoPrev"
-                    class="w-9 h-9 rounded-full border border-gray-200 hover:border-brand hover:text-brand flex items-center justify-center text-gray-400 transition text-sm">
-                    ←
-                </button>
-                <button id="logoNext"
-                    class="w-9 h-9 rounded-full border border-gray-200 hover:border-brand hover:text-brand flex items-center justify-center text-gray-400 transition text-sm">
-                    →
-                </button>
-            </div>
-        </div>
+        <div class="grid lg:grid-cols-[140px_1fr] overflow-hidden rounded-3xl border border-pink-100 bg-white shadow-sm">
 
-        <!-- Auto-scroll marquee -->
-        <div class="overflow-hidden border-t border-b border-gray-100 py-8">
-            <div class="logo-track flex items-center gap-16" id="logoTrack">
-                <!-- Set A -->
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Adani</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-xl uppercase tracking-widest cursor-default">BÜHLER</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Wilmar</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-2xl uppercase italic cursor-default">Cargill</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-sm uppercase tracking-widest cursor-default">Shree Renuka Sugars</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Dalmia</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-sm uppercase tracking-widest cursor-default">DANGOTE SUGAR</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Vedanta</div>
-                <!-- Set B (duplicate for seamless loop) -->
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Adani</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-xl uppercase tracking-widest cursor-default">BÜHLER</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Wilmar</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-2xl uppercase italic cursor-default">Cargill</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-sm uppercase tracking-widest cursor-default">Shree Renuka Sugars</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Dalmia</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-sm uppercase tracking-widest cursor-default">DANGOTE SUGAR</div>
-                <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Vedanta</div>
+            <!-- LEFT ACCENT PANEL -->
+            <div class="relative overflow-hidden bg-gradient-to-b from-[#c8185a] via-[#d22f6e] to-[#e26b98]">
+                <!-- Glass cut panel -->
+                <div
+                    class="absolute right-0 bottom-0 h-[55%] w-[70px]"
+                    style="
+                        clip-path: polygon(100% 0,100% 100%,0 100%,100% 0);
+                        background: linear-gradient(
+                            180deg,
+                            rgba(255,255,255,0.16) 0%,
+                            rgba(255,255,255,0.05) 100%
+                        );
+                    ">
+                </div>
+
+                <!-- your existing content -->
+                <div class="relative h-full min-h-[280px] flex flex-col items-center justify-center px-6 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-white/12 backdrop-blur-sm border border-white/15 shadow-lg shadow-black/10 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4" stroke-width="2"/>
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+
+                    <div class="text-white text-[11px] font-black tracking-[0.25em] uppercase leading-relaxed">
+                        Trusted<br>
+                        By Industry<br>
+                        Leaders
+                    </div>
+                </div>
             </div>
+
+            <!-- RIGHT CONTENT -->
+            <div class="p-8 lg:px-12 lg:py-8">
+
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
+
+                    <div>
+                        <h3 class="text-4xl font-black text-ink leading-tight">
+                            THE COMPANIES WE POWER.
+                        </h3>
+
+                        <p class="text-gray-500 mt-3 max-w-xl">
+                            Trusted by leading solvent extraction, sugar, edible oil
+                            and industrial processing companies.
+                        </p>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button id="logoPrev"
+                            class="w-11 h-11 rounded-full border border-pink-200 hover:border-brand hover:text-brand flex items-center justify-center text-gray-400 transition">
+                            ←
+                        </button>
+
+                        <button id="logoNext"
+                            class="w-11 h-11 rounded-full border border-pink-200 hover:border-brand hover:text-brand flex items-center justify-center text-gray-400 transition">
+                            →
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="overflow-hidden border-y border-pink-100 py-6">
+
+                    <div class="logo-track flex items-center gap-20" id="logoTrack">
+
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Adani</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-xl uppercase tracking-widest cursor-default">BÜHLER</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Wilmar</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-2xl uppercase italic cursor-default">Cargill</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-sm uppercase tracking-widest cursor-default">Shree Renuka Sugars</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Dalmia</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-sm uppercase tracking-widest cursor-default">DANGOTE SUGAR</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Vedanta</div>
+                        <!-- Set B (duplicate for seamless loop) -->
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Adani</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-xl uppercase tracking-widest cursor-default">BÜHLER</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Wilmar</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-2xl uppercase italic cursor-default">Cargill</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-sm uppercase tracking-widest cursor-default">Shree Renuka Sugars</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-xl uppercase tracking-tight cursor-default">Dalmia</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-bold text-sm uppercase tracking-widest cursor-default">DANGOTE SUGAR</div>
+                        <div class="flex-shrink-0 text-gray-300 hover:text-gray-600 transition font-black text-2xl uppercase tracking-tight cursor-default">Vedanta</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
@@ -470,6 +535,31 @@
 <!-- ══════════════════════════════════════════════
      FOOTER
 ══════════════════════════════════════════════ -->
+<div class="relative h-16 overflow-hidden bg-[#ffd4f3]">
+    <svg
+        viewBox="0 0 1440 120"
+        preserveAspectRatio="none"
+        class="absolute inset-0 w-full h-full">
+
+        <!-- Pink accent line -->
+        <path
+            d="M0,62 C300,120 500,0 720,48 C980,100 1180,20 1440,62"
+            fill="none"
+            stroke="#c8185a"
+            stroke-width="3"/>
+
+        <!-- Navy footer fill -->
+        <path
+            fill="#111827"
+            d="M0,70
+               C300,128 500,8 720,56
+               C980,108 1180,28 1440,70
+               L1440,120
+               L0,120
+               Z"/>
+    </svg>
+</div>
+
 <footer id="contact" class="bg-gray-900 text-gray-400 pt-12 pb-0 relative overflow-hidden">
 
     <!-- Gear Watermark -->
@@ -498,9 +588,10 @@
             <div>
 
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 bg-brand text-white font-black rounded flex items-center justify-center">
-                        LE
-                    </div>
+                    <img
+                        src="logo.png"
+                        alt="Lohshree Engineers"
+                        class="w-10 h-10 object-contain">
 
                     <div>
                         <div class="font-extrabold text-sm tracking-widest text-white">
@@ -618,7 +709,7 @@
      class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
      style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;">
     <div id="modalInner"
-         class="w-full max-w-lg bg-[#fff8fb] rounded-2xl shadow-2xl max-h-[88vh] flex flex-col border border-gray-200"
+         class="w-full max-w-lg bg-white rounded-2xl shadow-2xl max-h-[88vh] flex flex-col border border-gray-200"
          style="transform: translateY(24px); transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);">
 
         <!-- Modal header -->
@@ -662,7 +753,7 @@
 
     <!-- Dropdown -->
     <div id="contactMenu"
-         class="hidden mb-3 w-72 bg-[#fff8fb] rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+         class="hidden mb-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
 
         <a href="tel:+919820120832"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
@@ -863,27 +954,38 @@ function renderGrid() {
         const borderB = isLastRow   ? '' : 'border-b border-pink-200';
 
         return `
-        <div class="prod-row group flex flex-col p-6 ${borderR} ${borderB}"
+        <div class="prod-row group relative flex flex-col p-6 ${borderR} ${borderB}"
              data-search="${cat.displayTitle} ${cat.items.map(it=>it.name).join(' ')}"
              onclick="openModal('${cat.id}')">
 
             <!-- Icon + title -->
-            <div class="flex items-center gap-3 mb-3">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                     style="background:${cat.bg}">
-                    <svg class="w-5 h-5" fill="none" stroke="${cat.stroke}" viewBox="0 0 24 24">${cat.icon}</svg>
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style="background:${cat.bg}">
+                    <svg class="w-7 h-7" fill="none" stroke="${cat.stroke}" viewBox="0 0 24 24">${cat.icon}</svg>
                 </div>
-                <h3 class="font-black text-[13px] tracking-wide text-ink group-hover:text-brand transition leading-tight">${cat.displayTitle}</h3>
+
+                <h3 class="font-black text-[17px] tracking-wide text-ink group-hover:text-brand transition leading-tight">
+                    ${cat.displayTitle}
+                </h3>
             </div>
 
             <!-- Short description fills the card space -->
-            <p class="text-[12px] text-gray-400 leading-snug flex-1 mb-3">${cat.shortDesc}</p>
+            <p class="text-[14px] text-gray-500 leading-relaxed flex-1 mb-4">
+                ${cat.shortDesc}
+            </p>
 
             <!-- Arrow CTA pinned to bottom -->
-            <div class="flex items-center gap-1 text-brand text-[11px] font-black">
-                <span>View Products</span>
-                <svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+            <div class="absolute right-5 top-1/2 -translate-y-1/2">
+                <svg
+                    class="w-6 h-6 text-gray-300 group-hover:text-brand group-hover:translate-x-1 transition-all duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        d="M9 5l7 7-7 7"/>
                 </svg>
             </div>
         </div>`;
