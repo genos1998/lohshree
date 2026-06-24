@@ -1015,11 +1015,26 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 
 
 // Filter product grid cards as user types in the search bar
+// Always shows the "Custom Solutions" card when no other results match
 document.getElementById('navSearch').addEventListener('input', function () {
     const term = this.value.toLowerCase().trim();
-    document.querySelectorAll('.prod-row').forEach(card => {
-        card.style.display = (!term || card.dataset.search.toLowerCase().includes(term)) ? '' : 'none';
+    const cards = document.querySelectorAll('.prod-row');
+    let hasMatch = false;
+
+    cards.forEach(card => {
+        const isCustom = card.dataset.search.includes('CUSTOM SOLUTIONS');
+        const matches = !term || card.dataset.search.toLowerCase().includes(term);
+        if (matches && !isCustom) hasMatch = true;
+        card.style.display = matches ? '' : 'none';
     });
+
+    // If searching but nothing matched, show the custom card as a fallback
+    if (term && !hasMatch) {
+        cards.forEach(card => {
+            if (card.dataset.search.includes('CUSTOM SOLUTIONS')) card.style.display = '';
+        });
+    }
+
     if (term.length === 1) document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
 });
 
