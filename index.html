@@ -1026,6 +1026,7 @@ document.getElementById('navSearch').addEventListener('input', function () {
         const matches = !term || card.dataset.search.toLowerCase().includes(term);
         if (matches && !isCustom) hasMatch = true;
         card.style.display = matches ? '' : 'none';
+        card.classList.remove('col-span-2');
     });
 
     // If searching but nothing matched, show the custom card as a fallback
@@ -1034,6 +1035,10 @@ document.getElementById('navSearch').addEventListener('input', function () {
             if (card.dataset.search.includes('CUSTOM SOLUTIONS')) card.style.display = '';
         });
     }
+
+    // If only one card is visible, span it across both columns
+    const visible = [...cards].filter(c => c.style.display !== 'none');
+    if (visible.length === 1) visible[0].classList.add('col-span-2');
 
     if (term.length === 1) document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
 });
