@@ -20,15 +20,13 @@
         }
     </script>
     <style>
+        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #ff77f1; }
         ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #C8185A; }
 
-        /* Hero diagonal clip */
-        .hero-image-wrap { clip-path: polygon(9% 0, 100% 0, 100% 100%, 0 100%); }
-
-        /* Logo marquee */
+        /* Infinite scroll animation for client logo marquee */
         @keyframes marquee {
             0%   { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -36,15 +34,11 @@
         .logo-track { animation: marquee 30s linear infinite; width: max-content; }
         .logo-track:hover { animation-play-state: paused; }
 
-        /* Product card row hover */
+        /* Product grid card hover effect */
         .prod-row { cursor: pointer; transition: background 0.18s ease; }
         .prod-row:hover { background: #FEF2F7; }
 
-        /* Modal */
-        #productModal { transition: opacity 0.25s ease, visibility 0.25s ease; }
-        #modalInner   { transition: transform 0.32s cubic-bezier(0.22,1,0.36,1); }
-
-        /* Active nav link */
+        /* Underline indicator for active nav link */
         .nav-link { position: relative; }
         .nav-link.active::after {
             content: '';
@@ -58,9 +52,7 @@
 <body class="bg-white text-ink font-sans antialiased">
 
 
-<!-- ══════════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════════ -->
+<!-- HEADER -->
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
     <div class="max-w mx-auto px-6 xl:px-10 h-[76px] flex items-center justify-between gap-6">
 
@@ -128,9 +120,7 @@
 </header>
 
 
-<!-- ══════════════════════════════════════════════
-     HERO
-══════════════════════════════════════════════ -->
+<!-- HERO SECTION -->
 <section id="home" class="relative min-h-[88vh] overflow-hidden bg-white">
 
     <!-- ── Right side image (absolute, covers right 57% with diagonal cut) ── -->
@@ -211,9 +201,7 @@
     </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     ABOUT (brief, inline) & OUR VISION
-══════════════════════════════════════════════ -->
+<!-- ABOUT US & OUR VISION -->
 <section id="about" class="relative scroll-mt-[72px] overflow-hidden bg-[#ffd2e5] border-pink-100">
 
     <div class="absolute inset-x-0 top-0 h-px bg-brand/20"></div>
@@ -231,9 +219,7 @@
 
         <div class="relative grid gap-10 lg:grid-cols-2 lg:gap-[180px] min-h-[360px] lg:min-h-[430px]">
 
-            <!-- =====================================
-                 ABOUT US
-            ====================================== -->
+            <!-- ABOUT US -->
             <div class="relative z-10 py-14 sm:py-16 lg:py-20 lg:pr-16">
 
                 <div class="text-xs font-black text-brand tracking-[0.18em] uppercase mb-3">
@@ -259,9 +245,7 @@
 
             </div>
 
-            <!-- =====================================
-                 OUR VISION
-            ====================================== -->
+            <!-- OUR VISION -->
             <div class="relative z-10 py-14 sm:py-16 lg:py-20 lg:pl-16">
 
                 <div class="text-xs font-black text-brand tracking-[0.18em] uppercase mb-3">
@@ -297,9 +281,7 @@
 
         <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-stretch">
 
-            <!-- =========================================
-                 LEFT : PRODUCTS
-            ========================================== -->
+            <!-- LEFT: PRODUCTS -->
             <div class="max-w-[920px] mx-auto w-full">
 
                 <div class="mb-8">
@@ -330,9 +312,7 @@
 
             </div>
 
-            <!-- =========================================
-                 RIGHT : WHY CHOOSE US
-            ========================================== -->
+            <!-- RIGHT: WHY CHOOSE US -->
             <div class="relative overflow-hidden rounded-l-2xl min-h-[580px] -mr-6">
 
                 <!-- Make the image much wider -->
@@ -410,9 +390,7 @@
 </section>
 
 
-<!-- ══════════════════════════════════════════════
-     TRUSTED BY (Logo Marquee)
-══════════════════════════════════════════════ -->
+<!-- TRUSTED BY — Client Logo Marquee -->
 <section
     id="clients"
     class="py-12"
@@ -427,7 +405,6 @@
 
             <!-- LEFT ACCENT PANEL -->
             <div class="relative overflow-hidden bg-gradient-to-b from-[#c8185a] via-[#d22f6e] to-[#e26b98]">
-                <!-- Glass cut panel -->
                 <div
                     class="absolute right-0 bottom-0 h-[55%] w-[70px]"
                     style="
@@ -439,8 +416,6 @@
                         );
                     ">
                 </div>
-
-                <!-- your existing content -->
                 <div class="relative h-full min-h-[280px] flex flex-col items-center justify-center px-6 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-white/12 backdrop-blur-sm border border-white/15 shadow-lg shadow-black/10 flex items-center justify-center mb-6">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -510,7 +485,7 @@
                         <div class="flex-shrink-0 text-gray-700 hover:text-gray-900 transition font-black text-xl uppercase tracking-tight cursor-default">Dalmia</div>
                         <div class="flex-shrink-0 text-gray-700 hover:text-gray-900 transition font-bold text-sm uppercase tracking-widest cursor-default">DANGOTE SUGAR</div>
                         <div class="flex-shrink-0 text-gray-700 hover:text-gray-900 transition font-black text-2xl uppercase tracking-tight cursor-default">Vedanta</div>
-                        <!-- Set B (duplicate for seamless loop) -->
+                        <!-- Duplicate set for seamless infinite scroll -->
                         <div class="flex-shrink-0 text-gray-700 hover:text-gray-900 transition font-black text-2xl uppercase tracking-tight cursor-default">Adani</div>
                         <div class="flex-shrink-0 text-gray-700 hover:text-gray-900 transition font-bold text-xl uppercase tracking-widest cursor-default">BÜHLER</div>
                         <div class="flex-shrink-0 text-gray-700 hover:text-gray-900 transition font-black text-xl uppercase tracking-tight cursor-default">Wilmar</div>
@@ -532,9 +507,7 @@
 </section>
 
 
-<!-- ══════════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════════ -->
+<!-- FOOTER WAVE DIVIDER -->
 <div class="relative h-16 overflow-hidden bg-[#ffd4f3]">
     <svg
         viewBox="0 0 1440 120"
@@ -717,9 +690,7 @@
 </footer>
 
 
-<!-- ══════════════════════════════════════════════
-     PRODUCT MODAL
-══════════════════════════════════════════════ -->
+<!-- PRODUCT MODAL — opens when a product card is clicked -->
 <div id="productModal"
      class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
      style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;">
@@ -761,9 +732,7 @@
 </div>
 
 
-<!-- ══════════════════════════════════════════════
-     FLOATING CONTACT BUTTON
-══════════════════════════════════════════════ -->
+<!-- FLOATING CONTACT BUTTON — phone, WhatsApp, email dropdown -->
 <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
 
     <!-- Dropdown -->
@@ -827,18 +796,15 @@
 </div>
 
 
-<!-- ══════════════════════════════════════════════
-     SCRIPTS
-══════════════════════════════════════════════ -->
+<!-- SCRIPTS -->
 <script>
 'use strict';
 
-// ── PRODUCT CATALOG ────────────────────────────────────────────────
+// Product catalog data — drives the grid, modal, and search
 const catalog = [
     {
         id: 'shafts',
         title: 'Shafts',
-        displayTitle: 'SHAFTS',
         shortDesc: 'Drive, tension, drum, scrapper & brush shafts.',
         tagline: 'Extractor shafts for solvent plants',
         stroke: '#3b82f6',
@@ -857,7 +823,6 @@ const catalog = [
     {
         id: 'rotary-valves',
         title: 'Rotary Valves',
-        displayTitle: 'ROTARY VALVES',
         shortDesc: 'Bush type and mechanical seal valves.',
         tagline: 'Inlet, outlet square type and Dismit design',
         stroke: '#f43f5e',
@@ -875,7 +840,6 @@ const catalog = [
     {
         id: 'conveyor-parts',
         title: 'Conveyor Parts',
-        displayTitle: 'CONVEYOR PARTS',
         shortDesc: 'Redler, bulk flow and solvent-tight conveyor parts.',
         tagline: 'Drive shafts, tension shafts and conveyor spares',
         stroke: '#f59e0b',
@@ -897,7 +861,6 @@ const catalog = [
     {
         id: 'gears-sprockets',
         title: 'Gears & Sprockets',
-        displayTitle: 'GEARS & SPROCKETS',
         shortDesc: 'Spur gears, pinions and sprockets.',
         tagline: 'Heavy and light duty transmission parts',
         stroke: '#64748b',
@@ -913,7 +876,6 @@ const catalog = [
     {
         id: 'plant-accessories',
         title: 'Plant Accessories',
-        displayTitle: 'PLANT ACCESSORIES',
         shortDesc: 'Cleaning, level, sight and maintenance accessories.',
         tagline: 'Jet cleaners, bindicators, sight glasses and more',
         stroke: '#a855f7',
@@ -934,12 +896,9 @@ const catalog = [
     {
         id: 'custom',
         title: 'Custom Solutions',
-        displayTitle: 'CUSTOM SOLUTIONS',
         shortDesc: 'Need something custom?',
         tagline: "Can't find your part? We'll build it.",
         modalDescription: 'Manufactured as per customer drawings, specifications, samples and plant requirements.',
-        ctaLabel: 'CONTACT US',
-        ctaHref: '#contact',
         stroke: '#C8185A',
         bg: '#FEF2F7',
         icon: `<path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -951,95 +910,47 @@ const catalog = [
 ];
 
 
-// ── RENDER PRODUCT GRID ─────────────────────────────────────────────
+// Builds the 2-column product grid from the catalog array
 function renderGrid() {
     const grid = document.getElementById('productGrid');
 
     grid.innerHTML = catalog.map((cat, i) => {
-        const isLastInRow = (i % 2 === 1);
-        const isLastRow = (i >= 4);
-        const borderR = isLastInRow ? '' : 'border-r border-pink-200';
-        const borderB = isLastRow ? '' : 'border-b border-pink-200';
-        const isCustom = cat.id === 'custom';
+        // Manual border classes since CSS divide-* doesn't handle 2-col grids correctly
+        const borderR = (i % 2 === 0) ? 'border-r border-pink-200' : '';
+        const borderB = (i < 4)       ? 'border-b border-pink-200' : '';
 
         return `
         <div class="prod-row group relative flex flex-col p-6 ${borderR} ${borderB}"
-             data-search="${cat.displayTitle} ${cat.items.map(it => it.name).join(' ')}"
+             data-search="${cat.title.toUpperCase()} ${cat.items.map(it => it.name).join(' ')}"
              onclick="openModal('${cat.id}')">
 
-            <div class="flex items-center gap-4 ${isCustom ? '' : 'mb-4'}">
+            <div class="flex items-center gap-4 ${cat.id !== 'custom' ? 'mb-4' : ''}">
                 <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
                     style="background:${cat.bg}">
                     <svg class="w-7 h-7" fill="none" stroke="${cat.stroke}" viewBox="0 0 24 24">${cat.icon}</svg>
                 </div>
-
                 <h3 class="font-black text-[17px] tracking-wide text-ink group-hover:text-brand transition leading-tight">
-                    ${cat.displayTitle}
+                    ${cat.title.toUpperCase()}
                 </h3>
             </div>
 
-            ${isCustom ? `
-                <p class="text-[14px] text-gray-700 leading-relaxed flex-1 mb-4">
-                    ${cat.shortDesc}
-                </p>
-                <div class="absolute right-5 top-1/2 -translate-y-1/2">
-                    <svg
-                        class="w-6 h-6 text-gray-700 group-hover:text-brand group-hover:translate-x-1 transition-all duration-200"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2.5"
-                            d="M9 5l7 7-7 7"/>
-                    </svg>
-                </div>
-            ` : `
-                <p class="text-[14px] text-gray-700 leading-relaxed flex-1 mb-4">
-                    ${cat.shortDesc}
-                </p>
+            <p class="text-[14px] text-gray-700 leading-relaxed flex-1 mb-4">${cat.shortDesc}</p>
 
-                <div class="absolute right-5 top-1/2 -translate-y-1/2">
-                    <svg
-                        class="w-6 h-6 text-gray-700 group-hover:text-brand group-hover:translate-x-1 transition-all duration-200"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2.5"
-                            d="M9 5l7 7-7 7"/>
-                    </svg>
-                </div>
-            `}
+            <div class="absolute right-5 top-1/2 -translate-y-1/2">
+                <svg class="w-6 h-6 text-gray-700 group-hover:text-brand group-hover:translate-x-1 transition-all duration-200"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                </svg>
+            </div>
         </div>`;
     }).join('');
 }
 renderGrid();
 
 
-// ── FOOTER PRODUCT LINKS ────────────────────────────────────────────
-const footerLinks = document.getElementById('footerProductLinks');
-
-if (footerLinks) {
-    footerLinks.innerHTML = catalog.map(cat => `
-        <li>
-            <a href="#" onclick="event.preventDefault(); openModal('${cat.id}')"
-               class="hover:text-brand transition">
-                ${cat.title}
-            </a>
-        </li>
-    `).join('');
-}
-
-
-// ── PRODUCT MODAL ───────────────────────────────────────────────────
+// Product modal open/close logic
 const modal      = document.getElementById('productModal');
 const modalInner = document.getElementById('modalInner');
-
-modal.style.visibility = 'hidden';
-modal.style.opacity    = '0';
-modalInner.style.transform = 'translateY(24px)';
 
 function openModal(catId) {
     const cat = catalog.find(c => c.id === catId);
@@ -1103,7 +1014,7 @@ modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 
-// ── LIVE SEARCH ─────────────────────────────────────────────────────
+// Filter product grid cards as user types in the search bar
 document.getElementById('navSearch').addEventListener('input', function () {
     const term = this.value.toLowerCase().trim();
     document.querySelectorAll('.prod-row').forEach(card => {
@@ -1113,7 +1024,7 @@ document.getElementById('navSearch').addEventListener('input', function () {
 });
 
 
-// ── CONTACT TOGGLE ──────────────────────────────────────────────────
+// Floating contact button: toggle dropdown, close on outside click
 const contactToggle = document.getElementById('contactToggle');
 const contactMenu   = document.getElementById('contactMenu');
 contactToggle.addEventListener('click', () => contactMenu.classList.toggle('hidden'));
@@ -1123,7 +1034,7 @@ document.addEventListener('click', e => {
 });
 
 
-// ── HERO SLIDESHOW ──────────────────────────────────────────────────
+// Hero slideshow: auto-advances every 4.2s, with prev/next buttons
 const slides = document.querySelectorAll('#hero-slider .slide');
 let cur = 0, timer;
 
@@ -1144,7 +1055,7 @@ if (slides.length) {
 }
 
 
-// ── LOGO CAROUSEL ARROWS (pause/scroll) ─────────────────────────────
+// Client logo carousel: arrow buttons stop CSS animation and manually offset
 const track = document.getElementById('logoTrack');
 let offset = 0;
 document.getElementById('logoNext').addEventListener('click', () => {
@@ -1159,7 +1070,7 @@ document.getElementById('logoPrev').addEventListener('click', () => {
 });
 
 
-// ── BILINGUAL ───────────────────────────────────────────────────────
+// Bilingual support (English / Marathi) — swaps text via data-i18n attributes
 const T = {
     en: {
         company_name:'LOHSHREE', company_second_name:'Engineers Pvt. Ltd.',
@@ -1173,15 +1084,8 @@ const T = {
         about_title:'45 YEARS OF MANUFACTURING PRECISION.',
         about_p1:'Lohshree Engineers Pvt. Ltd. has been serving the solvent extraction industry for over 45 years, manufacturing high-quality machine parts that keep plants running at peak efficiency.',
         about_p2:'From drive shafts and rotary valves to conveyor parts, gears, sprockets and custom components, every part we make is built to the required specification and delivered on time.',
-        products_title:'ENGINEERED FOR RELIABILITY.',
-        choose_title:'QUALITY IS OUR COMMITMENT.',
-        choose_sub:'We combine advanced CNC machinery, skilled craftsmen, and stringent quality control to deliver components that exceed expectations — every single time.',
-        feat_1:'State-of-the-art Manufacturing Facility', feat_2:'Stringent Quality Assurance',
-        feat_3:'On-time Delivery, Every Time', feat_4:'Customer-centric Approach',
-        vision_title:'Our Vision',
         vision_text:'To become the most trusted name in solvent extraction machinery components — through relentless precision, customer-first thinking, and the kind of quality that makes plants run for decades without worry.',
-        reviews_title:'Trusted by Industry Leaders',
-        contact_float:'Contact Us', view_all:'VIEW ALL PRODUCTS',
+        contact_float:'Contact Us',
     },
     mr: {
         company_name:'लोहश्री', company_second_name:'इंजिनियर्स प्रा. लि.',
@@ -1195,15 +1099,8 @@ const T = {
         about_title:'३५ वर्षांचे उत्पादन कौशल्य.',
         about_p1:'लोहश्री इंजिनियर्स प्रा. लि. ३५ हून अधिक वर्षांपासून सेवा देत आहे, उच्च-गुणवत्तेचे मशीन पार्ट्स उत्पादन करत आहे.',
         about_p2:'प्रत्येक घटक अचूक सहनशीलतेनुसार बनवला जातो आणि वेळेवर वितरित केला जातो.',
-        products_title:'विश्वासार्हतेसाठी अभियंत्रित.',
-        choose_title:'गुणवत्ता आमची बांधिलकी.',
-        choose_sub:'प्रगत सीएनसी यंत्रे, कुशल कारागीर आणि कठोर गुणवत्ता नियंत्रणाच्या माध्यमातून आम्ही अपेक्षांपेक्षा अधिक घटक वितरित करतो.',
-        feat_1:'अत्याधुनिक उत्पादन सुविधा', feat_2:'कठोर गुणवत्ता आश्वासन',
-        feat_3:'वेळेवर वितरण, प्रत्येक वेळी', feat_4:'ग्राहक-केंद्रित दृष्टीकोन',
-        vision_title:'आमचा दृष्टिकोन',
         vision_text:'सोल्व्हेंट एक्स्ट्रॅक्शन मशीनरी घटकांमध्ये सर्वात विश्वासू नाव बनणे — अखंड अचूकता आणि ग्राहक-प्रथम विचारसरणीद्वारे.',
-        reviews_title:'उद्योग नेत्यांचा विश्वास',
-        contact_float:'संपर्क साधा', view_all:'सर्व उत्पादने पहा',
+        contact_float:'संपर्क साधा',
     }
 };
 
