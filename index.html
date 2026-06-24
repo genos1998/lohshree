@@ -1104,6 +1104,29 @@ const T = {
     }
 };
 
+// Scroll-spy: moves the active underline to whichever section is in view
+const navLinks = document.querySelectorAll('nav .nav-link[href^="#"]');
+const sections = [...navLinks].map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+
+function setActiveLink(id) {
+    navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+}
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) setActiveLink(entry.target.id);
+    });
+}, { rootMargin: '-40% 0px -50% 0px' });
+
+sections.forEach(sec => observer.observe(sec));
+
+navLinks.forEach(a => {
+    a.addEventListener('click', () => setActiveLink(a.getAttribute('href').slice(1)));
+});
+
+
 document.getElementById('langToggle').addEventListener('change', function () {
     const lang = this.value;
     document.querySelectorAll('[data-i18n]').forEach(el => {
