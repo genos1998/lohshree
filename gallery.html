@@ -36,16 +36,52 @@
             background: #C8185A;
         }
 
-        /* Thumbnail hover lift */
+        /* Thumbnail subtle lift on hover */
         .gallery-thumb {
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .gallery-thumb:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(200,24,90,0.18);
+            box-shadow: 0 8px 24px rgba(200,24,90,0.2);
         }
-        .gallery-thumb.active-thumb {
-            box-shadow: 0 0 0 3px #C8185A;
+
+        /* Centered hover preview overlay */
+        #hoverOverlay {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.85);
+            z-index: 80;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            max-width: 65vw;
+            max-height: 70vh;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 3px #C8185A;
+        }
+        #hoverOverlay.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        #hoverOverlay img,
+        #hoverOverlay video {
+            display: block;
+            max-width: 65vw;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+        #hoverBackdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 79;
+            background: rgba(0,0,0,0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        #hoverBackdrop.visible {
+            opacity: 1;
         }
     </style>
 </head>
@@ -107,38 +143,9 @@
             </p>
         </div>
 
-        <!-- Two-panel layout: Grid + Preview -->
-        <div class="grid lg:grid-cols-[1fr_1fr] gap-8 items-start">
-
-            <!-- LEFT: Thumbnail grid -->
-            <div id="galleryGrid"
-                 class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            </div>
-
-            <!-- RIGHT: Sticky preview panel (desktop only) -->
-            <div class="hidden lg:block sticky top-[100px]">
-                <div id="previewPanel"
-                     class="rounded-2xl border border-pink-200 bg-gray-50 overflow-hidden aspect-[4/3] flex items-center justify-center">
-
-                    <!-- Empty state -->
-                    <div id="previewEmpty" class="text-center px-8">
-                        <svg class="w-16 h-16 text-pink-200 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                        </svg>
-                        <p class="text-gray-400 font-bold text-sm uppercase tracking-widest">Hover over an item to preview</p>
-                    </div>
-
-                    <!-- Preview content (hidden until hover) -->
-                    <img    id="previewImage" class="w-full h-full object-contain hidden" alt="Preview">
-                    <video  id="previewVideo" class="w-full h-full object-contain hidden" muted playsinline loop></video>
-                </div>
-
-                <!-- Preview caption -->
-                <div id="previewCaption" class="mt-3 text-sm text-gray-500 font-medium text-center hidden"></div>
-            </div>
+        <!-- Gallery grid -->
+        <div id="galleryGrid"
+             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
         </div>
 
         <!-- Empty gallery message -->
@@ -156,6 +163,10 @@
     </div>
 </section>
 
+
+<!-- HOVER PREVIEW OVERLAY -->
+<div id="hoverBackdrop"></div>
+<div id="hoverOverlay"></div>
 
 <!-- FULLSCREEN LIGHTBOX — click to open -->
 <div id="lightbox"
@@ -333,10 +344,6 @@ let galleryItems = [];
 
 const grid           = document.getElementById('galleryGrid');
 const emptyMsg       = document.getElementById('emptyGallery');
-const previewImage   = document.getElementById('previewImage');
-const previewVideo   = document.getElementById('previewVideo');
-const previewEmpty   = document.getElementById('previewEmpty');
-const previewCaption = document.getElementById('previewCaption');
 const lightbox       = document.getElementById('lightbox');
 const lbImage        = document.getElementById('lbImage');
 const lbVideo        = document.getElementById('lbVideo');
@@ -388,45 +395,59 @@ function renderGrid() {
 }
 
 
-// ── HOVER PREVIEW (desktop) ────────────────────────────────────
-function showPreview(src, type, caption) {
-    previewEmpty.classList.add('hidden');
-    previewCaption.classList.remove('hidden');
-    previewCaption.textContent = caption;
+// ── HOVER PREVIEW + CLICK LISTENERS ───────────────────────────
+const hoverOverlay  = document.getElementById('hoverOverlay');
+const hoverBackdrop = document.getElementById('hoverBackdrop');
+let hoverShowTimer  = null;
+let hoverHideTimer  = null;
+let currentHoverSrc = null;
 
-    if (type === 'video') {
-        previewImage.classList.add('hidden');
-        previewVideo.classList.remove('hidden');
-        previewVideo.src = src;
-        previewVideo.play();
-    } else {
-        previewVideo.classList.add('hidden');
-        previewVideo.pause();
-        previewImage.classList.remove('hidden');
-        previewImage.src = src;
-    }
+function showHoverPreview(src, type) {
+    clearTimeout(hoverHideTimer);
+    clearTimeout(hoverShowTimer);
+    currentHoverSrc = src;
+
+    hoverShowTimer = setTimeout(() => {
+        if (type === 'video') {
+            hoverOverlay.innerHTML = `<video src="${src}" autoplay muted loop playsinline></video>`;
+        } else {
+            hoverOverlay.innerHTML = `<img src="${src}" alt="Preview">`;
+        }
+        hoverOverlay.classList.add('visible');
+        hoverBackdrop.classList.add('visible');
+    }, 120);
+}
+
+function hideHoverPreview() {
+    clearTimeout(hoverShowTimer);
+    clearTimeout(hoverHideTimer);
+    currentHoverSrc = null;
+
+    hoverOverlay.classList.remove('visible');
+    hoverBackdrop.classList.remove('visible');
+    hoverHideTimer = setTimeout(() => {
+        if (!currentHoverSrc) hoverOverlay.innerHTML = '';
+    }, 300);
 }
 
 function attachThumbListeners() {
     document.querySelectorAll('.gallery-thumb').forEach(thumb => {
-        const src     = thumb.dataset.src;
-        const type    = thumb.dataset.type;
-        const caption = thumb.dataset.caption;
-        const video   = thumb.querySelector('video');
+        const src   = thumb.dataset.src;
+        const type  = thumb.dataset.type;
+        const video = thumb.querySelector('video');
 
         thumb.addEventListener('mouseenter', () => {
-            showPreview(src, type, caption);
+            showHoverPreview(src, type);
             if (video) video.play();
-            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active-thumb'));
-            thumb.classList.add('active-thumb');
         });
 
         thumb.addEventListener('mouseleave', () => {
+            hideHoverPreview();
             if (video) { video.pause(); video.currentTime = 0; }
-            thumb.classList.remove('active-thumb');
         });
 
         thumb.addEventListener('click', () => {
+            hideHoverPreview();
             openLightbox(parseInt(thumb.dataset.index));
         });
     });
