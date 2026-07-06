@@ -290,8 +290,12 @@
 <!-- HERO SECTION -->
 <section id="home" class="relative min-h-[88vh] overflow-hidden bg-white">
 
-    <!-- ── Right side image: full-bleed faded background on mobile, diagonal-cut right 57% on lg+ ── -->
-    <div class="absolute right-0 top-0 bottom-0 w-full lg:w-[57%] pointer-events-none lg:[clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]">
+    <!-- ── Right side image: full-bleed faded background on mobile, diagonal-cut on lg+.
+         Width is calc(52% + 128px) so the clip's bottom-left point lands at calc(48% - 128px) —
+         the left edge of the About section's pink chevron (a 220px shape centered at
+         calc(48% - 18px)) — so the hero diagonal meets where the chevron begins at every
+         viewport width, not just one screen size. ── -->
+    <div class="absolute right-0 top-0 bottom-0 w-full lg:w-[calc(52%+128px)] pointer-events-none lg:[clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]">
 
         <!-- Slideshow -->
         <div id="hero-slider" class="absolute inset-0 pointer-events-auto">
