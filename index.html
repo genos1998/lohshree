@@ -241,6 +241,42 @@
 
         </div>
 
+        <!-- Mobile menu toggle -->
+        <button id="mobileMenuBtn"
+            class="xl:hidden w-11 h-11 rounded-lg border border-gray-200 flex items-center justify-center text-ink flex-shrink-0"
+            aria-label="Toggle menu" aria-expanded="false">
+            <svg id="menuIconOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="menuIconClose" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobileMenu" class="hidden xl:hidden border-t border-gray-100 bg-white shadow-lg">
+        <nav class="px-6 py-4 flex flex-col text-sm font-bold tracking-[0.14em] uppercase text-gray-700">
+            <a href="#home"        class="py-3 border-b border-gray-50 hover:text-brand transition">Home</a>
+            <a href="#about"       class="py-3 border-b border-gray-50 hover:text-brand transition">About Us</a>
+            <a href="#products"    class="py-3 border-b border-gray-50 hover:text-brand transition">Products</a>
+            <a href="#clients"     class="py-3 border-b border-gray-50 hover:text-brand transition">Industries</a>
+            <a href="gallery.html" class="py-3 border-b border-gray-50 hover:text-brand transition">Gallery</a>
+            <a href="#contact"     class="py-3 hover:text-brand transition">Contact Us</a>
+
+            <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full px-4 py-2.5 gap-2 mt-3 lg:hidden">
+                <svg class="w-3.5 h-3.5 text-gray-800 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input
+                    id="mobileSearch"
+                    type="text"
+                    placeholder="Search products..."
+                    class="bg-transparent text-sm font-medium focus:outline-none w-full text-gray-900 placeholder-gray-600"
+                >
+            </div>
+        </nav>
     </div>
 </header>
 
@@ -248,9 +284,8 @@
 <!-- HERO SECTION -->
 <section id="home" class="relative min-h-[88vh] overflow-hidden bg-white">
 
-    <!-- ── Right side image (absolute, covers right 57% with diagonal cut) ── -->
-    <div class="absolute right-0 top-0 bottom-0 w-[57%] pointer-events-none"
-         style="clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);">
+    <!-- ── Right side image: full-bleed faded background on mobile, diagonal-cut right 57% on lg+ ── -->
+    <div class="absolute right-0 top-0 bottom-0 w-full lg:w-[57%] pointer-events-none lg:[clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]">
 
         <!-- Slideshow -->
         <div id="hero-slider" class="absolute inset-0 pointer-events-auto">
@@ -267,6 +302,8 @@
             </div>
             <!-- subtle left-edge blend -->
             <div class="absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-transparent z-20 pointer-events-none"></div>
+            <!-- mobile: strong white wash so hero text stays readable over the image -->
+            <div class="absolute inset-0 bg-white/85 z-20 pointer-events-none lg:hidden"></div>
         </div>
 
         <!-- Pink accent stripe — far right edge -->
@@ -277,7 +314,7 @@
     </div>
 
     <!-- ── Left text content — fills the full left column ── -->
-    <div class="relative z-10 h-full min-h-[88vh] flex items-center">
+    <div class="relative z-30 h-full min-h-[88vh] flex items-center">
         <!-- Use full-bleed left padding so text starts near viewport edge -->
         <div class="w-full pl-8 sm:pl-12 lg:pl-20 xl:pl-28 pr-4 lg:w-[46%] py-24 lg:py-0">
 
@@ -288,7 +325,7 @@
             </div>
 
             <!-- Headline — full width of the left column -->
-            <h1 class="font-black leading-[1.03] tracking-tight mb-6" style="font-size: clamp(2.8rem, 4.5vw, 4.2rem);">
+            <h1 class="font-black leading-[1.03] tracking-tight mb-6" style="font-size: clamp(2.3rem, 4.5vw, 4.2rem);">
                 <span class="text-ink block">PRECISION<br>ENGINEERING.</span>
                 <span class="text-brand block">BUILT TO EXTRACT<br>PERFORMANCE.</span>
             </h1>
@@ -312,7 +349,7 @@
     </div>
 
     <!-- Slide controls — bottom-right of the image -->
-    <div class="absolute bottom-8 right-[22%] z-40 flex gap-2">
+    <div class="absolute bottom-8 right-6 lg:right-[22%] z-40 flex gap-2">
         <button id="prevSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
@@ -424,12 +461,12 @@
                 <!-- More even grid -->
                 <div
                     id="productGrid"
-                    class="grid grid-cols-2 auto-rows-[160px] border border-pink-200 rounded-xl overflow-hidden divide-x divide-y divide-pink-200">
+                    class="grid grid-cols-1 sm:grid-cols-2 auto-rows-[140px] sm:auto-rows-[160px] border border-pink-200 rounded-xl overflow-hidden divide-x divide-y divide-pink-200">
                 </div>
 
                 <div class="mt-6">
                     <button
-                        onclick="document.getElementById('navSearch').focus()"
+                        onclick="focusProductSearch()"
                         class="flex items-center gap-2 text-brand text-sm font-black tracking-widest uppercase hover:gap-3 transition-all">
                         VIEW ALL PRODUCTS →
                     </button>
@@ -438,11 +475,17 @@
             </div>
 
             <!-- RIGHT: WHY CHOOSE US -->
-            <div class="relative overflow-hidden rounded-l-2xl min-h-[580px] -mr-6">
+            <div class="relative overflow-hidden rounded-2xl lg:rounded-r-none lg:rounded-l-2xl lg:min-h-[580px] lg:-mr-6 bg-brandLight lg:bg-transparent">
 
-                <!-- Make the image much wider -->
+                <!-- Mobile: image stacked on top -->
+                <img
+                    src="assets/whyChooseUS.jpg"
+                    alt="CNC Machining"
+                    class="lg:hidden w-full h-52 object-cover">
+
+                <!-- Desktop: image much wider, bleeding off the right edge -->
                 <div
-                    class="absolute top-12 bottom-12 -right-60 w-[84%]">
+                    class="hidden lg:block absolute top-12 bottom-12 -right-60 w-[84%]">
 
                     <img
                         src="assets/whyChooseUS.jpg"
@@ -451,8 +494,8 @@
                 </div>
 
                 <!-- Content stays a bit tighter on the left -->
-                <div class="relative z-10 h-full flex items-center">
-                    <div class="max-w-[46%] px-10 lg:px-12 py-12">
+                <div class="relative z-10 lg:h-full flex items-center">
+                    <div class="w-full lg:max-w-[46%] px-6 py-10 sm:px-10 lg:px-12 lg:py-12">
 
                         <div class="text-sm font-black text-brand tracking-[0.2em] uppercase mb-3">
                             WHY CHOOSE US
@@ -1204,6 +1247,27 @@ modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 
+// Mobile menu: toggle panel + swap hamburger/close icons, close after navigating
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu    = document.getElementById('mobileMenu');
+
+function setMobileMenu(open) {
+    mobileMenu.classList.toggle('hidden', !open);
+    document.getElementById('menuIconOpen').classList.toggle('hidden', open);
+    document.getElementById('menuIconClose').classList.toggle('hidden', !open);
+    mobileMenuBtn.setAttribute('aria-expanded', open);
+}
+mobileMenuBtn.addEventListener('click', () => setMobileMenu(mobileMenu.classList.contains('hidden')));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMobileMenu(false)));
+
+// Focus whichever search input is actually visible (nav on desktop, menu on mobile)
+function focusProductSearch() {
+    const nav = document.getElementById('navSearch');
+    if (nav.offsetParent) { nav.focus(); return; }
+    setMobileMenu(true);
+    document.getElementById('mobileSearch').focus();
+}
+
 // Filter product grid cards as user types in the search bar
 // Always shows the "Custom Solutions" card when no other results match
 document.getElementById('navSearch').addEventListener('input', function () {
@@ -1216,7 +1280,7 @@ document.getElementById('navSearch').addEventListener('input', function () {
         const matches = !term || card.dataset.search.toLowerCase().includes(term);
         if (matches && !isCustom) hasMatch = true;
         card.style.display = matches ? '' : 'none';
-        card.classList.remove('col-span-2');
+        card.classList.remove('sm:col-span-2');
     });
 
     // If searching but nothing matched, show the custom card as a fallback
@@ -1228,9 +1292,16 @@ document.getElementById('navSearch').addEventListener('input', function () {
 
     // If only one card is visible, span it across both columns
     const visible = [...cards].filter(c => c.style.display !== 'none');
-    if (visible.length === 1) visible[0].classList.add('col-span-2');
+    if (visible.length === 1) visible[0].classList.add('sm:col-span-2');
 
     if (term.length === 1) document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+});
+
+// Mobile search mirrors into the nav search so one filter handler serves both
+document.getElementById('mobileSearch').addEventListener('input', function () {
+    const nav = document.getElementById('navSearch');
+    nav.value = this.value;
+    nav.dispatchEvent(new Event('input'));
 });
 
 
