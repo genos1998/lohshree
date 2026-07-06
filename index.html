@@ -47,9 +47,119 @@
             height: 2px;
             background: #C8185A;
         }
+
+        /* Preloader — gear spins in place of the "O" in Lohshree */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #preloader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-brand {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .preloader-word {
+            display: flex;
+            align-items: center;
+            font-weight: 900;
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            letter-spacing: 0.06em;
+            color: #111827;
+            line-height: 1;
+        }
+        .preloader-gear {
+            width: 0.85em;
+            height: 0.85em;
+            margin: 0 0.02em;
+            animation: preloader-spin 10s linear infinite;
+            color: #C8185A;
+        }
+        @keyframes preloader-spin {
+            to { transform: rotate(360deg); }
+        }
+        .preloader-subtitle-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+        }
+        .preloader-subtitle-row::before,
+        .preloader-subtitle-row::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #9ca3af);
+        }
+        .preloader-subtitle-row::after {
+            background: linear-gradient(90deg, #9ca3af, transparent);
+        }
+        .preloader-subtitle {
+            font-size: clamp(0.8rem, 1.6vw, 1rem);
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+        .preloader-tagline {
+            font-size: clamp(1rem, 2.2vw, 1.35rem);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #111827;
+        }
+        .preloader-tagline span {
+            color: #C8185A;
+        }
     </style>
 </head>
 <body class="bg-white text-ink font-sans antialiased">
+
+<!-- PRELOADER -->
+<div id="preloader">
+    <div class="preloader-brand">
+        <div class="preloader-word">
+            <span>L</span>
+            <svg class="preloader-gear" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="steelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%"  stop-color="#f4f6f8"/>
+                        <stop offset="22%" stop-color="#c3cad3"/>
+                        <stop offset="45%" stop-color="#8b96a3"/>
+                        <stop offset="60%" stop-color="#dfe4e9"/>
+                        <stop offset="78%" stop-color="#9aa4b0"/>
+                        <stop offset="100%" stop-color="#6b7480"/>
+                    </linearGradient>
+                </defs>
+                <path fill="url(#steelGradient)" fill-rule="evenodd" stroke="#5a6270" stroke-width="1.2" stroke-linejoin="round"
+                    d="M43.3 4L41 15.6c-3.2.9-6.2 2.3-8.9 4L21.8 13.9l-9 9 5.7 10.3c-1.7 2.7-3.1 5.7-4 8.9L4 44v12.8l11.6 2.3c.9 3.2 2.3 6.2 4 8.9L13.9 78.2l9 9 10.3-5.7c2.7 1.7 5.7 3.1 8.9 4L44 96.8h12.8l2.3-11.6c3.2-.9 6.2-2.3 8.9-4l10.3 5.7 9-9-5.7-10.3c1.7-2.7 3.1-5.7 4-8.9L97 56V43.2l-11.6-2.3c-.9-3.2-2.3-6.2-4-8.9l5.7-10.3-9-9-10.3 5.7c-2.7-1.7-5.7-3.1-8.9-4L56.8 3H43.3z
+                    M50 30a20 20 0 1 1 0 40 20 20 0 0 1 0-40z
+                    M50 36a14 14 0 1 0 0 28 14 14 0 0 0 0-28z"/>
+            </svg>
+            <span>HSHREE</span>
+        </div>
+        <div class="preloader-subtitle-row">
+            <div class="preloader-subtitle">Engineers Pvt. Ltd.</div>
+        </div>
+        <div class="preloader-tagline">You Came To The <span>Right Place</span></div>
+    </div>
+</div>
+<script>
+    window.__preloaderStart = Date.now();
+</script>
 
 
 <!-- HEADER -->
@@ -779,6 +889,16 @@
 <!-- SCRIPTS -->
 <script>
 'use strict';
+
+// Preloader — stays visible for at least min time below, longer if the page is still loading
+const PRELOADER_MIN_MS = 1800;
+window.addEventListener('load', () => {
+    const elapsed = Date.now() - (window.__preloaderStart || Date.now());
+    const remaining = Math.max(0, PRELOADER_MIN_MS - elapsed);
+    setTimeout(() => {
+        document.getElementById('preloader').classList.add('loaded');
+    }, remaining);
+});
 
 // Product catalog data — drives the grid, modal, and search
 const catalog = [
