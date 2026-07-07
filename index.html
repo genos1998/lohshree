@@ -196,6 +196,11 @@
 </div>
 <script>
     window.__preloaderStart = Date.now();
+    // Only play the preloader on the first visit of the session,
+    // not when navigating back from other pages like the gallery
+    window.__skipPreloader = sessionStorage.getItem('preloaderShown') === '1';
+    if (window.__skipPreloader) document.getElementById('preloader').style.display = 'none';
+    sessionStorage.setItem('preloaderShown', '1');
 </script>
 
 
@@ -474,14 +479,6 @@
                     class="grid grid-cols-1 sm:grid-cols-2 auto-rows-[140px] sm:auto-rows-[160px] border border-pink-200 rounded-xl overflow-hidden divide-x divide-y divide-pink-200">
                 </div>
 
-                <div class="mt-6">
-                    <button
-                        onclick="focusProductSearch()"
-                        class="flex items-center gap-2 text-brand text-sm font-black tracking-widest uppercase hover:gap-3 transition-all">
-                        VIEW ALL PRODUCTS →
-                    </button>
-                </div>
-
             </div>
 
             <!-- RIGHT: WHY CHOOSE US -->
@@ -668,8 +665,8 @@
                         </div>
                     </div>
 
-                    <!-- Belt assembly: slatted loop wrapping two end drums, on mounted legs -->
-                    <div class="relative h-[84px] -mt-px">
+                    <!-- Belt assembly: slatted loop wrapping two end drums -->
+                    <div class="relative h-12 -mt-px">
 
                         <!-- Belt loop (pill shape = belt wrapping the end drums) -->
                         <div class="belt-loop absolute inset-x-0 top-0 h-11 rounded-full shadow-lg z-10"></div>
@@ -721,28 +718,6 @@
                             <circle cx="20" cy="20" r="9.5" fill="url(#capGrad)" stroke="#475569" stroke-width="0.75"/>
                             <text x="20" y="20.6" text-anchor="middle" dominant-baseline="central" font-size="8" font-weight="900" letter-spacing="0.2" fill="#0f172a">LSE</text>
                         </svg>
-
-                        <!-- Mounting legs with foot plates -->
-                        <div class="absolute top-[40px] left-[8%] -translate-x-1/2 flex flex-col items-center">
-                            <div class="w-3 h-8 bg-gradient-to-r from-gray-600 via-gray-300 to-gray-600"></div>
-                            <div class="w-10 h-2.5 rounded-sm bg-gradient-to-b from-gray-400 to-gray-700 shadow"></div>
-                        </div>
-                        <div class="absolute top-[40px] left-[29%] -translate-x-1/2 flex-col items-center hidden sm:flex">
-                            <div class="w-3 h-8 bg-gradient-to-r from-gray-600 via-gray-300 to-gray-600"></div>
-                            <div class="w-10 h-2.5 rounded-sm bg-gradient-to-b from-gray-400 to-gray-700 shadow"></div>
-                        </div>
-                        <div class="absolute top-[40px] left-[50%] -translate-x-1/2 flex flex-col items-center">
-                            <div class="w-3 h-8 bg-gradient-to-r from-gray-600 via-gray-300 to-gray-600"></div>
-                            <div class="w-10 h-2.5 rounded-sm bg-gradient-to-b from-gray-400 to-gray-700 shadow"></div>
-                        </div>
-                        <div class="absolute top-[40px] left-[71%] -translate-x-1/2 flex-col items-center hidden sm:flex">
-                            <div class="w-3 h-8 bg-gradient-to-r from-gray-600 via-gray-300 to-gray-600"></div>
-                            <div class="w-10 h-2.5 rounded-sm bg-gradient-to-b from-gray-400 to-gray-700 shadow"></div>
-                        </div>
-                        <div class="absolute top-[40px] left-[92%] -translate-x-1/2 flex flex-col items-center">
-                            <div class="w-3 h-8 bg-gradient-to-r from-gray-600 via-gray-300 to-gray-600"></div>
-                            <div class="w-10 h-2.5 rounded-sm bg-gradient-to-b from-gray-400 to-gray-700 shadow"></div>
-                        </div>
 
                     </div>
 
@@ -1041,6 +1016,7 @@
 // Preloader — stays visible for at least min time below, longer if the page is still loading
 const PRELOADER_MIN_MS = 1800;
 window.addEventListener('load', () => {
+    if (window.__skipPreloader) return;
     const elapsed = Date.now() - (window.__preloaderStart || Date.now());
     const remaining = Math.max(0, PRELOADER_MIN_MS - elapsed);
     setTimeout(() => {
@@ -1057,9 +1033,10 @@ const catalog = [
         tagline: 'Extractor shafts for solvent plants',
         stroke: '#3b82f6',
         bg: '#eff6ff',
-        icon: `<line x1="3" y1="12" x2="21" y2="12" stroke-width="2.5" stroke-linecap="round"/>
-               <rect x="7" y="8" width="3" height="8" rx="1" stroke-width="1.5"/>
-               <rect x="14" y="8" width="3" height="8" rx="1" stroke-width="1.5"/>`,
+        icon: `<rect x="2" y="9.75" width="4" height="4.5" rx="0.75" stroke-width="1.5"/>
+               <rect x="6" y="7" width="9" height="10" rx="1" stroke-width="1.5"/>
+               <rect x="15" y="9.75" width="7" height="4.5" rx="0.75" stroke-width="1.5"/>
+               <line x1="8.5" y1="12" x2="12.5" y2="12" stroke-width="1.5" stroke-linecap="round"/>`,
         items: [
             { name: 'Drive Shaft',   spec: 'Extractor machine part' },
             { name: 'Tension Shaft', spec: 'Extractor machine part' },
@@ -1075,10 +1052,11 @@ const catalog = [
         tagline: 'Inlet, outlet square type and Dismit design',
         stroke: '#f43f5e',
         bg: '#fff1f2',
-        icon: `<path stroke-width="1.5" stroke-linecap="round"
-                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4
-                       m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4
-                       m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>`,
+        icon: `<circle cx="12" cy="12" r="6.5" stroke-width="1.5"/>
+               <path stroke-width="1.5" stroke-linecap="round"
+                     d="M12 12V5.5m0 6.5v6.5m0-6.5l5.63 3.25M12 12L6.37 15.25M12 12l5.63-3.25M12 12L6.37 8.75"/>
+               <circle cx="12" cy="12" r="1.6" stroke-width="1.5"/>
+               <path stroke-width="1.5" stroke-linecap="round" d="M8.5 2.5h7M8.5 21.5h7"/>`,
         items: [
             { name: 'Rotary Valve',              spec: 'Bush type / mechanical seal' },
             { name: 'Bush Type Rotary Valve',     spec: 'All sizes' },
@@ -1092,9 +1070,11 @@ const catalog = [
         tagline: 'Drive shafts, tension shafts and conveyor spares',
         stroke: '#f59e0b',
         bg: '#fffbeb',
-        icon: `<rect x="5" y="9" width="14" height="6" rx="3" stroke-width="1.5"/>
-               <line x1="2" y1="12" x2="5" y2="12" stroke-width="2" stroke-linecap="round"/>
-               <line x1="19" y1="12" x2="22" y2="12" stroke-width="2" stroke-linecap="round"/>`,
+        icon: `<rect x="2.5" y="9" width="19" height="7" rx="3.5" stroke-width="1.5"/>
+               <circle cx="6.5" cy="12.5" r="1.3" stroke-width="1.5"/>
+               <circle cx="12" cy="12.5" r="1.3" stroke-width="1.5"/>
+               <circle cx="17.5" cy="12.5" r="1.3" stroke-width="1.5"/>
+               <rect x="9.25" y="4.25" width="5.5" height="4.75" rx="0.75" stroke-width="1.5"/>`,
         items: [
             { name: 'Drive Shaft for Redler Conveyor', spec: 'Complete' },
             { name: 'Tension Shaft for Redler Conveyor', spec: 'Complete' },
@@ -1113,8 +1093,13 @@ const catalog = [
         tagline: 'Heavy and light duty transmission parts',
         stroke: '#64748b',
         bg: '#f1f5f9',
-        icon: `<path stroke-width="1.5"
-                d="M12 8a4 4 0 100 8 4 4 0 000-8zm8 4l-2.1-.7a7.9 7.9 0 00-.6-1.5l1.1-1.9-1.4-1.4-1.9 1.1c-.5-.3-1-.5-1.5-.6L12 4l-1.1 2.1c-.5.1-1 .3-1.5.6L7.5 5.6 6.1 7l1.1 1.9c-.3.5-.5 1-.6 1.5L4.5 12l2.1 1.1c.1.5.3 1 .6 1.5L6.1 16.5l1.4 1.4 1.9-1.1c.5.3 1 .5 1.5.6L12 19.5l1.1-2.1c.5-.1 1-.3 1.5-.6l1.9 1.1 1.4-1.4-1.1-1.9c.3-.5.5-1 .6-1.5L19.5 12z"/>`,
+        icon: `<circle cx="9" cy="9.5" r="4.8" stroke-width="1.5"/>
+               <circle cx="9" cy="9.5" r="1.8" stroke-width="1.5"/>
+               <path stroke-width="1.5" stroke-linecap="round"
+                     d="M13.8 9.5h2M9 4.7v-2M4.2 9.5h-2M9 14.3v2M12.4 6.1l1.4-1.4M5.6 6.1L4.2 4.7M5.6 12.9l-1.4 1.4M12.4 12.9l1.4 1.4"/>
+               <circle cx="17.5" cy="17.5" r="2.4" stroke-width="1.5"/>
+               <path stroke-width="1.5" stroke-linecap="round"
+                     d="M19.9 17.5h1.5M15.1 17.5h-1.5M18.7 15.4l.75-1.3M16.3 15.4l-.75-1.3M16.3 19.6l-.75 1.3M18.7 19.6l.75 1.3"/>`,
         items: [
             { name: 'Spur Gear with Pinion', spec: 'Heavy and light duty' },
             { name: 'Sprocket for Redler Conveyor', spec: 'As required' },
@@ -1128,9 +1113,11 @@ const catalog = [
         tagline: 'Jet cleaners, bindicators, sight glasses and more',
         stroke: '#a855f7',
         bg: '#faf5ff',
-        icon: `<path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                    d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94
-                       l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>`,
+        icon: `<circle cx="12" cy="12.5" r="7.5" stroke-width="1.5"/>
+               <path stroke-width="1.5" stroke-linecap="round" d="M12 12.5l3.7-3.7"/>
+               <circle cx="12" cy="12.5" r="1.1" stroke-width="1.5"/>
+               <path stroke-width="1.5" stroke-linecap="round"
+                     d="M12 6.6v1.5M6.1 12.5h1.5M17.9 12.5h-1.5M7.83 8.33l1.06 1.06"/>`,
         items: [
             { name: 'Jet Cleaner', spec: 'For 1200 / 1500 / 1800 / 2000 / 2400 mm' },
             { name: 'Damper Assembly', spec: 'M.S. & S.S.' },
@@ -1274,14 +1261,6 @@ function setMobileMenu(open) {
 }
 mobileMenuBtn.addEventListener('click', () => setMobileMenu(mobileMenu.classList.contains('hidden')));
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMobileMenu(false)));
-
-// Focus whichever search input is actually visible (nav on desktop, menu on mobile)
-function focusProductSearch() {
-    const nav = document.getElementById('navSearch');
-    if (nav.offsetParent) { nav.focus(); return; }
-    setMobileMenu(true);
-    document.getElementById('mobileSearch').focus();
-}
 
 // Filter product grid cards as user types in the search bar
 // Always shows the "Custom Solutions" card when no other results match
