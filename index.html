@@ -336,7 +336,7 @@
             <!-- Badge -->
             <div class="flex items-center gap-3 mb-7">
                 <div class="w-10 h-px bg-brand flex-shrink-0"></div>
-                <span class="text-sm font-black text-brand tracking-[0.2em] uppercase">45+ Years of Excellence</span>
+                <span class="text-sm font-black text-brand tracking-[0.2em] uppercase"><span class="years-exp">45</span> Years of Excellence</span>
             </div>
 
             <!-- Headline — full width of the left column -->
@@ -404,12 +404,12 @@
                 </div>
 
                 <h2 class="max-w-[470px] text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink mb-7 leading-[1.05] uppercase">
-                    45 YEARS OF MANUFACTURING PRECISION.
+                    <span class="years-exp">45</span> YEARS OF MANUFACTURING PRECISION.
                 </h2>
 
                 <p class="max-w-[455px] text-slate-1200 text-base sm:text-[17px] leading-relaxed mb-5">
                     Lohshree Engineers Pvt. Ltd. has been serving the solvent
-                    extraction industry for over 45 years, manufacturing
+                    extraction industry for over <span class="years-exp">45</span> years, manufacturing
                     high-quality machine parts that keep plants running at peak
                     efficiency.
                 </p>
@@ -432,7 +432,7 @@
                 <h2 class="max-w-[520px] text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink leading-[1.05] mb-7 uppercase">
                     BUILT FOR THE NEXT
                     <br>
-                    <span class="text-brand">45 YEARS AND BEYOND.</span>
+                    <span class="text-brand"><span class="years-exp">45</span> YEARS AND BEYOND.</span>
                 </h2>
 
                 <div class="w-12 h-0.5 bg-brand mb-7"></div>
@@ -576,7 +576,7 @@
     );">
     <div class="max-w-[1400px] mx-auto px-6">
 
-        <div class="grid lg:grid-cols-[140px_1fr] overflow-hidden rounded-3xl border border-pink-100 bg-white shadow-sm">
+        <div class="grid lg:grid-cols-[340px_1fr] overflow-hidden rounded-3xl border border-pink-100 bg-white shadow-sm">
 
             <!-- LEFT ACCENT PANEL -->
             <div class="relative overflow-hidden bg-gradient-to-b from-[#c8185a] via-[#d22f6e] to-[#e26b98]">
@@ -591,30 +591,10 @@
                         );
                     ">
                 </div>
-                <div class="relative h-full min-h-[280px] flex flex-col items-center justify-center px-6 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-white/12 backdrop-blur-sm border border-white/15 shadow-lg shadow-black/10 flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4" stroke-width="2"/>
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-
-                    <div class="text-white text-sm font-black tracking-[0.25em] uppercase leading-relaxed">
-                        Trusted<br>
-                        By Industry<br>
-                        Leaders
-                    </div>
+                <div class="relative h-full min-h-[280px] flex items-center justify-center p-6">
+                    <img src="assets/map.png"
+                        alt="Clients across India served from Navi Mumbai"
+                        class="max-h-[320px] w-auto object-contain drop-shadow-lg">
                 </div>
             </div>
 
@@ -808,7 +788,7 @@
                 <div class="flex flex-wrap gap-3 mb-6">
 
                     <span class="text-sm font-bold uppercase tracking-wider text-gray-300">
-                        45+ Years Experience
+                        <span class="years-exp">45</span> Years Experience
                     </span>
 
                     <span class="text-sm font-bold uppercase tracking-wider text-gray-300">
@@ -1023,6 +1003,14 @@ window.addEventListener('load', () => {
         document.getElementById('preloader').classList.add('loaded');
     }, remaining);
 });
+
+// Years of experience — counted from the 1981 founding year so it
+// rolls over automatically each new year (45 in 2026, 46 in 2027, ...)
+const FOUNDING_YEAR = 1981;
+document.querySelectorAll('.years-exp').forEach(el => {
+    el.textContent = new Date().getFullYear() - FOUNDING_YEAR;
+});
+
 
 // Product catalog data — drives the grid, modal, and search
 const catalog = [
