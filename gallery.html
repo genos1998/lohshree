@@ -1,4 +1,19 @@
 <!DOCTYPE html>
+<!--
+    LOHSHREE ENGINEERS — GALLERY PAGE
+
+    How this file is organized (top to bottom):
+      <head>          Tailwind CDN + brand colors, custom CSS (thumbnails,
+                      hover preview overlay)
+      Icon library    Shared SVG icons, drawn once and reused via <use>
+      Header          Logo, nav links back to the homepage sections
+      Gallery         Thumbnail grid (rendered by JS) + empty-state message
+      Hover preview   Enlarged media shown while hovering a thumbnail
+      Lightbox        Fullscreen viewer with prev/next navigation
+      Footer          Copyright bar
+      Contact button  Floating phone / WhatsApp / email menu
+      <script>        Gallery file list + behavior
+-->
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -86,6 +101,30 @@
     </style>
 </head>
 <body class="bg-white text-ink font-sans antialiased">
+
+<!-- ICON LIBRARY — every icon used more than once is drawn ONCE here as a
+     <symbol>, then placed anywhere with <svg ...><use href="#icon-name"/></svg>.
+     Size and color come from the classes on each <svg>, not from the symbol. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="icon-phone" viewBox="0 0 24 24">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+    </symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+        <path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm4.36 13.36c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/>
+    </symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+    </symbol>
+    <symbol id="icon-chevron-left" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+    </symbol>
+    <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+    </symbol>
+</svg>
 
 
 <!-- HEADER -->
@@ -176,22 +215,22 @@
     <!-- Close -->
     <button onclick="closeLightbox()"
             class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-20">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <use href="#icon-close"/>
         </svg>
     </button>
 
     <!-- Prev / Next -->
     <button id="lbPrev"
             class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-20">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <use href="#icon-chevron-left"/>
         </svg>
     </button>
     <button id="lbNext"
             class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-20">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <use href="#icon-chevron-right"/>
         </svg>
     </button>
 
@@ -238,7 +277,7 @@
         <a href="tel:+919820120832"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
             <div class="w-9 h-9 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 fill-blue-500" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                <svg class="w-4 h-4 fill-blue-500" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
             </div>
             <div>
                 <div class="font-semibold text-sm text-ink">Call: 9820120832</div>
@@ -248,7 +287,7 @@
         <a href="https://wa.me/919820120832" target="_blank"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
             <div class="w-9 h-9 bg-green-50 border border-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 fill-[#25D366]" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm4.36 13.36c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/></svg>
+                <svg class="w-4 h-4 fill-[#25D366]" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
             <div>
                 <div class="font-semibold text-sm text-[#25D366]">WhatsApp</div>
@@ -258,8 +297,8 @@
         <a href="mailto:lohshreeind@gmail.com"
            class="flex items-center gap-3 px-4 py-3.5 hover:bg-gray-50 transition">
             <div class="w-9 h-9 bg-red-50 border border-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <use href="#icon-mail"/>
                 </svg>
             </div>
             <div>
@@ -273,14 +312,14 @@
         class="bg-ink text-white pl-3 pr-5 py-3 rounded-full shadow-2xl flex items-center gap-2.5 hover:scale-105 transition-transform duration-200">
         <div class="flex items-center gap-1">
             <div class="w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center">
-                <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
             </div>
             <div class="w-7 h-7 bg-[#25D366] rounded-full flex items-center justify-center">
-                <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.94 14.47L2 22l5.72-1.06A10 10 0 1 0 12 2zm4.36 13.36c-.24-.12-1.42-.7-1.64-.78-.22-.08-.39-.12-.56.12-.17.24-.65.78-.8.94-.15.16-.3.18-.54.06-.24-.12-1.01-.37-1.93-1.18-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.27.36-.4.12-.13.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.41-.56-.42h-.48c-.16 0-.42.06-.64.3-.22.24-.86.84-.86 2.05 0 1.2.88 2.36 1.01 2.52.12.16 1.73 2.65 4.2 3.72.59.25 1.05.4 1.4.51.59.19 1.13.16 1.56.1.47-.07 1.42-.58 1.62-1.15.2-.57.2-1.06.14-1.15-.06-.09-.22-.15-.46-.27z"/></svg>
+                <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
             <div class="w-7 h-7 bg-brand rounded-full flex items-center justify-center">
-                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <use href="#icon-mail"/>
                 </svg>
             </div>
         </div>
