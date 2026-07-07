@@ -205,6 +205,10 @@
     <symbol id="icon-check-circle" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
     </symbol>
+    <symbol id="icon-camera" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+        <circle cx="12" cy="13" r="3"/>
+    </symbol>
     <symbol id="icon-chevron-left" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
     </symbol>
@@ -943,6 +947,41 @@
 </div>
 
 
+<!-- ITEM PHOTO VIEWER — opens on top of the product modal when an item
+     with photos is clicked; shows its gallery images with prev/next -->
+<div id="photoViewer"
+     class="fixed inset-0 z-[120] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6"
+     style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;">
+
+    <button onclick="closePhotoViewer()"
+            class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-20">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <use href="#icon-close"/>
+        </svg>
+    </button>
+
+    <button id="pvPrev"
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-20">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <use href="#icon-chevron-left"/>
+        </svg>
+    </button>
+    <button id="pvNext"
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition z-20">
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <use href="#icon-chevron-right"/>
+        </svg>
+    </button>
+
+    <div class="max-w-3xl max-h-[80vh] w-full flex items-center justify-center">
+        <img id="pvImage" class="max-w-full max-h-[80vh] object-contain rounded-lg" alt="">
+    </div>
+
+    <div id="pvCaption"
+         class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/90 text-sm font-medium bg-black/40 px-4 py-2 rounded-full whitespace-nowrap"></div>
+</div>
+
+
 <!-- FLOATING CONTACT BUTTON — phone, WhatsApp, email dropdown -->
 <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
 
@@ -1030,7 +1069,9 @@ document.querySelectorAll('.years-exp').forEach(el => {
 });
 
 
-// Product catalog data — drives the grid, modal, and search
+// Product catalog data — drives the grid, modal, and search.
+// An item can list photos from assets/gallery/<galleryFolder>/ — those items
+// become clickable in the modal and open the photo viewer.
 const catalog = [
     {
         id: 'shafts',
@@ -1043,8 +1084,9 @@ const catalog = [
                <rect x="6" y="7" width="9" height="10" rx="1" stroke-width="1.5"/>
                <rect x="15" y="9.75" width="7" height="4.5" rx="0.75" stroke-width="1.5"/>
                <line x1="8.5" y1="12" x2="12.5" y2="12" stroke-width="1.5" stroke-linecap="round"/>`,
+        galleryFolder: 'shafts',
         items: [
-            { name: 'Drive Shaft',   spec: 'Extractor machine part' },
+            { name: 'Drive Shaft',   spec: 'Extractor machine part', photos: ['drive-shaft-with-sprocket.png'] },
             { name: 'Tension Shaft', spec: 'Extractor machine part' },
             { name: 'Drum Shaft',    spec: 'Extractor machine part' },
             { name: 'Scrapper Shaft', spec: 'Extractor machine part' },
@@ -1063,8 +1105,9 @@ const catalog = [
                      d="M12 12V5.5m0 6.5v6.5m0-6.5l5.63 3.25M12 12L6.37 15.25M12 12l5.63-3.25M12 12L6.37 8.75"/>
                <circle cx="12" cy="12" r="1.6" stroke-width="1.5"/>
                <path stroke-width="1.5" stroke-linecap="round" d="M8.5 2.5h7M8.5 21.5h7"/>`,
+        galleryFolder: 'rotary-valves',
         items: [
-            { name: 'Rotary Valve',              spec: 'Bush type / mechanical seal' },
+            { name: 'Rotary Valve',              spec: 'Bush type / mechanical seal', photos: ['rotary-valve.png', 'square-type-rotary-valve.png'] },
             { name: 'Bush Type Rotary Valve',     spec: 'All sizes' },
             { name: 'Mechanical Seal Rotary Valve', spec: 'All sizes' },
         ]
@@ -1081,12 +1124,13 @@ const catalog = [
                <circle cx="12" cy="12.5" r="1.3" stroke-width="1.5"/>
                <circle cx="17.5" cy="12.5" r="1.3" stroke-width="1.5"/>
                <rect x="9.25" y="4.25" width="5.5" height="4.75" rx="0.75" stroke-width="1.5"/>`,
+        galleryFolder: 'conveyor-parts',
         items: [
             { name: 'Drive Shaft for Redler Conveyor', spec: 'Complete' },
             { name: 'Tension Shaft for Redler Conveyor', spec: 'Complete' },
             { name: 'Drive Shaft for Leak / Solvent Tight Conveyor', spec: 'Complete' },
             { name: 'Tension Shaft for Leak / Solvent Tight Conveyor', spec: 'Complete' },
-            { name: 'Redler Parts', spec: 'Conveyor spares' },
+            { name: 'Redler Parts', spec: 'Conveyor spares', photos: ['flanged-hubs.png'] },
             { name: 'Bulk Flow Components', spec: 'Conveyor spares' },
             { name: 'M.S. & E.N8 Rails', spec: 'For all types of extractors' },
             { name: 'Monorails', spec: 'M.S. railway rails of all sizes' },
@@ -1106,8 +1150,9 @@ const catalog = [
                <circle cx="17.5" cy="17.5" r="2.4" stroke-width="1.5"/>
                <path stroke-width="1.5" stroke-linecap="round"
                      d="M19.9 17.5h1.5M15.1 17.5h-1.5M18.7 15.4l.75-1.3M16.3 15.4l-.75-1.3M16.3 19.6l-.75 1.3M18.7 19.6l.75 1.3"/>`,
+        galleryFolder: 'gears-sprockets',
         items: [
-            { name: 'Spur Gear with Pinion', spec: 'Heavy and light duty' },
+            { name: 'Spur Gear with Pinion', spec: 'Heavy and light duty', photos: ['spur-gear.png'] },
             { name: 'Sprocket for Redler Conveyor', spec: 'As required' },
             { name: 'Sprocket for Bulk Flow Conveyor', spec: 'As required' },
         ]
@@ -1124,10 +1169,11 @@ const catalog = [
                <circle cx="12" cy="12.5" r="1.1" stroke-width="1.5"/>
                <path stroke-width="1.5" stroke-linecap="round"
                      d="M12 6.6v1.5M6.1 12.5h1.5M17.9 12.5h-1.5M7.83 8.33l1.06 1.06"/>`,
+        galleryFolder: 'plant-accessories',
         items: [
             { name: 'Jet Cleaner', spec: 'For 1200 / 1500 / 1800 / 2000 / 2400 mm' },
             { name: 'Damper Assembly', spec: 'M.S. & S.S.' },
-            { name: 'Ejector Assembly', spec: 'Solvent with S.S. nozzle complete' },
+            { name: 'Ejector Assembly', spec: 'Solvent with S.S. nozzle complete', photos: ['ejector-assembly.png', 'steel-nozzles.png'] },
             { name: 'Bindicators', spec: 'High level & low level' },
             { name: 'Aluminum Manhole Cover', spec: '300 / 400 / 500 mm' },
             { name: 'Sight Glass Assembly', spec: 'All sizes, M.S. & S.S.' },
@@ -1252,15 +1298,26 @@ function openModal(catId) {
         document.getElementById('modalTagline').textContent = cat.tagline;
 
         modalProducts.className = 'overflow-y-auto p-6 grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1';
-        modalProducts.innerHTML = cat.items.map(item => `
-            <div class="flex items-start gap-3 p-4 rounded-lg bg-gray-50 border border-gray-100 hover:border-brand/30 transition">
+        modalProducts.innerHTML = cat.items.map((item, i) => {
+            const hasPhotos = item.photos && item.photos.length > 0;
+            return `
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-gray-50 border border-gray-100 transition
+                        ${hasPhotos ? 'cursor-pointer hover:border-brand/50' : 'hover:border-brand/30'}"
+                 ${hasPhotos ? `onclick="openPhotoViewer('${cat.id}', ${i})"` : ''}>
                 <div class="w-2 h-2 rounded-full mt-2 flex-shrink-0" style="background:${cat.stroke}"></div>
-                <div>
+                <div class="flex-1">
                     <div class="font-bold text-base text-ink">${item.name}</div>
                     <div class="text-sm text-gray-600 mt-0.5">${item.spec}</div>
                 </div>
-            </div>
-        `).join('');
+                ${hasPhotos ? `
+                <div class="flex items-center gap-1 text-brand flex-shrink-0 self-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <use href="#icon-camera"/>
+                    </svg>
+                    <span class="text-xs font-bold uppercase">View</span>
+                </div>` : ''}
+            </div>`;
+        }).join('');
     }
 
     modal.style.visibility = 'visible';
@@ -1279,7 +1336,67 @@ function closeModal() {
 }
 
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+// Item photo viewer — shows the gallery photos of one product item,
+// layered on top of the product modal (which stays open behind it)
+const photoViewer = document.getElementById('photoViewer');
+const pvImage     = document.getElementById('pvImage');
+const pvCaption   = document.getElementById('pvCaption');
+const pvPrev      = document.getElementById('pvPrev');
+const pvNext      = document.getElementById('pvNext');
+
+let pvPhotos = [];   // resolved image paths of the open item
+let pvName   = '';   // item name, shown in the caption
+let pvIndex  = 0;
+
+function openPhotoViewer(catId, itemIndex) {
+    const cat  = catalog.find(c => c.id === catId);
+    const item = cat && cat.items[itemIndex];
+    if (!item || !item.photos || item.photos.length === 0) return;
+
+    pvPhotos = item.photos.map(f => `assets/gallery/${cat.galleryFolder}/${f}`);
+    pvName   = item.name;
+    pvIndex  = 0;
+    renderPhotoViewer();
+
+    photoViewer.style.visibility = 'visible';
+    photoViewer.style.opacity = '1';
+}
+
+function renderPhotoViewer() {
+    pvImage.src = pvPhotos[pvIndex];
+    pvImage.alt = pvName;
+    pvCaption.textContent = pvPhotos.length > 1
+        ? `${pvName} (${pvIndex + 1}/${pvPhotos.length})`
+        : pvName;
+    // prev/next only make sense with more than one photo
+    pvPrev.style.display = pvPhotos.length > 1 ? '' : 'none';
+    pvNext.style.display = pvPhotos.length > 1 ? '' : 'none';
+}
+
+function closePhotoViewer() {
+    photoViewer.style.opacity = '0';
+    setTimeout(() => { photoViewer.style.visibility = 'hidden'; }, 260);
+}
+
+pvPrev.addEventListener('click', () => { pvIndex = (pvIndex - 1 + pvPhotos.length) % pvPhotos.length; renderPhotoViewer(); });
+pvNext.addEventListener('click', () => { pvIndex = (pvIndex + 1) % pvPhotos.length; renderPhotoViewer(); });
+photoViewer.addEventListener('click', e => { if (e.target === photoViewer) closePhotoViewer(); });
+
+// Escape closes the photo viewer first if it is open, otherwise the modal;
+// arrow keys flip through the open item's photos
+document.addEventListener('keydown', e => {
+    const viewerOpen = photoViewer.style.visibility === 'visible';
+    if (e.key === 'Escape') {
+        if (viewerOpen) closePhotoViewer();
+        else            closeModal();
+    }
+    if (viewerOpen && pvPhotos.length > 1) {
+        if (e.key === 'ArrowLeft')  { pvIndex = (pvIndex - 1 + pvPhotos.length) % pvPhotos.length; renderPhotoViewer(); }
+        if (e.key === 'ArrowRight') { pvIndex = (pvIndex + 1) % pvPhotos.length; renderPhotoViewer(); }
+    }
+});
 
 
 // Mobile menu: toggle panel + swap hamburger/close icons, close after navigating
