@@ -716,8 +716,9 @@
     <div class="max-w-[min(92vw,1800px)] mx-auto px-5 sm:px-8">
 
         <!-- Products browser (left) and Our Promise card (right) sit side by
-             side on desktop; below lg they stack, promise after the catalog -->
-        <div class="grid lg:grid-cols-[2fr_1fr] gap-6 lg:gap-8 items-stretch">
+             side once there's enough room (xl); below that they stack full-width
+             so the product card grid never gets squeezed -->
+        <div class="grid xl:grid-cols-[1fr_400px] gap-6 xl:gap-8 items-stretch">
 
             <!-- PRODUCTS PANEL -->
             <div class="bg-[#F4F6FE] rounded-2xl border border-blue-100 p-5 sm:p-7 flex flex-col">
@@ -772,12 +773,25 @@
 
             <!-- OUR PROMISE — the satisfaction pledge that backs the catalog:
                  every customer gets exactly what they came for, standard or
-                 custom, no exceptions. -->
-            <div class="relative overflow-hidden rounded-2xl bg-[#081048]">
+                 custom, no exceptions. Metallic cobalt-blue gradient, gear
+                 watermark echoes the footer. -->
+            <div class="relative overflow-hidden rounded-2xl"
+                 style="background: linear-gradient(135deg,
+                     #1B2ACF 0%,
+                     #141FA3 45%,
+                     #0E1670 75%,
+                     #081048 100%);">
+
+                <!-- Gear Watermark -->
+                <div class="absolute bottom-0 right-0 opacity-[0.22] pointer-events-none select-none translate-x-1/6 translate-y-1/6">
+                    <svg width="320" height="320" viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="1.5">
+                        <use href="#icon-gear"/>
+                    </svg>
+                </div>
 
                 <div class="relative h-full flex flex-col p-7 sm:p-9 lg:p-10">
 
-                    <div class="text-sm font-black text-blue-300 tracking-[0.2em] uppercase mb-4">
+                    <div class="text-sm font-black text-white tracking-[0.2em] uppercase mb-4">
                         OUR PROMISE
                     </div>
 
@@ -785,7 +799,7 @@
                         NO CUSTOMER EVER<br>WALKS AWAY UNSATISFIED.
                     </h3>
 
-                    <p class="text-blue-50/90 text-[15px] leading-relaxed max-w-md mb-8">
+                    <p class="text-white text-[15px] leading-relaxed max-w-md mb-8">
                         In over <span class="years-exp">45</span> years, we have never
                         left a requirement unmet. If the part exists, we deliver it.
                         If it doesn't, we engineer it — to your drawings, your
@@ -821,7 +835,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-auto flex flex-col sm:flex-row gap-3">
+                    <div class="mt-auto flex flex-col sm:flex-row xl:flex-col gap-3">
                         <a href="tel:+919820120832"
                            class="inline-flex items-center justify-center gap-2.5 bg-white text-brand px-6 py-3.5 rounded-lg text-sm font-black tracking-widest hover:bg-blue-50 transition whitespace-nowrap">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
