@@ -25,9 +25,9 @@
             theme: {
                 extend: {
                     colors: {
-                        brand:      '#C8185A',
-                        brandDark:  '#9E0F43',
-                        brandLight: '#FEF2F7',
+                        brand:      '#1E40AF',
+                        brandDark:  '#1E3A8A',
+                        brandLight: '#EFF6FF',
                         ink:        '#111827',
                     }
                 }
@@ -37,9 +37,12 @@
     <style>
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #ff77f1; }
-        ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #C8185A; }
+        ::-webkit-scrollbar-track { background: #DBEAFE; }
+        ::-webkit-scrollbar-thumb { background: #93C5FD; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1E40AF; }
+
+        /* Footer text: soft dark halo for crisp separation from the navy */
+        footer { text-shadow: 0 1px 3px rgba(2, 6, 23, 0.55); }
 
         /* Underline indicator for active nav link */
         .nav-link { position: relative; }
@@ -48,7 +51,7 @@
             position: absolute;
             bottom: -4px; left: 0; right: 0;
             height: 2px;
-            background: #C8185A;
+            background: #1E40AF;
         }
 
         /* Thumbnail subtle lift on hover */
@@ -57,7 +60,7 @@
         }
         .gallery-thumb:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(200,24,90,0.2);
+            box-shadow: 0 8px 24px rgba(30,64,175,0.2);
         }
 
         /* Centered hover preview overlay */
@@ -73,7 +76,7 @@
             max-height: 70vh;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 3px #C8185A;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 3px #1E40AF;
         }
         #hoverOverlay.visible {
             opacity: 1;
@@ -136,12 +139,12 @@
             <img src="logo.png" alt="Lohshree Engineers" class="w-12 h-12 object-contain">
             <div class="leading-none">
                 <div class="font-extrabold text-sm tracking-[0.18em] text-ink uppercase">LOHSHREE</div>
-                <div class="text-xs text-gray-800 tracking-[0.22em] uppercase mt-1">Engineers Pvt. Ltd.</div>
+                <div class="text-xs text-ink tracking-[0.22em] uppercase mt-1">Engineers Pvt. Ltd.</div>
             </div>
         </a>
 
         <!-- Nav -->
-        <nav class="hidden xl:flex items-center gap-12 text-sm font-bold tracking-[0.14em] uppercase text-gray-700 flex-1 justify-center">
+        <nav class="hidden xl:flex items-center gap-12 text-sm font-bold tracking-[0.14em] uppercase text-ink flex-1 justify-center">
             <a href="index.html"          class="nav-link hover:text-brand transition whitespace-nowrap">Home</a>
             <a href="index.html#about"    class="nav-link hover:text-brand transition whitespace-nowrap">About Us</a>
             <a href="index.html#products" class="nav-link hover:text-brand transition whitespace-nowrap">Products</a>
@@ -176,7 +179,7 @@
                 OUR WORK IN ACTION.
             </h1>
             <div class="w-12 h-0.5 bg-brand mb-4"></div>
-            <p class="text-base text-gray-700 max-w-xl">
+            <p class="text-base text-ink max-w-xl">
                 A visual showcase of our precision manufacturing process,
                 custom components, and solvent extraction machinery parts.
             </p>
@@ -187,12 +190,12 @@
 
         <!-- Empty gallery message -->
         <div id="emptyGallery" class="hidden text-center py-20">
-            <svg class="w-20 h-20 text-pink-200 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-20 h-20 text-blue-200 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                       d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
             <h3 class="text-xl font-black text-ink mb-2">Gallery Coming Soon</h3>
-            <p class="text-gray-500 max-w-md mx-auto">
+            <p class="text-ink max-w-md mx-auto">
                 Add images, videos, or GIFs to a category folder under
                 <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">assets/gallery/</code>
                 and list them in the <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">categories</code> array in this file.
@@ -247,22 +250,22 @@
 <!-- FOOTER WAVE DIVIDER -->
 <div class="relative h-16 overflow-hidden bg-white">
     <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="absolute inset-0 w-full h-full">
-        <path d="M0,62 C300,120 500,0 720,48 C980,100 1180,20 1440,62" fill="none" stroke="#c8185a" stroke-width="3"/>
-        <path fill="#111827"
+        <path d="M0,62 C300,120 500,0 720,48 C980,100 1180,20 1440,62" fill="none" stroke="#60A5FA" stroke-width="3"/>
+        <path fill="#172554"
               d="M0,70 C300,128 500,8 720,56 C980,108 1180,28 1440,70 L1440,120 L0,120 Z"/>
     </svg>
 </div>
 
-<footer class="bg-gray-900 text-gray-300 pt-8 pb-0">
+<footer class="bg-[#172554] text-blue-50 pt-8 pb-0">
     <div class="max-w-[1280px] mx-auto px-6">
-        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-gray-300">
+        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
             <div class="flex items-center gap-3">
                 <img src="logo.png" alt="Lohshree Engineers" class="w-8 h-8 object-contain">
                 <p>&copy; 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.</p>
             </div>
             <div class="flex gap-6">
-                <a href="index.html#contact" class="hover:text-brand transition">Contact Us</a>
-                <a href="index.html" class="hover:text-brand transition">Back to Home</a>
+                <a href="index.html#contact" class="hover:text-blue-300 transition">Contact Us</a>
+                <a href="index.html" class="hover:text-blue-300 transition">Back to Home</a>
             </div>
         </div>
     </div>
@@ -275,34 +278,34 @@
          class="hidden mb-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
         <a href="tel:+919820120832"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
-            <div class="w-9 h-9 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 fill-blue-500" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+            <div class="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
             </div>
             <div>
                 <div class="font-semibold text-sm text-ink">Call: 9820120832</div>
-                <div class="text-sm text-gray-600">Tap to open dialer</div>
+                <div class="text-sm text-ink">Tap to open dialer</div>
             </div>
         </a>
         <a href="https://wa.me/919820120832" target="_blank"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
-            <div class="w-9 h-9 bg-green-50 border border-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 fill-[#25D366]" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
+            <div class="w-9 h-9 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-[#25D366]">WhatsApp</div>
-                <div class="text-sm text-gray-600">Tap to chat instantly</div>
+                <div class="font-semibold text-sm text-green-700">WhatsApp</div>
+                <div class="text-sm text-ink">Tap to chat instantly</div>
             </div>
         </a>
         <a href="mailto:lohshreeind@gmail.com"
            class="flex items-center gap-3 px-4 py-3.5 hover:bg-gray-50 transition">
-            <div class="w-9 h-9 bg-red-50 border border-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="w-9 h-9 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <use href="#icon-mail"/>
                 </svg>
             </div>
             <div>
                 <div class="font-semibold text-sm text-ink">Email Us</div>
-                <div class="text-sm text-gray-600">lohshreeind@gmail.com</div>
+                <div class="text-sm text-ink">lohshreeind@gmail.com</div>
             </div>
         </a>
     </div>
@@ -435,11 +438,11 @@ function thumbHTML(item, i) {
 
     return `
     <div>
-        <div class="gallery-thumb relative rounded-xl overflow-hidden border border-pink-100 bg-gray-100 aspect-square cursor-pointer"
+        <div class="gallery-thumb relative rounded-xl overflow-hidden border border-blue-100 bg-gray-100 aspect-square cursor-pointer"
              data-index="${i}" data-src="${item.src}" data-type="${isVideo(item.file) ? 'video' : 'image'}" data-caption="${item.caption}">
             ${media}
         </div>
-        <div class="mt-2 text-sm font-semibold text-gray-800 text-center">${item.caption}</div>
+        <div class="mt-2 text-sm font-semibold text-ink text-center">${item.caption}</div>
     </div>`;
 }
 

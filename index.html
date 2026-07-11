@@ -9,11 +9,11 @@
       Preloader       Splash shown on the first visit of a session
       Header          Logo, nav links, product search, mobile menu
       Hero            Headline + image/video slideshow
-      About/Vision    Two-column section on pink background
-      Products        Product grid (rendered by JS) + "Why choose us"
+      About           Journey story, milestone timeline + values card
+      Products        Product grid (rendered by JS) + promise banner
       Clients         Conveyor belt with client name plates (rendered by JS)
       Footer          Contact info, certifications, copyright
-      Product modal   Popup listing the items of a product category
+      Product detail  Inline panel showing the items of the selected category
       Contact button  Floating phone / WhatsApp / email menu
       <script>        Page data (product catalog, client names) + behavior
 -->
@@ -23,14 +23,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lohshree Engineers Pvt. Ltd. — Precision Solvent Extraction Parts</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand:      '#C8185A',
-                        brandDark:  '#9E0F43',
-                        brandLight: '#FEF2F7',
+                        brand:      '#1E40AF',
+                        brandDark:  '#1E3A8A',
+                        brandLight: '#EFF6FF',
                         ink:        '#111827',
                     }
                 }
@@ -40,9 +43,9 @@
     <style>
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #ff77f1; }
-        ::-webkit-scrollbar-thumb { background: #ffffff; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #C8185A; }
+        ::-webkit-scrollbar-track { background: #DBEAFE; }
+        ::-webkit-scrollbar-thumb { background: #93C5FD; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1E40AF; }
 
         /* Conveyor belt — client names ride on a moving belt with spinning rollers */
         @keyframes marquee {
@@ -90,8 +93,31 @@
         .conveyor:hover .roller { animation-play-state: paused; }
 
         /* Product grid card hover effect */
+        /* Handwritten signature in the About section */
+        .signature {
+            font-family: 'Dancing Script', 'Brush Script MT', 'Segoe Script', cursive;
+            font-size: 2.1rem;
+            font-weight: 600;
+            line-height: 1;
+            display: inline-block;
+            transform: rotate(-4deg);
+            transform-origin: left center;
+        }
+
         .prod-row { cursor: pointer; transition: background 0.18s ease; }
-        .prod-row:hover { background: #FEF2F7; }
+        .prod-row:hover { background: #EFF6FF; }
+        .prod-row-active { background: #EFF6FF; box-shadow: inset 4px 0 0 #1E40AF; }
+
+        /* Detail panel content fades in on each category switch */
+        @keyframes detailIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .detail-anim { animation: detailIn 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
+
+        /* Footer text: soft dark halo lifts the light text off the navy
+           background and gear watermark so it stays crisp and easy to read */
+        footer { text-shadow: 0 1px 3px rgba(2, 6, 23, 0.55); }
 
         /* Underline indicator for active nav link */
         .nav-link { position: relative; }
@@ -100,7 +126,7 @@
             position: absolute;
             bottom: -4px; left: 0; right: 0;
             height: 2px;
-            background: #C8185A;
+            background: #1E40AF;
         }
 
         /* Preloader — gear spins in place of the "O" in Lohshree */
@@ -140,7 +166,7 @@
             height: 0.85em;
             margin: 0 0.02em;
             animation: preloader-spin 10s linear infinite;
-            color: #C8185A;
+            color: #1E40AF;
         }
         @keyframes preloader-spin {
             to { transform: rotate(360deg); }
@@ -166,7 +192,7 @@
             font-weight: 700;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: #6b7280;
+            color: #111827;
             white-space: nowrap;
         }
         .preloader-tagline {
@@ -177,7 +203,7 @@
             color: #111827;
         }
         .preloader-tagline span {
-            color: #C8185A;
+            color: #1E40AF;
         }
     </style>
 </head>
@@ -205,9 +231,34 @@
     <symbol id="icon-check-circle" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
     </symbol>
-    <symbol id="icon-camera" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-        <circle cx="12" cy="13" r="3"/>
+    <symbol id="icon-target" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="5"/>
+        <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>
+        <path stroke-linecap="round" d="M12 2v3M21 12h-3"/>
+    </symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 20a4 4 0 00-4-4H7a4 4 0 00-4 4M10 12a4 4 0 100-8 4 4 0 000 8zM20 20a3.5 3.5 0 00-3-3.46M16 4.5a3.5 3.5 0 010 6.9"/>
+    </symbol>
+    <!-- Tiny filled person silhouette — the growing "workforce" in the
+         About timeline icons; scaled/positioned via <use> width/height -->
+    <symbol id="icon-person" viewBox="0 0 8 12">
+        <circle cx="4" cy="2.3" r="2.1" fill="currentColor" stroke="none"/>
+        <path fill="currentColor" stroke="none"
+              d="M4 5.1c-2.1 0-3.4 1.7-3.4 4.3V12h6.8V9.4C7.4 6.8 5.9 5.1 4 5.1z"/>
+    </symbol>
+    <symbol id="icon-shield-check" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+    </symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24">
+        <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
+        <path stroke-linecap="round" d="M8 3v4M16 3v4M3.5 10.5h17"/>
+        <path stroke-linecap="round" d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/>
+    </symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24">
+        <path stroke-linecap="round" d="M4 20.5h16"/>
+        <path stroke-linecap="round" d="M7.5 20.5v-5M12 20.5v-9M16.5 20.5v-13"/>
     </symbol>
     <symbol id="icon-chevron-left" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
@@ -261,7 +312,7 @@
 
 <!-- HEADER -->
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
-    <div class="max-w mx-auto px-6 xl:px-10 h-[76px] flex items-center justify-between gap-6">
+    <div class="max-w-[1400px] mx-auto px-5 sm:px-8 h-[76px] flex items-center justify-between gap-6">
 
         <!-- Logo -->
         <a href="#home" class="flex items-center gap-3 flex-shrink-0 group">
@@ -273,14 +324,14 @@
                 <div class="font-extrabold text-sm tracking-[0.18em] text-ink uppercase">
                     LOHSHREE
                 </div>
-                <div class="text-xs text-gray-800 tracking-[0.22em] uppercase mt-1">
+                <div class="font-bold text-xs text-ink tracking-[0.22em] uppercase mt-1">
                     Engineers Pvt. Ltd.
                 </div>
             </div>
         </a>
 
         <!-- Nav -->
-        <nav class="hidden xl:flex items-center gap-12 text-sm font-bold tracking-[0.14em] uppercase text-gray-700 flex-1 justify-center">
+        <nav class="hidden xl:flex items-center gap-12 text-sm font-bold tracking-[0.14em] uppercase text-ink flex-1 justify-center">
             <a href="#home"       class="nav-link active hover:text-brand transition whitespace-nowrap">Home</a>
             <a href="#about"      class="nav-link hover:text-brand transition whitespace-nowrap">About Us</a>
             <a href="#products"   class="nav-link hover:text-brand transition whitespace-nowrap">Products</a>
@@ -294,14 +345,14 @@
 
             <!-- Search -->
             <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full px-4 py-2 gap-2">
-                <svg class="w-3.5 h-3.5 text-gray-800 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="w-3.5 h-3.5 text-ink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <use href="#icon-search"/>
                 </svg>
                 <input
                     id="navSearch"
                     type="text"
                     placeholder="Search products..."
-                    class="bg-transparent text-sm font-medium focus:outline-none w-32 xl:w-40 text-gray-900 placeholder-gray-600"
+                    class="bg-transparent text-sm font-medium focus:outline-none w-32 xl:w-40 text-ink placeholder-gray-800"
                 >
             </div>
 
@@ -323,7 +374,7 @@
 
     <!-- Mobile menu panel -->
     <div id="mobileMenu" class="hidden xl:hidden border-t border-gray-100 bg-white shadow-lg">
-        <nav class="px-6 py-4 flex flex-col text-sm font-bold tracking-[0.14em] uppercase text-gray-700">
+        <nav class="px-6 py-4 flex flex-col text-sm font-bold tracking-[0.14em] uppercase text-ink">
             <a href="#home"        class="py-3 border-b border-gray-50 hover:text-brand transition">Home</a>
             <a href="#about"       class="py-3 border-b border-gray-50 hover:text-brand transition">About Us</a>
             <a href="#products"    class="py-3 border-b border-gray-50 hover:text-brand transition">Products</a>
@@ -332,14 +383,14 @@
             <a href="#contact"     class="py-3 hover:text-brand transition">Contact Us</a>
 
             <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full px-4 py-2.5 gap-2 mt-3 lg:hidden">
-                <svg class="w-3.5 h-3.5 text-gray-800 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="w-3.5 h-3.5 text-ink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <use href="#icon-search"/>
                 </svg>
                 <input
                     id="mobileSearch"
                     type="text"
                     placeholder="Search products..."
-                    class="bg-transparent text-sm font-medium focus:outline-none w-full text-gray-900 placeholder-gray-600"
+                    class="bg-transparent text-sm font-medium focus:outline-none w-full text-ink placeholder-gray-800"
                 >
             </div>
         </nav>
@@ -352,7 +403,7 @@
 
     <!-- ── Right side image: full-bleed faded background on mobile, diagonal-cut on lg+.
          Width is calc(52% + 128px) so the clip's bottom-left point lands at calc(48% - 128px) —
-         the left edge of the About section's pink chevron (a 220px shape centered at
+         the left edge of the About section's brand chevron (a 220px shape centered at
          calc(48% - 18px)) — so the hero diagonal meets where the chevron begins at every
          viewport width, not just one screen size. ── -->
     <div class="absolute right-0 top-0 bottom-0 w-full lg:w-[calc(52%+128px)] pointer-events-none lg:[clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]">
@@ -376,11 +427,6 @@
             <div class="absolute inset-0 bg-white/85 z-20 pointer-events-none lg:hidden"></div>
         </div>
 
-        <!-- Pink accent stripe — far right edge -->
-        <div class="absolute right-0 top-0 bottom-0 w-4 bg-brand z-30"></div>
-        <!-- Pink geometric accent — bottom right corner -->
-        <div class="absolute bottom-0 right-4 z-20 w-20 h-[32%] bg-brand/90"
-             style="clip-path: polygon(40% 0, 100% 0, 100% 100%, 0 100%)"></div>
     </div>
 
     <!-- ── Left text content — fills the full left column ── -->
@@ -401,7 +447,7 @@
             </h1>
 
             <!-- Sub -->
-            <p class="text-gray-900 text-base leading-relaxed mb-9">
+            <p class="text-ink text-base leading-relaxed mb-9">
                 Manufacturers of high-precision shafts, valves and fabricated components for solvent extraction plants and heavy industrial applications.
             </p>
 
@@ -434,70 +480,213 @@
 </section>
 
 <!-- ABOUT US & OUR VISION -->
-<section id="about" class="relative scroll-mt-[72px] overflow-hidden bg-[#ffd2e5] border-pink-100">
+<section id="about" class="relative scroll-mt-[72px] overflow-hidden bg-[#F5F9FF]">
 
-    <div class="absolute inset-x-0 top-0 h-px bg-brand/20"></div>
-    <div class="absolute inset-y-0 left-0 w-1/2 bg-[linear-gradient(90deg,#ffd2e5_0%,#ffd2e5_20%,#ffe7f1_45%,#fff8fb_90%)]"></div>
-    <div class="absolute inset-y-0 right-0 w-1/2 bg-[linear-gradient(90deg,#fff8fb_0%,#ffe7f1_45%,#ffd2e5_75%,#ffd2e5_100%)]"></div>
-    <div class="absolute inset-y-0 left-[calc(48%-18px)] z-10 hidden w-[220px] -translate-x-1/2 lg:block"
-         style="filter: drop-shadow(-12px 0px 24px rgba(200,24,90,0.18)) drop-shadow(18px 0px 34px rgba(200,24,90,0.10));">
-        <div class="absolute inset-y-0 left-0 w-full bg-[linear-gradient(248deg,#e878a6_25%,#f3a4c5_40%,#fff4f9_80%)]"
-             style="clip-path: polygon(0 0, 55% 0, 100% 50%, 45% 50%);"></div>
-        <div class="absolute inset-y-0 left-0 w-full bg-[linear-gradient(292deg,#e878a6_25%,#f3a4c5_40%,#fff4f9_80%)]"
-             style="clip-path: polygon(45% 50%, 100% 50%, 55% 100%, 0 100%);"></div>
-    </div>
+    <div class="absolute inset-x-0 top-0 h-px bg-gray-200"></div>
 
-    <div class="relative max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-12">
+    <div class="relative max-w-[1400px] mx-auto px-5 sm:px-8 py-12 sm:py-14 lg:py-16">
 
-        <div class="relative grid gap-10 lg:grid-cols-2 lg:gap-[180px] min-h-[360px] lg:min-h-[430px]">
+        <div class="grid lg:grid-cols-[minmax(320px,400px)_1fr] gap-10 lg:gap-12 items-start">
 
-            <!-- ABOUT US -->
-            <div class="relative z-10 py-14 sm:py-16 lg:py-20 lg:pr-16">
-
+            <!-- OUR JOURNEY -->
+            <div>
                 <div class="text-sm font-black text-brand tracking-[0.18em] uppercase mb-3">
-                    ABOUT US
+                    OUR JOURNEY. OUR LEGACY.
                 </div>
 
-                <h2 class="max-w-[470px] text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink mb-7 leading-[1.05] uppercase">
-                    <span class="years-exp">45</span> YEARS OF MANUFACTURING PRECISION.
+                <h2 class="text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink mb-7 leading-[1.1] uppercase">
+                    ENGINEERING TRUST
+                    <br>
+                    FOR OVER <span class="years-exp">45</span> YEARS
                 </h2>
 
-                <p class="max-w-[455px] text-slate-1200 text-base sm:text-[17px] leading-relaxed mb-5">
-                    Lohshree Engineers Pvt. Ltd. has been serving the solvent
-                    extraction industry for over <span class="years-exp">45</span> years, manufacturing
-                    high-quality machine parts that keep plants running at peak
-                    efficiency.
+                <p class="text-ink text-base sm:text-[17px] leading-relaxed mb-5">
+                    Founded in 1981, Lohshree Engineers Pvt. Ltd. began with a
+                    simple belief — precision engineering can power industries
+                    and build a better tomorrow.
                 </p>
 
-                <p class="max-w-[455px] text-slate-1200 text-base sm:text-[17px] leading-relaxed">
-                    From drive shafts and trunnions to custom fabricated
-                    assemblies, every component we make is engineered to exacting
-                    tolerances and delivered on time.
+                <p class="text-ink text-base sm:text-[17px] leading-relaxed mb-9">
+                    Today, we are a trusted partner to solvent extraction,
+                    sugar, edible oil and industrial processing plants across
+                    India and beyond.
                 </p>
 
+                <!-- Signed and sealed: signature with the company logo as the stamp -->
+                <div class="flex items-center gap-6">
+                    <div class="signature text-brand">Lohshree Engineers</div>
+                    <img src="logo.png" alt="Lohshree Engineers logo"
+                         class="w-16 h-16 object-contain drop-shadow-sm">
+                </div>
             </div>
 
-            <!-- OUR VISION -->
-            <div class="relative z-10 py-14 sm:py-16 lg:py-20 lg:pl-16">
+            <!-- TIMELINE + VALUES -->
+            <div>
 
-                <div class="text-sm font-black text-brand tracking-[0.18em] uppercase mb-3">
-                    OUR VISION
+                <!-- Milestones -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 mb-10">
+
+                    <!-- Each icon grows with the company: from a tiny workshop
+                         shed to a full-scale plant (sawtooth roofs, chimneys),
+                         with a growing crowd on the same ground line -->
+                    <div class="text-center">
+                        <div class="h-20 flex items-end justify-center mb-4">
+                            <svg class="w-16 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
+                                <path stroke-linecap="round" d="M8 31h32"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 31v-9h10v9M13 22l6-4 6 4M17.5 31v-4.5h3V31"/>
+                                <path stroke-linecap="round" d="M22.5 18.6V15h1.6v4.6"/>
+                                <circle cx="23.6" cy="12.8" r="1" opacity="0.7"/>
+                                <path stroke-linecap="round" class="text-brand" d="M15.8 25.5h2"/>
+                                <use href="#icon-person" x="31.5" y="21" width="5" height="10" class="text-brand"/>
+                            </svg>
+                        </div>
+                        <div class="relative border-t-2 border-blue-200 pt-4">
+                            <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
+                            <div class="text-lg font-black text-brand mb-1">1981</div>
+                            <div class="text-sm font-black text-ink mb-1.5">The Beginning</div>
+                            <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
+                                A small workshop, a handful of people and a vision for precision.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="h-20 flex items-end justify-center mb-4">
+                            <svg class="w-20 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
+                                <path stroke-linecap="round" d="M4 31h40"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 31V20l5.5 3.5V20l5.5 3.5V20l5.5 3.5V31"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M25.5 31V14h3.2v17"/>
+                                <circle cx="27.3" cy="11" r="1.2" opacity="0.7"/>
+                                <circle cx="29" cy="8.4" r="0.9" opacity="0.5"/>
+                                <path stroke-linecap="round" class="text-brand" d="M11 27h2.5M16 27h2.5"/>
+                                <use href="#icon-person" x="34" y="20.5" width="5.2" height="10.5" class="text-brand"/>
+                                <use href="#icon-person" x="40" y="20.5" width="5.2" height="10.5" class="text-brand"/>
+                            </svg>
+                        </div>
+                        <div class="relative border-t-2 border-blue-200 pt-4">
+                            <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
+                            <div class="text-lg font-black text-brand mb-1">1995</div>
+                            <div class="text-sm font-black text-ink mb-1.5">Expanding Horizons</div>
+                            <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
+                                A growing team, our first factory and long-term client bonds.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="h-20 flex items-end justify-center mb-4">
+                            <svg class="w-24 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
+                                <path stroke-linecap="round" d="M3 31h42"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 31V17l6 4v-4l6 4v-4l6 4V31"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M23 31V21.5h5.5V31M25 31v-3.5h1.5V31"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M29.5 31V10h3v21"/>
+                                <circle cx="31.2" cy="7.2" r="1.2" opacity="0.7"/>
+                                <circle cx="33" cy="4.6" r="0.9" opacity="0.5"/>
+                                <path stroke-linecap="round" class="text-brand" d="M8 26.5h3M13 26.5h3M18 26.5h3"/>
+                                <use href="#icon-person" x="34.5" y="20" width="4.6" height="11" class="text-brand"/>
+                                <use href="#icon-person" x="39" y="20" width="4.6" height="11" class="text-brand"/>
+                                <use href="#icon-person" x="43.5" y="20" width="4.6" height="11" class="text-brand"/>
+                            </svg>
+                        </div>
+                        <div class="relative border-t-2 border-blue-200 pt-4">
+                            <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
+                            <div class="text-lg font-black text-brand mb-1">2010</div>
+                            <div class="text-sm font-black text-ink mb-1.5">Stronger Together</div>
+                            <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
+                                Bigger facilities, advanced machinery and skilled professionals.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="h-20 flex items-end justify-center mb-4">
+                            <svg class="w-28 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
+                                <path stroke-linecap="round" d="M2 31h44"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 31V14l5.5 3.7V14l5.5 3.7V14l5.5 3.7V14l5.5 3.7V31"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M27.5 31V7h3.5v24"/>
+                                <circle cx="29.5" cy="4.2" r="1.3" opacity="0.7"/>
+                                <circle cx="31.4" cy="1.8" r="0.9" opacity="0.5"/>
+                                <path stroke-linecap="round" class="text-brand" d="M7 22.5h3M12 22.5h3M17 22.5h3M7 26.5h3M12 26.5h3M17 26.5h3M22 26.5h2.5"/>
+                                <use href="#icon-person" x="33.2" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="36.8" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="40.4" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="44" y="21" width="4" height="10" class="text-brand"/>
+                            </svg>
+                        </div>
+                        <div class="relative border-t-2 border-blue-200 pt-4">
+                            <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
+                            <div class="text-lg font-black text-brand mb-1">Today</div>
+                            <div class="text-sm font-black text-ink mb-1.5">Engineering Future</div>
+                            <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
+                                A full-scale plant and a family of experts driving progress.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <h2 class="max-w-[520px] text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink leading-[1.05] mb-7 uppercase">
-                    BUILT FOR THE NEXT
-                    <br>
-                    <span class="text-brand"><span class="years-exp">45</span> YEARS AND BEYOND.</span>
-                </h2>
+                <!-- WHAT WE STAND FOR -->
+                <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-6 sm:p-8">
 
-                <div class="w-12 h-0.5 bg-brand mb-7"></div>
+                    <div class="text-sm font-black text-brand tracking-[0.18em] uppercase mb-7">
+                        WHAT WE STAND FOR
+                    </div>
 
-                <p class="max-w-[455px] text-slate-1200 text-base sm:text-[17px] leading-relaxed">
-                    To become the most trusted name in solvent extraction
-                    machinery components through relentless precision,
-                    customer-first thinking, and the kind of quality that makes
-                    plants run for decades without worry.
-                </p>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
+
+                        <div class="text-center">
+                            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brandLight border border-blue-200 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="7"/>
+                                    <circle cx="12" cy="12" r="2.5"/>
+                                    <path stroke-linecap="round" d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5"/>
+                                </svg>
+                            </div>
+                            <div class="text-[15px] font-black text-ink mb-1.5">Precision</div>
+                            <p class="text-[13px] text-ink leading-relaxed">
+                                Every component built to exacting standards.
+                            </p>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brandLight border border-blue-200 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                                    <use href="#icon-shield-check"/>
+                                </svg>
+                            </div>
+                            <div class="text-[15px] font-black text-ink mb-1.5">Quality</div>
+                            <p class="text-[13px] text-ink leading-relaxed">
+                                Quality is our commitment, assured on every part.
+                            </p>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brandLight border border-blue-200 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                                    <use href="#icon-users"/>
+                                </svg>
+                            </div>
+                            <div class="text-[15px] font-black text-ink mb-1.5">Customer First</div>
+                            <p class="text-[13px] text-ink leading-relaxed">
+                                Customer-first thinking guides everything we do.
+                            </p>
+                        </div>
+
+                        <div class="text-center">
+                            <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-brandLight border border-blue-200 flex items-center justify-center">
+                                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="8.5"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5V12l3 2"/>
+                                </svg>
+                            </div>
+                            <div class="text-[15px] font-black text-ink mb-1.5">Always On Time</div>
+                            <p class="text-[13px] text-ink leading-relaxed">
+                                On-time delivery, every single time.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
 
@@ -508,110 +697,119 @@
 </section>
 
 
-<section id="products" class="py-16 bg-white scroll-mt-[72px]">
-    <div class="max-w-[2500px] mx-auto px-6">
+<section id="products" class="py-12 sm:py-14 lg:py-16 bg-white scroll-mt-[72px]">
+    <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-stretch">
-
-            <!-- LEFT: PRODUCTS -->
-            <div class="max-w-[920px] mx-auto w-full">
-
-                <div class="mb-8">
-                    <div class="text-sm font-black text-brand tracking-[0.2em] uppercase mb-2">
-                        OUR PRODUCTS
-                    </div>
-
-                    <h2 class="text-4xl font-black text-ink leading-tight mb-4">
-                        ENGINEERED FOR RELIABILITY.
-                    </h2>
-
-                    <div class="w-12 h-0.5 bg-brand"></div>
-                </div>
-
-                <!-- More even grid -->
-                <div
-                    id="productGrid"
-                    class="grid grid-cols-1 sm:grid-cols-2 auto-rows-[140px] sm:auto-rows-[160px] border border-pink-200 rounded-xl overflow-hidden divide-x divide-y divide-pink-200">
-                </div>
-
+        <div class="mb-8">
+            <div class="text-sm font-black text-brand tracking-[0.2em] uppercase mb-2">
+                OUR PRODUCTS
             </div>
 
-            <!-- RIGHT: WHY CHOOSE US -->
-            <div class="relative overflow-hidden rounded-2xl lg:rounded-r-none lg:rounded-l-2xl lg:min-h-[580px] lg:-mr-6 bg-brandLight lg:bg-transparent">
+            <h2 class="text-4xl font-black text-ink leading-tight mb-4">
+                ENGINEERED FOR RELIABILITY.
+            </h2>
 
-                <!-- Mobile: image stacked on top -->
-                <img
-                    src="assets/whyChooseUS.jpg"
-                    alt="CNC Machining"
-                    class="lg:hidden w-full h-52 object-cover">
+            <div class="w-12 h-0.5 bg-brand"></div>
+        </div>
 
-                <!-- Desktop: image much wider, bleeding off the right edge -->
-                <div
-                    class="hidden lg:block absolute top-12 bottom-12 -right-60 w-[84%]">
+        <!-- The detail panel sits BETWEEN the two card columns on desktop so
+             the cursor never crosses another card on its way from a card to
+             the panel (which would switch the selection mid-flight) -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-[1fr_1.4fr_1fr] gap-6 lg:gap-8 items-start">
 
-                    <img
-                        src="assets/whyChooseUS.jpg"
-                        alt="CNC Machining"
-                        class="w-full h-full object-cover">
-                </div>
+            <!-- Card stacks — hover (desktop) or tap a card to load it in the
+                 detail panel; first half of the catalog left, rest right -->
+            <div
+                id="productGridLeft"
+                class="grid grid-cols-1 auto-rows-[minmax(140px,auto)] lg:auto-rows-[minmax(180px,1fr)] border border-blue-200 rounded-xl overflow-hidden divide-y divide-blue-200 lg:col-start-1 lg:row-start-1">
+            </div>
 
-                <!-- Content stays a bit tighter on the left -->
-                <div class="relative z-10 lg:h-full flex items-center">
-                    <div class="w-full lg:max-w-[46%] px-6 py-10 sm:px-10 lg:px-12 lg:py-12">
+            <div
+                id="productGridRight"
+                class="grid grid-cols-1 auto-rows-[minmax(140px,auto)] lg:auto-rows-[minmax(180px,1fr)] border border-blue-200 rounded-xl overflow-hidden divide-y divide-blue-200 lg:col-start-3 lg:row-start-1">
+            </div>
 
-                        <div class="text-sm font-black text-brand tracking-[0.2em] uppercase mb-3">
-                            WHY CHOOSE US
-                        </div>
-
-                        <h2 class="text-4xl font-black text-ink leading-tight mb-4">
-                            QUALITY IS OUR
-                            <br>
-                            COMMITMENT.
-                        </h2>
-
-                        <div class="w-12 h-0.5 bg-brand mb-6"></div>
-
-                        <p class="text-[16px] font-black text-ink leading-relaxed mb-8">
-                            We combine advanced machinery, skilled workforce and
-                            stringent quality control to deliver components that
-                            exceed expectations.
-                        </p>
-
-                        <ul class="space-y-5">
-                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
-                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <use href="#icon-check-circle"/>
-                                </svg>
-                                State-of-the-art Manufacturing Facility
-                            </li>
-
-                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
-                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <use href="#icon-check-circle"/>
-                                </svg>
-                                Stringent Quality Assurance
-                            </li>
-
-                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
-                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <use href="#icon-check-circle"/>
-                                </svg>
-                                On-time Delivery, Every Time
-                            </li>
-
-                            <li class="flex items-center gap-3 text-base font-medium text-gray-800">
-                                <svg class="w-6 h-6 text-brand flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                    <use href="#icon-check-circle"/>
-                                </svg>
-                                Customer-centric Approach
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
+            <!-- MIDDLE: DETAIL PANEL — rendered by JS for the selected category -->
+            <div
+                id="productDetail"
+                class="sm:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:sticky lg:top-24 scroll-mt-24 rounded-xl border border-blue-200 bg-white shadow-sm overflow-hidden">
             </div>
 
         </div>
+
+        <!-- OUR PROMISE — the satisfaction pledge that backs the catalog:
+             every customer gets exactly what they came for, standard or
+             custom, no exceptions -->
+        <div class="relative overflow-hidden rounded-2xl mt-8 lg:mt-10 bg-gradient-to-r from-[#1E3A8A] via-[#1E40AF] to-[#2563EB]">
+
+            <!-- Gear watermark, echoing the footer -->
+            <div class="absolute top-0 right-0 opacity-[0.08] pointer-events-none select-none -translate-y-1/3 translate-x-1/4">
+                <svg width="260" height="260" viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="0.9">
+                    <use href="#icon-gear"/>
+                </svg>
+            </div>
+
+            <div class="relative px-6 sm:px-10 py-10 lg:py-12">
+
+                <div class="grid lg:grid-cols-[1.5fr_auto] gap-8 items-center">
+
+                    <div>
+                        <div class="text-sm font-black text-white/80 tracking-[0.2em] uppercase mb-3">
+                            OUR PROMISE
+                        </div>
+
+                        <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight mb-4">
+                            NO CUSTOMER EVER WALKS AWAY UNSATISFIED.
+                        </h3>
+
+                        <p class="max-w-[640px] text-white/90 text-base leading-relaxed">
+                            In over <span class="years-exp">45</span> years, we have never
+                            left a requirement unmet. If the part exists, we deliver it.
+                            If it doesn't, we engineer it — to your drawings, your
+                            specifications, your deadline. Whatever it takes, you get
+                            exactly what you came for.
+                        </p>
+
+                        <div class="flex flex-wrap gap-x-8 gap-y-3 mt-5">
+                            <div class="flex items-center gap-2 text-white font-bold text-sm">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <use href="#icon-check-circle"/>
+                                </svg>
+                                Standard or fully custom
+                            </div>
+                            <div class="flex items-center gap-2 text-white font-bold text-sm">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <use href="#icon-check-circle"/>
+                                </svg>
+                                On spec, on time
+                            </div>
+                            <div class="flex items-center gap-2 text-white font-bold text-sm">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <use href="#icon-check-circle"/>
+                                </svg>
+                                Supported after delivery
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row lg:flex-col gap-4">
+                        <a href="tel:+919820120832"
+                           class="inline-flex items-center justify-center gap-2.5 bg-white text-brand px-8 py-4 rounded-lg text-sm font-black tracking-widest hover:bg-blue-50 transition whitespace-nowrap">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+                            DISCUSS YOUR NEED
+                        </a>
+                        <a href="https://wa.me/919820120832" target="_blank"
+                           class="inline-flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-8 py-4 rounded-lg text-sm font-black tracking-widest hover:bg-[#1DA851] transition whitespace-nowrap">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
+                            WHATSAPP US
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -623,14 +821,14 @@
     style="background:linear-gradient(
         180deg,
         #ffffff 0%,
-        #ffd4f3 100%
+        #DBEAFE 100%
     );">
-    <div class="max-w-[1400px] mx-auto px-6">
+    <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[340px_1fr] overflow-hidden rounded-3xl border border-pink-100 bg-white shadow-sm">
+        <div class="grid lg:grid-cols-[340px_1fr] overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
 
             <!-- LEFT ACCENT PANEL -->
-            <div class="relative overflow-hidden bg-gradient-to-b from-[#c8185a] via-[#d22f6e] to-[#e26b98]">
+            <div class="relative overflow-hidden bg-gradient-to-b from-[#1e40af] via-[#2563eb] to-[#60a5fa]">
                 <div
                     class="absolute right-0 bottom-0 h-[55%] w-[70px]"
                     style="
@@ -659,7 +857,7 @@
                             THE COMPANIES WE POWER.
                         </h3>
 
-                        <p class="text-gray-700 mt-3 max-w-xl">
+                        <p class="text-ink mt-3 max-w-xl">
                             Trusted by leading solvent extraction, sugar, edible oil
                             and industrial processing companies.
                         </p>
@@ -746,22 +944,22 @@
 
 
 <!-- FOOTER WAVE DIVIDER -->
-<div class="relative h-16 overflow-hidden bg-[#ffd4f3]">
+<div class="relative h-16 overflow-hidden bg-[#DBEAFE]">
     <svg
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
         class="absolute inset-0 w-full h-full">
 
-        <!-- Red accent line -->
+        <!-- Light blue accent line — highlight along the navy wave crest -->
         <path
             d="M0,62 C300,120 500,0 720,48 C980,100 1180,20 1440,62"
             fill="none"
-            stroke="#DC2626"
+            stroke="#60A5FA"
             stroke-width="3"/>
 
-        <!-- Deep green footer fill -->
+        <!-- Deep navy footer fill -->
         <path
-            fill="#14532D"
+            fill="#172554"
             d="M0,70
                C300,128 500,8 720,56
                C980,108 1180,28 1440,70
@@ -771,7 +969,7 @@
     </svg>
 </div>
 
-<footer id="contact" class="bg-[#14532D] text-green-50/80 pt-12 pb-0 relative overflow-hidden">
+<footer id="contact" class="bg-[#172554] text-blue-50 pt-12 pb-0 relative overflow-hidden">
 
     <!-- Gear Watermark -->
     <div class="absolute bottom-0 right-0 opacity-[0.08] pointer-events-none select-none translate-x-1/4 translate-y-1/4">
@@ -780,9 +978,9 @@
         </svg>
     </div>
 
-    <div class="max-w-[1280px] mx-auto px-6">
+    <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 pb-10 border-b border-green-800">
+        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 pb-10 border-b border-blue-900">
 
             <!-- Brand -->
             <div>
@@ -797,49 +995,49 @@
                         <div class="font-extrabold text-sm tracking-widest text-white">
                             LOHSHREE
                         </div>
-                        <div class="text-xs text-gray-300 tracking-widest uppercase">
+                        <div class="text-xs text-blue-50 tracking-widest uppercase">
                             Engineers Pvt. Ltd.
                         </div>
                     </div>
                 </div>
 
-                <p class="text-base text-gray-300 leading-relaxed max-w-md mb-6">
+                <p class="text-base text-blue-50 leading-relaxed max-w-md mb-6">
                     Precision engineered components for solvent extraction plants,
                     rotary valves, conveyor systems and custom manufacturing solutions.
                 </p>
 
                 <div class="flex flex-wrap gap-3 mb-6">
 
-                    <span class="text-sm font-bold uppercase tracking-wider text-gray-300">
+                    <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
                         <span class="years-exp">45</span> Years Experience
                     </span>
 
-                    <span class="text-sm font-bold uppercase tracking-wider text-gray-300">
+                    <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
                         Solvent Extraction Specialists
                     </span>
 
-                    <span class="text-sm font-bold uppercase tracking-wider text-gray-300">
+                    <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
                         Custom Manufacturing
                     </span>
 
                 </div>
 
                 <div class="flex flex-wrap gap-4 mt-6">
-                    <div class="flex items-center gap-2 text-xs text-gray-300">
+                    <div class="flex items-center gap-2 text-xs text-blue-50">
                         <img src="assets/iso.png"
                             alt="ISO 9001:2008"
                             class="h-12 w-auto">
                         <span>ISO 9001:2008</span>
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs text-gray-300">
+                    <div class="flex items-center gap-2 text-xs text-blue-50">
                         <img src="assets/iaf.png"
                             alt="IAF"
                             class="h-12 w-auto">
                         <span>IAF</span>
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs text-gray-300">
+                    <div class="flex items-center gap-2 text-xs text-blue-50">
                         <img src="assets/jasanz.png"
                             alt="JAS-ANZ"
                             class="h-12 w-auto">
@@ -859,23 +1057,37 @@
                 <div class="space-y-3 text-base">
 
                     <a href="tel:+919820120832"
-                       class="flex items-center gap-3 hover:text-amber-300 transition">
-                        <svg class="w-4 h-4 text-amber-300 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                       class="flex items-center gap-3 hover:text-white transition">
+                        <svg class="w-4 h-4 text-blue-200 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                             <use href="#icon-phone"/>
                         </svg>
-                        +91 98201 20832
+                        <span>
+                            <span class="block text-xs font-black uppercase tracking-widest text-blue-200 mb-0.5">To place orders</span>
+                            <span class="text-white font-semibold">+91 98201 20832</span>
+                        </span>
+                    </a>
+
+                    <a href="tel:+912227618912"
+                       class="flex items-center gap-3 hover:text-white transition">
+                        <svg class="w-4 h-4 text-blue-200 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <use href="#icon-phone"/>
+                        </svg>
+                        <span>
+                            <span class="block text-xs font-black uppercase tracking-widest text-blue-200 mb-0.5">Office — for queries</span>
+                            <span class="text-white font-semibold">022 2761 8912</span>
+                        </span>
                     </a>
 
                     <a href="mailto:lohshreeind@gmail.com"
-                       class="flex items-center gap-3 hover:text-amber-300 transition">
-                        <svg class="w-4 h-4 text-amber-300 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                       class="flex items-center gap-3 hover:text-white transition">
+                        <svg class="w-4 h-4 text-blue-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <use href="#icon-mail"/>
                         </svg>
                         lohshreeind@gmail.com
                     </a>
 
                     <div class="flex items-start gap-3">
-                        <svg class="w-4 h-4 text-amber-300 flex-shrink-0 mt-0.5"
+                        <svg class="w-4 h-4 text-blue-200 flex-shrink-0 mt-0.5"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24">
@@ -899,7 +1111,7 @@
         </div>
 
         <!-- Bottom Bar -->
-        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-gray-300">
+        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
             <p>
                 © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
             </p>
@@ -916,39 +1128,8 @@
 </footer>
 
 
-<!-- PRODUCT MODAL — opens when a product card is clicked -->
-<div id="productModal"
-     class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
-     style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;">
-    <div id="modalInner"
-         class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl max-h-[88vh] flex flex-col border border-gray-200"
-         style="transform: translateY(24px); transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);">
-
-        <!-- Modal header -->
-        <div class="flex items-center justify-between px-7 py-5 border-b border-gray-100 flex-shrink-0">
-            <div class="flex items-center gap-4">
-                <div id="modalIconBox" class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"></div>
-                <div>
-                    <h3 id="modalTitle"   class="text-lg font-black text-ink"></h3>
-                    <p  id="modalTagline" class="text-sm text-gray-600 mt-0.5"></p>
-                </div>
-            </div>
-            <button onclick="closeModal()"
-                class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition flex-shrink-0">
-                <svg class="w-4.5 h-4.5 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <use href="#icon-close"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Product list -->
-        <div id="modalProducts" class="overflow-y-auto p-6 grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1"></div>
-    </div>
-</div>
-
-
-<!-- ITEM PHOTO VIEWER — opens on top of the product modal when an item
-     with photos is clicked; shows its gallery images with prev/next -->
+<!-- ITEM PHOTO VIEWER — opens when an item with photos is clicked in the
+     detail panel; shows its gallery images with prev/next -->
 <div id="photoViewer"
      class="fixed inset-0 z-[120] bg-black/80 backdrop-blur-sm flex items-center justify-center p-6"
      style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;">
@@ -991,36 +1172,47 @@
 
         <a href="tel:+919820120832"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
-            <div class="w-9 h-9 bg-blue-50 border border-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 fill-blue-500" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+            <div class="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-ink">Call: 9820120832</div>
-                <div class="text-sm text-gray-600">Tap to open dialer</div>
+                <div class="font-semibold text-sm text-blue-700">To place orders</div>
+                <div class="font-semibold text-sm text-ink">98201 20832</div>
+            </div>
+        </a>
+
+        <a href="tel:+912227618912"
+           class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
+            <div class="w-9 h-9 bg-brand rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+            </div>
+            <div>
+                <div class="font-semibold text-sm text-brand">Office — for queries</div>
+                <div class="font-semibold text-sm text-ink">022 2761 8912</div>
             </div>
         </a>
 
         <a href="https://wa.me/919820120832" target="_blank"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
-            <div class="w-9 h-9 bg-green-50 border border-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 fill-[#25D366]" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
+            <div class="w-9 h-9 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-[#25D366]">WhatsApp</div>
-                <div class="text-sm text-gray-600">Tap to chat instantly</div>
+                <div class="font-semibold text-sm text-green-700">WhatsApp</div>
+                <div class="text-sm text-ink">Tap to chat instantly</div>
             </div>
         </a>
 
         <a href="mailto:lohshreeind@gmail.com"
            class="flex items-center gap-3 px-4 py-3.5 hover:bg-gray-50 transition">
-            <div class="w-9 h-9 bg-red-50 border border-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="w-9 h-9 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <use href="#icon-mail"/>
                 </svg>
             </div>
             <div>
                 <div class="font-semibold text-sm text-ink">Email Us</div>
-                <div class="text-sm text-gray-600">lohshreeind@gmail.com</div>
+                <div class="text-sm text-ink">lohshreeind@gmail.com</div>
             </div>
         </a>
     </div>
@@ -1035,7 +1227,7 @@
             <div class="w-7 h-7 bg-[#25D366] rounded-full flex items-center justify-center">
                 <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
-            <div class="w-7 h-7 bg-brand rounded-full flex items-center justify-center">
+            <div class="w-7 h-7 bg-red-600 rounded-full flex items-center justify-center">
                 <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <use href="#icon-mail"/>
                 </svg>
@@ -1069,9 +1261,9 @@ document.querySelectorAll('.years-exp').forEach(el => {
 });
 
 
-// Product catalog data — drives the grid, modal, and search.
+// Product catalog data — drives the grid, detail panel, and search.
 // An item can list photos from assets/gallery/<galleryFolder>/ — those items
-// become clickable in the modal and open the photo viewer.
+// become clickable in the detail panel and open the photo viewer.
 const catalog = [
     {
         id: 'shafts',
@@ -1098,8 +1290,8 @@ const catalog = [
         title: 'Rotary Valves',
         shortDesc: 'Bush type and mechanical seal valves.',
         tagline: 'Inlet, outlet square type and Dismit design',
-        stroke: '#f43f5e',
-        bg: '#fff1f2',
+        stroke: '#DC2626',
+        bg: '#FEF2F2',
         icon: `<circle cx="12" cy="12" r="6.5" stroke-width="1.5"/>
                <path stroke-width="1.5" stroke-linecap="round"
                      d="M12 12V5.5m0 6.5v6.5m0-6.5l5.63 3.25M12 12L6.37 15.25M12 12l5.63-3.25M12 12L6.37 8.75"/>
@@ -1117,8 +1309,8 @@ const catalog = [
         title: 'Conveyor Parts',
         shortDesc: 'Redler, bulk flow and solvent-tight conveyor parts.',
         tagline: 'Drive shafts, tension shafts and conveyor spares',
-        stroke: '#f59e0b',
-        bg: '#fffbeb',
+        stroke: '#EA580C',
+        bg: '#FFF7ED',
         icon: `<rect x="2.5" y="9" width="19" height="7" rx="3.5" stroke-width="1.5"/>
                <circle cx="6.5" cy="12.5" r="1.3" stroke-width="1.5"/>
                <circle cx="12" cy="12.5" r="1.3" stroke-width="1.5"/>
@@ -1185,9 +1377,9 @@ const catalog = [
         title: 'Custom Solutions',
         shortDesc: 'Need something custom?',
         tagline: "Can't find your part? We'll build it.",
-        modalDescription: 'Manufactured as per customer drawings, specifications, samples and plant requirements.',
-        stroke: '#C8185A',
-        bg: '#FEF2F7',
+        description: 'Manufactured as per customer drawings, specifications, samples and plant requirements.',
+        stroke: '#1E3A8A',
+        bg: '#EFF6FF',
         icon: `<path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                     d="M5 3v4M3 5h4M6 17v4m-2-2h4
                     m5-16l2.286 6.857L21 12l-5.714 2.143L13 21
@@ -1197,19 +1389,29 @@ const catalog = [
 ];
 
 
-// Builds the 2-column product grid from the catalog array
+// Builds the two card stacks flanking the detail panel from the catalog
+// array. Arrows point toward the panel in the middle: right on the left
+// stack, left on the right stack (desktop only — below lg the panel sits
+// underneath the cards, so both stacks keep the right-edge arrow).
 function renderGrid() {
-    const grid = document.getElementById('productGrid');
-
-    grid.innerHTML = catalog.map((cat, i) => {
-        // Manual border classes since CSS divide-* doesn't handle 2-col grids correctly
-        const borderR = (i % 2 === 0) ? 'border-r border-pink-200' : '';
-        const borderB = (i < 4)       ? 'border-b border-pink-200' : '';
+    const cardHTML = (cat, side) => {
+        const mirrored = side === 'right';
+        const arrowPos = mirrored ? 'right-5 lg:right-auto lg:left-5' : 'right-5';
+        const arrowDir = mirrored
+            ? 'group-hover:translate-x-1 lg:rotate-180 lg:group-hover:-translate-x-1'
+            : 'group-hover:translate-x-1';
+        const descPad  = mirrored ? 'pr-12 lg:pr-0' : 'pr-12';
+        // Mirrored cards keep the arrow zone clear on the left and use the
+        // freed-up right side for content
+        const cardPad  = mirrored ? 'p-6 lg:pl-14 lg:pr-6' : 'p-6';
 
         return `
-        <div class="prod-row group relative flex flex-col p-6 ${borderR} ${borderB}"
+        <div class="prod-row group relative flex flex-col ${cardPad}"
+             data-id="${cat.id}"
              data-search="${cat.title.toUpperCase()} ${cat.items.map(it => it.name).join(' ')}"
-             onclick="openModal('${cat.id}')">
+             onclick="selectCategory('${cat.id}')"
+             onmouseenter="hoverCategory('${cat.id}')"
+             onmouseleave="cancelHoverCategory()">
 
             <div class="flex items-center gap-4 ${cat.id !== 'custom' ? 'mb-4' : ''}">
                 <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -1221,16 +1423,20 @@ function renderGrid() {
                 </h3>
             </div>
 
-            <p class="text-[15px] text-gray-700 leading-relaxed flex-1 mb-4">${cat.shortDesc}</p>
+            <p class="text-[15px] text-ink leading-relaxed flex-1 mb-4 ${descPad}">${cat.shortDesc}</p>
 
-            <div class="absolute right-5 top-1/2 -translate-y-1/2">
-                <svg class="w-6 h-6 text-gray-700 group-hover:text-brand group-hover:translate-x-1 transition-all duration-200"
+            <div class="absolute ${arrowPos} top-1/2 -translate-y-1/2">
+                <svg class="w-6 h-6 text-ink group-hover:text-brand ${arrowDir} transition-all duration-200"
                      fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <use href="#icon-chevron-right"/>
                 </svg>
             </div>
         </div>`;
-    }).join('');
+    };
+
+    const half = Math.ceil(catalog.length / 2);
+    document.getElementById('productGridLeft').innerHTML  = catalog.slice(0, half).map(c => cardHTML(c, 'left')).join('');
+    document.getElementById('productGridRight').innerHTML = catalog.slice(half).map(c => cardHTML(c, 'right')).join('');
 }
 renderGrid();
 
@@ -1248,8 +1454,8 @@ const clients = [
     { name: 'Vedanta',             font: 'font-black text-2xl tracking-tight' },
 ];
 
-const PLATE_CLASSES = 'flex-shrink-0 mr-10 px-7 py-4 rounded-t-xl bg-gradient-to-b from-white to-pink-50 '
-    + 'border border-b-0 border-pink-200 shadow-[0_-4px_14px_-6px_rgba(200,24,90,0.25)] text-gray-800 uppercase';
+const PLATE_CLASSES = 'flex-shrink-0 mr-10 px-7 py-4 rounded-t-xl bg-gradient-to-b from-white to-blue-50 '
+    + 'border border-b-0 border-blue-200 shadow-[0_-4px_14px_-6px_rgba(30,64,175,0.25)] text-ink uppercase';
 
 // Builds the name plates riding on the conveyor belt. The list is rendered
 // twice back-to-back so the marquee animation loops seamlessly.
@@ -1262,84 +1468,103 @@ function renderClientPlates() {
 renderClientPlates();
 
 
-// Product modal open/close logic
-const modal      = document.getElementById('productModal');
-const modalInner = document.getElementById('modalInner');
+// Detail panel — shows the selected category's items inline next to the grid
+const detailPanel = document.getElementById('productDetail');
+let activeCatId = null;
 
-function openModal(catId) {
+function selectCategory(catId, scrollTo = true) {
     const cat = catalog.find(c => c.id === catId);
     if (!cat) return;
+    activeCatId = catId;
 
-    document.getElementById('modalTitle').textContent = cat.title;
+    document.querySelectorAll('.prod-row').forEach(card => {
+        card.classList.toggle('prod-row-active', card.dataset.id === catId);
+    });
 
-    const box = document.getElementById('modalIconBox');
-    box.style.backgroundColor = cat.bg;
-    box.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="${cat.stroke}" viewBox="0 0 24 24">${cat.icon}</svg>`;
-
-    const modalProducts = document.getElementById('modalProducts');
-
+    let body;
     if (cat.id === 'custom') {
-        document.getElementById('modalTagline').textContent = cat.tagline;
-
-        modalProducts.className = 'overflow-y-auto p-6 flex-1';
-        modalProducts.innerHTML = `
+        body = `
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-6">
-                <p class="text-base text-gray-800 leading-relaxed">
-                    ${cat.modalDescription}
+                <p class="text-base text-ink leading-relaxed">
+                    ${cat.description}
                 </p>
 
                 <a href="tel:+919820120832"
                     class="mt-5 inline-flex items-center justify-center bg-brand text-white px-6 py-3 rounded-lg text-sm font-black tracking-widest hover:bg-brandDark transition">
                         CALL NOW
                 </a>
-            </div>
-        `;
-    } else {
-        document.getElementById('modalTagline').textContent = cat.tagline;
-
-        modalProducts.className = 'overflow-y-auto p-6 grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1';
-        modalProducts.innerHTML = cat.items.map((item, i) => {
-            const hasPhotos = item.photos && item.photos.length > 0;
-            return `
-            <div class="flex items-start gap-3 p-4 rounded-lg bg-gray-50 border border-gray-100 transition
-                        ${hasPhotos ? 'cursor-pointer hover:border-brand/50' : 'hover:border-brand/30'}"
-                 ${hasPhotos ? `onclick="openPhotoViewer('${cat.id}', ${i})"` : ''}>
-                <div class="w-2 h-2 rounded-full mt-2 flex-shrink-0" style="background:${cat.stroke}"></div>
-                <div class="flex-1">
-                    <div class="font-bold text-base text-ink">${item.name}</div>
-                    <div class="text-sm text-gray-600 mt-0.5">${item.spec}</div>
-                </div>
-                ${hasPhotos ? `
-                <div class="flex items-center gap-1 text-brand flex-shrink-0 self-center">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <use href="#icon-camera"/>
-                    </svg>
-                    <span class="text-xs font-bold uppercase">View</span>
-                </div>` : ''}
             </div>`;
-        }).join('');
+    } else {
+        body = `
+            <div class="grid grid-cols-1 2xl:grid-cols-2 gap-3">
+                ${cat.items.map((item, i) => {
+                    const hasPhotos = item.photos && item.photos.length > 0;
+                    return `
+                    <div class="flex items-start gap-3 p-4 rounded-lg bg-gray-50 border border-gray-100 transition
+                                ${hasPhotos ? 'cursor-pointer hover:border-brand/50' : 'hover:border-brand/30'}"
+                         ${hasPhotos ? `onclick="openPhotoViewer('${cat.id}', ${i})"` : ''}>
+                        <div class="w-2 h-2 rounded-full mt-2 flex-shrink-0" style="background:${cat.stroke}"></div>
+                        <div class="flex-1">
+                            <div class="font-bold text-base text-ink">${item.name}</div>
+                            <div class="text-sm text-ink mt-0.5">${item.spec}</div>
+                        </div>
+                        ${hasPhotos ? `
+                        <div class="relative flex-shrink-0 self-center">
+                            <img src="assets/gallery/${cat.galleryFolder}/${item.photos[0]}"
+                                 alt="${item.name}" loading="lazy"
+                                 class="w-14 h-14 rounded-lg object-cover bg-white border border-gray-200">
+                            ${item.photos.length > 1 ? `
+                            <span class="absolute -top-1.5 -right-1.5 bg-brand text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none shadow">
+                                +${item.photos.length - 1}
+                            </span>` : ''}
+                        </div>` : ''}
+                    </div>`;
+                }).join('')}
+            </div>`;
     }
 
-    modal.style.visibility = 'visible';
-    modal.style.opacity = '1';
-    document.body.style.overflow = 'hidden';
-    requestAnimationFrame(() => { modalInner.style.transform = 'translateY(0)'; });
+    detailPanel.innerHTML = `
+        <div class="detail-anim">
+            <div class="flex items-center gap-4 px-6 sm:px-7 py-5 border-b border-blue-100 bg-brandLight/60">
+                <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                     style="background:${cat.bg}">
+                    <svg class="w-6 h-6" fill="none" stroke="${cat.stroke}" viewBox="0 0 24 24">${cat.icon}</svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-black text-ink">${cat.title.toUpperCase()}</h3>
+                    <p class="text-sm text-ink mt-0.5">${cat.tagline}</p>
+                </div>
+            </div>
+            <div class="p-6 sm:p-7">${body}</div>
+        </div>`;
+
+    // Below lg the panel sits under the grid — bring it into view on tap
+    if (scrollTo && window.innerWidth < 1024) {
+        detailPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
-function closeModal() {
-    modal.style.opacity = '0';
-    modalInner.style.transform = 'translateY(24px)';
-    setTimeout(() => {
-        modal.style.visibility = 'hidden';
-        document.body.style.overflow = '';
-    }, 260);
+// Hovering a card selects it on mouse devices. The short delay is hover
+// intent: sweeping the cursor across the grid toward the panel shouldn't
+// flicker through categories. Touch devices have no hover and use tap.
+const hoverSelects = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+let hoverTimer = null;
+
+function hoverCategory(catId) {
+    if (!hoverSelects || catId === activeCatId) return;
+    clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => selectCategory(catId, false), 150);
 }
 
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+function cancelHoverCategory() {
+    clearTimeout(hoverTimer);
+}
+
+// Start with the first category shown so the panel is never empty
+selectCategory(catalog[0].id, false);
 
 
-// Item photo viewer — shows the gallery photos of one product item,
-// layered on top of the product modal (which stays open behind it)
+// Item photo viewer — shows the gallery photos of one product item
 const photoViewer = document.getElementById('photoViewer');
 const pvImage     = document.getElementById('pvImage');
 const pvCaption   = document.getElementById('pvCaption');
@@ -1384,14 +1609,11 @@ pvPrev.addEventListener('click', () => { pvIndex = (pvIndex - 1 + pvPhotos.lengt
 pvNext.addEventListener('click', () => { pvIndex = (pvIndex + 1) % pvPhotos.length; renderPhotoViewer(); });
 photoViewer.addEventListener('click', e => { if (e.target === photoViewer) closePhotoViewer(); });
 
-// Escape closes the photo viewer first if it is open, otherwise the modal;
+// Escape closes the photo viewer if it is open;
 // arrow keys flip through the open item's photos
 document.addEventListener('keydown', e => {
     const viewerOpen = photoViewer.style.visibility === 'visible';
-    if (e.key === 'Escape') {
-        if (viewerOpen) closePhotoViewer();
-        else            closeModal();
-    }
+    if (e.key === 'Escape' && viewerOpen) closePhotoViewer();
     if (viewerOpen && pvPhotos.length > 1) {
         if (e.key === 'ArrowLeft')  { pvIndex = (pvIndex - 1 + pvPhotos.length) % pvPhotos.length; renderPhotoViewer(); }
         if (e.key === 'ArrowRight') { pvIndex = (pvIndex + 1) % pvPhotos.length; renderPhotoViewer(); }
@@ -1424,7 +1646,6 @@ document.getElementById('navSearch').addEventListener('input', function () {
         const matches = !term || card.dataset.search.toLowerCase().includes(term);
         if (matches && !isCustom) hasMatch = true;
         card.style.display = matches ? '' : 'none';
-        card.classList.remove('sm:col-span-2');
     });
 
     // If searching but nothing matched, show the custom card as a fallback
@@ -1434,9 +1655,18 @@ document.getElementById('navSearch').addEventListener('input', function () {
         });
     }
 
-    // If only one card is visible, span it across both columns
+    // Collapse a card stack entirely when none of its cards matched
+    ['productGridLeft', 'productGridRight'].forEach(id => {
+        const stack = document.getElementById(id);
+        const any = [...stack.children].some(c => c.style.display !== 'none');
+        stack.style.display = any ? '' : 'none';
+    });
+
+    // If only one card is left, show it in the detail panel right away
     const visible = [...cards].filter(c => c.style.display !== 'none');
-    if (visible.length === 1) visible[0].classList.add('sm:col-span-2');
+    if (visible.length === 1 && visible[0].dataset.id !== activeCatId) {
+        selectCategory(visible[0].dataset.id, false);
+    }
 
     if (term.length === 1) document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
 });
