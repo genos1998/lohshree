@@ -425,30 +425,46 @@
 </footer>
 
 
-<!-- FLOATING CONTACT BUTTON -->
+<!-- FLOATING CONTACT BUTTON — phone, WhatsApp, email dropdown -->
 <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+
+    <!-- Dropdown -->
     <div id="contactMenu"
          class="hidden mb-3 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+
         <a href="tel:+919820120832"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
             <div class="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-ink">Call: 9820120832</div>
-                <div class="text-sm text-ink">Tap to open dialer</div>
+                <div class="font-bold text-sm text-blue-700">To place orders</div>
+                <div class="font-semibold text-sm text-ink">98201 20832</div>
             </div>
         </a>
+
+        <a href="tel:+912227618912"
+           class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
+            <div class="w-9 h-9 bg-brand rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
+            </div>
+            <div>
+                <div class="font-bold text-sm text-brand">Office — for queries</div>
+                <div class="font-semibold text-sm text-ink">022 2761 8912</div>
+            </div>
+        </a>
+
         <a href="https://wa.me/919820120832" target="_blank"
            class="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition">
             <div class="w-9 h-9 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
                 <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-green-700">WhatsApp</div>
-                <div class="text-sm text-ink">Tap to chat instantly</div>
+                <div class="font-bold text-sm text-green-700">WhatsApp</div>
+                <div class="font-semibold text-sm text-black">Tap to chat instantly</div>
             </div>
         </a>
+
         <a href="mailto:lohshreeind@gmail.com"
            class="flex items-center gap-3 px-4 py-3.5 hover:bg-gray-50 transition">
             <div class="w-9 h-9 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
@@ -457,12 +473,13 @@
                 </svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-ink">Email Us</div>
-                <div class="text-sm text-ink">lohshreeind@gmail.com</div>
+                <div class="font-bold text-sm text-ink">Email Us</div>
+                <div class="font-semibold text-sm text-black">lohshreeind@gmail.com</div>
             </div>
         </a>
     </div>
 
+    <!-- Main toggle button: 3 channel icons + label -->
     <button id="contactToggle"
         class="bg-ink text-white pl-3 pr-5 py-3 rounded-full shadow-2xl flex items-center gap-2.5 hover:scale-105 transition-transform duration-200">
         <div class="flex items-center gap-1">
@@ -472,7 +489,7 @@
             <div class="w-7 h-7 bg-[#25D366] rounded-full flex items-center justify-center">
                 <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
-            <div class="w-7 h-7 bg-brand rounded-full flex items-center justify-center">
+            <div class="w-7 h-7 bg-red-600 rounded-full flex items-center justify-center">
                 <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <use href="#icon-mail"/>
                 </svg>
