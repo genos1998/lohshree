@@ -739,7 +739,7 @@
                 <!-- The detail panel sits BETWEEN the two card columns on desktop so
                      the cursor never crosses another card on its way from a card to
                      the panel (which would switch the selection mid-flight) -->
-                <div class="flex-1 grid sm:grid-cols-2 lg:grid-cols-[1fr_1.5fr_1fr] gap-4 items-start">
+                <div class="flex-1 grid sm:grid-cols-2 lg:grid-cols-[1fr_1.5fr_1fr] gap-4 items-stretch">
 
                     <!-- Card stacks — hover (desktop) or tap a card to load it in the
                          detail panel; first half of the catalog left, rest right -->
@@ -756,7 +756,7 @@
                     <!-- MIDDLE: DETAIL PANEL — rendered by JS for the selected category -->
                     <div
                         id="productDetail"
-                        class="sm:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:sticky lg:top-24 scroll-mt-24 rounded-xl border border-blue-100 bg-white shadow-sm overflow-hidden">
+                        class="sm:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1 scroll-mt-24 rounded-xl border border-blue-100 bg-white shadow-sm overflow-hidden flex flex-col">
                     </div>
 
                 </div>
@@ -1227,7 +1227,7 @@
                 <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-blue-700">To place orders</div>
+                <div class="font-bold text-sm text-blue-700">To place orders</div>
                 <div class="font-semibold text-sm text-ink">98201 20832</div>
             </div>
         </a>
@@ -1238,7 +1238,7 @@
                 <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-brand">Office — for queries</div>
+                <div class="font-bold text-sm text-brand">Office — for queries</div>
                 <div class="font-semibold text-sm text-ink">022 2761 8912</div>
             </div>
         </a>
@@ -1249,8 +1249,8 @@
                 <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-green-700">WhatsApp</div>
-                <div class="text-sm text-ink">Tap to chat instantly</div>
+                <div class="font-bold text-sm text-green-700">WhatsApp</div>
+                <div class="font-semibold text-sm text-black">Tap to chat instantly</div>
             </div>
         </a>
 
@@ -1262,8 +1262,8 @@
                 </svg>
             </div>
             <div>
-                <div class="font-semibold text-sm text-ink">Email Us</div>
-                <div class="text-sm text-ink">lohshreeind@gmail.com</div>
+                <div class="font-bold text-sm text-ink">Email Us</div>
+                <div class="font-semibold text-sm text-black">lohshreeind@gmail.com</div>
             </div>
         </a>
     </div>
@@ -1547,14 +1547,14 @@ function selectCategory(catId, scrollTo = true) {
             </div>`;
     } else {
         body = `
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-2.5">
+            <div class="h-full grid grid-cols-1 xl:grid-cols-2 gap-2.5">
                 ${cat.items.map((item, i) => {
                     const hasPhotos = item.photos && item.photos.length > 0;
                     return `
-                    <div class="flex items-start gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100 transition
+                    <div class="flex items-center gap-2.5 p-3 rounded-lg bg-gray-50 border border-gray-100 transition
                                 ${hasPhotos ? 'cursor-pointer hover:border-brand/50' : 'hover:border-brand/30'}"
                          ${hasPhotos ? `onclick="openPhotoViewer('${cat.id}', ${i})"` : ''}>
-                        <div class="w-1.5 h-1.5 rounded-full mt-[7px] flex-shrink-0" style="background:${cat.stroke}"></div>
+                        <div class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:${cat.stroke}"></div>
                         <div class="flex-1">
                             <div class="font-bold text-sm text-ink">${item.name}</div>
                             <div class="text-xs text-ink mt-0.5">${item.spec}</div>
@@ -1575,7 +1575,7 @@ function selectCategory(catId, scrollTo = true) {
     }
 
     detailPanel.innerHTML = `
-        <div class="detail-anim">
+        <div class="detail-anim flex-1 flex flex-col">
             <div class="flex items-center gap-3 px-4 sm:px-5 py-4 border-b border-blue-100 bg-brandLight/60">
                 <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                      style="background:${cat.bg}">
@@ -1586,7 +1586,7 @@ function selectCategory(catId, scrollTo = true) {
                     <p class="text-[13px] text-ink mt-0.5">${cat.tagline}</p>
                 </div>
             </div>
-            <div class="p-4 sm:p-5">${body}</div>
+            <div class="p-4 sm:p-5 flex-1">${body}</div>
         </div>`;
 
     // Below lg the panel sits under the grid — bring it into view on tap
