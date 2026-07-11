@@ -25,10 +25,25 @@
             theme: {
                 extend: {
                     colors: {
-                        brand:      '#1E40AF',
-                        brandDark:  '#1E3A8A',
-                        brandLight: '#EFF6FF',
+                        brand:      '#1B2ACF',
+                        brandDark:  '#141FA3',
+                        brandLight: '#EEF1FE',
                         ink:        '#111827',
+                        // Metallic cobalt-blue scale replacing Tailwind's blue,
+                        // so every blue-* tint stays on-brand
+                        blue: {
+                            50:  '#EEF1FE',
+                            100: '#DEE4FD',
+                            200: '#BFCAFB',
+                            300: '#95A6F6',
+                            400: '#6379EE',
+                            500: '#3A50E5',
+                            600: '#2338DC',
+                            700: '#1B2ACF',
+                            800: '#141FA3',
+                            900: '#0E1670',
+                            950: '#081048',
+                        }
                     }
                 }
             }
@@ -37,9 +52,9 @@
     <style>
         /* Custom scrollbar */
         ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #DBEAFE; }
-        ::-webkit-scrollbar-thumb { background: #93C5FD; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #1E40AF; }
+        ::-webkit-scrollbar-track { background: #DEE4FD; }
+        ::-webkit-scrollbar-thumb { background: #95A6F6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1B2ACF; }
 
         /* Footer text: soft dark halo for crisp separation from the navy */
         footer { text-shadow: 0 1px 3px rgba(2, 6, 23, 0.55); }
@@ -51,7 +66,7 @@
             position: absolute;
             bottom: -4px; left: 0; right: 0;
             height: 2px;
-            background: #1E40AF;
+            background: #1B2ACF;
         }
 
         /* Thumbnail subtle lift on hover */
@@ -60,7 +75,7 @@
         }
         .gallery-thumb:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(30,64,175,0.2);
+            box-shadow: 0 8px 24px rgba(27,42,207,0.2);
         }
 
         /* Centered hover preview overlay */
@@ -76,7 +91,7 @@
             max-height: 70vh;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 3px #1E40AF;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 3px #1B2ACF;
         }
         #hoverOverlay.visible {
             opacity: 1;
@@ -245,13 +260,13 @@
 <!-- FOOTER WAVE DIVIDER -->
 <div class="relative h-16 overflow-hidden bg-white">
     <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="absolute inset-0 w-full h-full">
-        <path d="M0,62 C300,120 500,0 720,48 C980,100 1180,20 1440,62" fill="none" stroke="#60A5FA" stroke-width="3"/>
-        <path fill="#172554"
+        <path d="M0,62 C300,120 500,0 720,48 C980,100 1180,20 1440,62" fill="none" stroke="#6379EE" stroke-width="3"/>
+        <path fill="#081048"
               d="M0,70 C300,128 500,8 720,56 C980,108 1180,28 1440,70 L1440,120 L0,120 Z"/>
     </svg>
 </div>
 
-<footer id="contact" class="bg-[#172554] text-blue-50 pt-12 pb-0 relative overflow-hidden">
+<footer id="contact" class="bg-[#081048] text-blue-50 pt-12 pb-0 relative overflow-hidden">
 
     <!-- Gear Watermark -->
     <div class="absolute bottom-0 right-0 opacity-[0.08] pointer-events-none select-none translate-x-1/4 translate-y-1/4">
