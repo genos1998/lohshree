@@ -262,6 +262,27 @@
         <path fill="currentColor" stroke="none"
               d="M4 5.1c-2.1 0-3.4 1.7-3.4 4.3V12h6.8V9.4C7.4 6.8 5.9 5.1 4 5.1z"/>
     </symbol>
+    <!-- Industrial robot arm — classic pictogram: base plate, dome body
+         (brand-blue eye dot), thick zig-zag limbs joined by big hollow
+         circles (elbow left, shoulder top, small wrist) and an open
+         crab-claw gripper reaching down-right. Joins the About timeline
+         scenes from 2010 onward. Placed with <use transform> so it
+         inherits each scene's stroke style. Local origin: bottom-center
+         of the base on the ground line. Joint circles are filled with the
+         About section background (#F4F6FE) to mask the limbs behind them. -->
+    <g id="robot-arm-figure">
+        <path stroke-linejoin="round" fill="#F4F6FE" d="M0.06 -5.48L-6.24 -11.48 -7.56 -10.12 -1.26 -4.12Z"/>
+        <path stroke-linejoin="round" fill="#F4F6FE" d="M-6.36 -11.38L-0.61 -16.78 -1.69 -15.62 -7.44 -10.22Z"/>
+        <path stroke-linejoin="round" fill="#F4F6FE" d="M-1.55 -16.65L2.45 -13.15 3.25 -12.25 -0.75 -15.75Z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" fill="#F4F6FE" d="M-3.1 -1.1v-0.9a3.1 3.1 0 0 1 6.2 0v0.9"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M-4.6 0v-1.1h9.2V0"/>
+        <circle cx="-6.9" cy="-10.8" r="1.55" fill="#F4F6FE"/>
+        <circle cx="-1.15" cy="-16.2" r="1.55" fill="#F4F6FE"/>
+        <circle cx="2.85" cy="-12.7" r="0.92" fill="#F4F6FE"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.6 -13.1L5.9 -13.5 6.7 -11.6"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.3 -11.9L4.2 -9.9 6.3 -9.6"/>
+        <circle cx="0" cy="-3" r="0.7" class="text-brand" fill="currentColor" stroke="none"/>
+    </g>
     <symbol id="icon-shield-check" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
@@ -543,10 +564,13 @@
 
                     <!-- Each icon grows with the company: from a tiny workshop
                          shed to a full-scale plant (sawtooth roofs, chimneys),
-                         with a growing crowd on the same ground line -->
+                         with a growing crowd on the same ground line. From 2010
+                         the scenes rearrange — robot arms on the left, factory
+                         in the middle, people on the right — as automation
+                         joins the workforce -->
                     <div class="text-center">
-                        <div class="h-20 flex items-end justify-center mb-4">
-                            <svg class="w-16 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
+                        <div class="h-28 flex items-end justify-center mb-4">
+                            <svg class="w-24 sm:w-28 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
                                 <path stroke-linecap="round" d="M8 31h32"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14 31v-9h10v9M13 22l6-4 6 4M17.5 31v-4.5h3V31"/>
                                 <path stroke-linecap="round" d="M22.5 18.6V15h1.6v4.6"/>
@@ -566,8 +590,8 @@
                     </div>
 
                     <div class="text-center">
-                        <div class="h-20 flex items-end justify-center mb-4">
-                            <svg class="w-20 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
+                        <div class="h-28 flex items-end justify-center mb-4">
+                            <svg class="w-28 sm:w-32 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
                                 <path stroke-linecap="round" d="M4 31h40"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 31V20l5.5 3.5V20l5.5 3.5V20l5.5 3.5V31"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M25.5 31V14h3.2v17"/>
@@ -589,18 +613,20 @@
                     </div>
 
                     <div class="text-center">
-                        <div class="h-20 flex items-end justify-center mb-4">
-                            <svg class="w-24 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
-                                <path stroke-linecap="round" d="M3 31h42"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 31V17l6 4v-4l6 4v-4l6 4V31"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M23 31V21.5h5.5V31M25 31v-3.5h1.5V31"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M29.5 31V10h3v21"/>
-                                <circle cx="31.2" cy="7.2" r="1.2" opacity="0.7"/>
-                                <circle cx="33" cy="4.6" r="0.9" opacity="0.5"/>
-                                <path stroke-linecap="round" class="text-brand" d="M8 26.5h3M13 26.5h3M18 26.5h3"/>
-                                <use href="#icon-person" x="34.5" y="20" width="4.6" height="11" class="text-brand"/>
-                                <use href="#icon-person" x="39" y="20" width="4.6" height="11" class="text-brand"/>
-                                <use href="#icon-person" x="43.5" y="20" width="4.6" height="11" class="text-brand"/>
+                        <div class="h-28 flex items-end justify-center mb-4">
+                            <svg class="w-40 sm:w-52 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 67 32">
+                                <path stroke-linecap="round" d="M2 31h63"/>
+                                <use href="#robot-arm-figure" transform="translate(12 31) scale(0.8)"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 31V17l6 4v-4l6 4v-4l6 4V31"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M39 31V21.5h5.5V31M41 31v-3.5h1.5V31"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M45.5 31V10h3v21"/>
+                                <circle cx="47.2" cy="7.2" r="1.2" opacity="0.7"/>
+                                <circle cx="49" cy="4.6" r="0.9" opacity="0.5"/>
+                                <path stroke-linecap="round" class="text-brand" d="M24 26.5h3M29 26.5h3M34 26.5h3"/>
+                                <use href="#icon-person" x="50.4" y="20" width="4.6" height="11" class="text-brand"/>
+                                <use href="#icon-person" x="54.2" y="20" width="4.6" height="11" class="text-brand"/>
+                                <use href="#icon-person" x="58" y="20" width="4.6" height="11" class="text-brand"/>
+                                <use href="#icon-person" x="61.8" y="20" width="4.6" height="11" class="text-brand"/>
                             </svg>
                         </div>
                         <div class="relative border-t-2 border-blue-200 pt-4">
@@ -608,24 +634,28 @@
                             <div class="text-lg font-black text-brand mb-1">2010</div>
                             <div class="text-sm font-black text-ink mb-1.5">Stronger Together</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
-                                Bigger facilities, advanced machinery and skilled professionals.
+                                Bigger facilities, our first automation and skilled professionals.
                             </p>
                         </div>
                     </div>
 
                     <div class="text-center">
-                        <div class="h-20 flex items-end justify-center mb-4">
-                            <svg class="w-28 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 48 32">
-                                <path stroke-linecap="round" d="M2 31h44"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 31V14l5.5 3.7V14l5.5 3.7V14l5.5 3.7V14l5.5 3.7V31"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M27.5 31V7h3.5v24"/>
-                                <circle cx="29.5" cy="4.2" r="1.3" opacity="0.7"/>
-                                <circle cx="31.4" cy="1.8" r="0.9" opacity="0.5"/>
-                                <path stroke-linecap="round" class="text-brand" d="M7 22.5h3M12 22.5h3M17 22.5h3M7 26.5h3M12 26.5h3M17 26.5h3M22 26.5h2.5"/>
-                                <use href="#icon-person" x="33.2" y="21" width="4" height="10" class="text-brand"/>
-                                <use href="#icon-person" x="36.8" y="21" width="4" height="10" class="text-brand"/>
-                                <use href="#icon-person" x="40.4" y="21" width="4" height="10" class="text-brand"/>
-                                <use href="#icon-person" x="44" y="21" width="4" height="10" class="text-brand"/>
+                        <div class="h-28 flex items-end justify-center mb-4">
+                            <svg class="w-40 sm:w-60 text-ink" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 92 32">
+                                <path stroke-linecap="round" d="M2 31h88"/>
+                                <use href="#robot-arm-figure" transform="translate(10.5 31) scale(0.8)"/>
+                                <use href="#robot-arm-figure" transform="translate(30 31) scale(0.8)"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M40.5 31V15l6 4v-4l6 4v-4l6 4v-4l6 4V31"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M65.5 31V7h3.5v24"/>
+                                <circle cx="67.2" cy="4.2" r="1.3" opacity="0.7"/>
+                                <circle cx="69.1" cy="1.8" r="0.9" opacity="0.5"/>
+                                <path stroke-linecap="round" class="text-brand" d="M43.5 22.5h3M48.5 22.5h3M53.5 22.5h3M58.5 22.5h3M43.5 26.5h3M48.5 26.5h3M53.5 26.5h3M58.5 26.5h3"/>
+                                <use href="#icon-person" x="70.8" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="74.2" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="77.6" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="81" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="84.4" y="21" width="4" height="10" class="text-brand"/>
+                                <use href="#icon-person" x="87.8" y="21" width="4" height="10" class="text-brand"/>
                             </svg>
                         </div>
                         <div class="relative border-t-2 border-blue-200 pt-4">
@@ -633,7 +663,7 @@
                             <div class="text-lg font-black text-brand mb-1">Today</div>
                             <div class="text-sm font-black text-ink mb-1.5">Engineering Future</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
-                                A full-scale plant and a family of experts driving progress.
+                                A full-scale plant where our experts and robots build side by side.
                             </p>
                         </div>
                     </div>
