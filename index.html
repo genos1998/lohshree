@@ -1376,10 +1376,11 @@ document.querySelectorAll('.years-exp').forEach(el => {
 // become clickable in the detail panel and open the photo viewer.
 const catalog = [
     {
-        id: 'shafts',
-        title: 'Shafts',
-        shortDesc: 'Drive, tension, drum, scrapper & brush shafts.',
-        tagline: 'Extractor shafts for solvent plants',
+        id: 'extractor-machine-parts',
+        title: 'Extractor Machine Parts',
+        shortDesc: 'Complete shaft assemblies in S.S. & M.S.',
+        tagline: 'Drive, transmission & drum shafts in S.S. & M.S.',
+        highlight: '900–2700 mm extractors — our forte',
         stroke: '#3A50E5',
         bg: '#EEF1FE',
         icon: `<rect x="2" y="9.75" width="4" height="4.5" rx="0.75" stroke-width="1.5"/>
@@ -1388,11 +1389,12 @@ const catalog = [
                <line x1="8.5" y1="12" x2="12.5" y2="12" stroke-width="1.5" stroke-linecap="round"/>`,
         galleryFolder: 'shafts',
         items: [
-            { name: 'Drive Shaft',   spec: 'Extractor machine part', photos: ['drive-shaft-with-sprocket.png'] },
-            { name: 'Tension Shaft', spec: 'Extractor machine part' },
-            { name: 'Drum Shaft',    spec: 'Extractor machine part' },
-            { name: 'Scrapper Shaft', spec: 'Extractor machine part' },
-            { name: 'Brush Shaft',   spec: 'Extractor machine part' },
+            { name: 'Drive Shaft',          spec: 'Assembly complete, S.S. & M.S.', photos: ['drive-shaft-with-sprocket.png'] },
+            { name: 'Transmission Shaft',   spec: 'Assembly complete, S.S. & M.S.' },
+            { name: 'Drum Shaft Conveyor',  spec: 'Assembly complete, S.S. & M.S.' },
+            { name: 'Tension Shaft',        spec: 'Assembly complete, S.S. & M.S.' },
+            { name: 'Scrapper Shaft',       spec: 'Assembly complete, S.S. & M.S.' },
+            { name: 'Brush Shaft',          spec: 'Assembly complete, S.S. & M.S.' },
         ]
     },
     {
@@ -1477,6 +1479,8 @@ const catalog = [
             { name: 'Damper Assembly', spec: 'M.S. & S.S.' },
             { name: 'Ejector Assembly', spec: 'Solvent with S.S. nozzle complete', photos: ['ejector-assembly.png', 'steel-nozzles.png'] },
             { name: 'Bindicators', spec: 'High level & low level' },
+            { name: 'Gun Metal Bush', spec: 'All sizes' },
+            { name: 'Housing', spec: 'As per plant requirement' },
             { name: 'Aluminum Manhole Cover', spec: '300 / 400 / 500 mm' },
             { name: 'Sight Glass Assembly', spec: 'All sizes, M.S. & S.S.' },
             { name: 'High Temperature Glasses', spec: 'Imported & hardened' },
@@ -1645,6 +1649,13 @@ function selectCategory(catId, scrollTo = true) {
                     <p class="text-[13px] text-ink mt-0.5">${cat.tagline}</p>
                 </div>
             </div>
+            ${cat.highlight ? `
+            <div class="flex items-center gap-2 px-4 sm:px-5 py-2.5 bg-amber-50 border-b border-amber-200/70">
+                <svg class="w-4 h-4 text-amber-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l2.9 6.26 6.6.7-4.9 4.5 1.35 6.54L12 16.9 6.05 20l1.35-6.54-4.9-4.5 6.6-.7L12 2z"/>
+                </svg>
+                <span class="text-[13px] font-black text-amber-900 tracking-wide">${cat.highlight}</span>
+            </div>` : ''}
             <div class="p-4 sm:p-5 flex-1">${body}</div>
         </div>`;
 
