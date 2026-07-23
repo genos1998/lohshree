@@ -770,41 +770,29 @@
             <div class="bg-[#F4F6FE] rounded-2xl border border-blue-100 p-5 sm:p-7 flex flex-col">
 
                 <div class="text-sm font-black text-brand tracking-[0.2em] uppercase mb-2">
-                    OUR PRODUCTS
+                    ENGINEERED FOR RELIABILITY
                 </div>
 
                 <h2 class="text-3xl sm:text-[2rem] font-black text-ink leading-tight mb-3">
-                    ENGINEERED FOR RELIABILITY
+                    Whatever it takes to keep your plant running, we make it
                 </h2>
 
                 <p class="text-[15px] text-black leading-relaxed mb-6">
-                    From standard components to fully custom parts,<br class="hidden sm:block">
-                    every solution is engineered for performance and durability.
+                    From standard components to fully custom parts — one source for
+                    every part your operation depends on, engineered for performance
+                    and durability.
                 </p>
 
-                <!-- The detail panel sits BETWEEN the two card columns on desktop so
-                     the cursor never crosses another card on its way from a card to
-                     the panel (which would switch the selection mid-flight) -->
-                <div class="flex-1 grid sm:grid-cols-2 lg:grid-cols-[1fr_1.5fr_1fr] gap-4 items-stretch">
-
-                    <!-- Card stacks — hover (desktop) or tap a card to load it in the
-                         detail panel; first half of the catalog left, rest right -->
-                    <div
-                        id="productGridLeft"
-                        class="grid grid-cols-1 auto-rows-[minmax(110px,auto)] lg:auto-rows-[minmax(140px,1fr)] bg-white border border-blue-100 rounded-xl overflow-hidden divide-y divide-blue-100 lg:col-start-1 lg:row-start-1">
-                    </div>
-
-                    <div
-                        id="productGridRight"
-                        class="grid grid-cols-1 auto-rows-[minmax(110px,auto)] lg:auto-rows-[minmax(140px,1fr)] bg-white border border-blue-100 rounded-xl overflow-hidden divide-y divide-blue-100 lg:col-start-3 lg:row-start-1">
-                    </div>
-
-                    <!-- MIDDLE: DETAIL PANEL — rendered by JS for the selected category -->
-                    <div
-                        id="productDetail"
-                        class="sm:col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1 scroll-mt-24 rounded-xl border border-blue-100 bg-white shadow-sm overflow-hidden flex flex-col">
-                    </div>
-
+                <!-- Product video — replaces the former category browser -->
+                <div class="flex-1 rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
+                    <video
+                        class="w-full h-full object-cover pointer-events-none"
+                        src="assets/video.mp4"
+                        autoplay muted loop playsinline
+                        disablepictureinpicture
+                        preload="metadata">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
 
                 <a href="gallery.html"
@@ -1551,9 +1539,13 @@ function renderGrid() {
         </div>`;
     };
 
+    const gridLeft  = document.getElementById('productGridLeft');
+    const gridRight = document.getElementById('productGridRight');
+    if (!gridLeft || !gridRight) return;   // grid replaced by video — nothing to render
+
     const half = Math.ceil(catalog.length / 2);
-    document.getElementById('productGridLeft').innerHTML  = catalog.slice(0, half).map(c => cardHTML(c, 'left')).join('');
-    document.getElementById('productGridRight').innerHTML = catalog.slice(half).map(c => cardHTML(c, 'right')).join('');
+    gridLeft.innerHTML  = catalog.slice(0, half).map(c => cardHTML(c, 'left')).join('');
+    gridRight.innerHTML = catalog.slice(half).map(c => cardHTML(c, 'right')).join('');
 }
 renderGrid();
 
@@ -1628,6 +1620,7 @@ const detailPanel = document.getElementById('productDetail');
 let activeCatId = null;
 
 function selectCategory(catId, scrollTo = true) {
+    if (!detailPanel) return;   // grid/detail panel replaced by video
     const cat = catalog.find(c => c.id === catId);
     if (!cat) return;
     activeCatId = catId;
@@ -1801,6 +1794,7 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
 document.getElementById('navSearch').addEventListener('input', function () {
     const term = this.value.toLowerCase().trim();
     const cards = document.querySelectorAll('.prod-row');
+    if (!cards.length) return;   // product grid replaced by video — nothing to filter
     let hasMatch = false;
 
     cards.forEach(card => {
