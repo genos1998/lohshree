@@ -333,7 +333,6 @@
         <div class="preloader-subtitle-row">
             <div class="preloader-subtitle">Engineers Pvt. Ltd.</div>
         </div>
-        <div class="preloader-tagline">You Came To The <span>Right Place</span></div>
     </div>
 </div>
 <script>
@@ -746,8 +745,10 @@
                     and durability.
                 </p>
 
-                <!-- Product video — replaces the former category browser -->
-                <div class="flex-1 rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
+                <!-- Product video — replaces the former category browser.
+                     The showcase CTA sits on the video itself, over a dark
+                     scrim so it stays readable on every frame -->
+                <div class="relative flex-1 rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
                     <video
                         class="w-full h-full object-cover pointer-events-none"
                         src="assets/video.mp4"
@@ -756,15 +757,17 @@
                         preload="metadata">
                         Your browser does not support the video tag.
                     </video>
-                </div>
 
-                <a href="gallery.html"
-                   class="inline-flex items-center gap-1.5 mt-6 text-sm font-black text-brand tracking-widest uppercase hover:text-brandDark transition">
-                    Product Showcase
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                        <use href="#icon-chevron-right"/>
-                    </svg>
-                </a>
+                    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/65 via-black/25 to-transparent pointer-events-none"></div>
+
+                    <a href="gallery.html"
+                       class="group absolute bottom-4 right-4 sm:bottom-5 sm:right-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-black text-brand tracking-[0.16em] uppercase shadow-[0_8px_24px_rgba(2,6,23,0.35)] ring-1 ring-black/5 hover:bg-brand hover:text-white hover:ring-brand transition">
+                        Product Showcase
+                        <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <use href="#icon-chevron-right"/>
+                        </svg>
+                    </a>
+                </div>
 
             </div>
 
