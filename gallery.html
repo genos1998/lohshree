@@ -166,11 +166,11 @@
         </a>
 
         <!-- Nav -->
-        <nav class="hidden xl:flex items-center gap-12 text-sm font-bold tracking-[0.14em] uppercase text-ink flex-1 justify-center">
+        <nav class="hidden xl:flex items-center gap-10 2xl:gap-12 text-sm font-bold tracking-[0.14em] uppercase text-ink flex-1 justify-center">
             <a href="index.html"          class="nav-link hover:text-brand transition whitespace-nowrap">Home</a>
             <a href="index.html#about"    class="nav-link hover:text-brand transition whitespace-nowrap">About Us</a>
             <a href="index.html#products" class="nav-link hover:text-brand transition whitespace-nowrap">Products</a>
-            <a href="index.html#clients"  class="nav-link hover:text-brand transition whitespace-nowrap">Industries</a>
+            <a href="index.html#clients"  class="nav-link hover:text-brand transition whitespace-nowrap">Customers</a>
             <a href="gallery.html"        class="nav-link active hover:text-brand transition whitespace-nowrap">Gallery</a>
             <a href="#contact"            class="nav-link hover:text-brand transition whitespace-nowrap">Contact Us</a>
         </nav>
@@ -307,7 +307,7 @@
                 <div class="flex flex-wrap gap-3 mb-6">
 
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
-                        <span class="years-exp">45</span> Years Experience
+                        45+ Years Experience
                     </span>
 
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
@@ -505,13 +505,6 @@
 
 <script>
 'use strict';
-
-// Years of experience — counted from the 1981 founding year so it
-// rolls over automatically each new year (45 in 2026, 46 in 2027, ...)
-const FOUNDING_YEAR = 1981;
-document.querySelectorAll('.years-exp').forEach(el => {
-    el.textContent = new Date().getFullYear() - FOUNDING_YEAR;
-});
 
 // ── GALLERY CONTENT ────────────────────────────────────────────
 // Media lives in one folder per category: assets/gallery/<folder>/<file>.

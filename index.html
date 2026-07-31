@@ -7,7 +7,7 @@
                       conveyor animation, preloader)
       Icon library    Shared SVG icons, drawn once and reused via <use>
       Preloader       Splash shown on the first visit of a session
-      Header          Logo, nav links, product search, mobile menu
+      Header          Logo, nav links, mobile menu
       Hero            Headline + image/video slideshow
       About           Journey story, milestone timeline + values card
       Products        Product grid (rendered by JS) + promise banner
@@ -240,9 +240,6 @@
     <symbol id="icon-mail" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
     </symbol>
-    <symbol id="icon-search" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-    </symbol>
     <symbol id="icon-close" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
     </symbol>
@@ -370,32 +367,14 @@
         </a>
 
         <!-- Nav -->
-        <nav class="hidden xl:flex items-center gap-12 text-sm font-bold tracking-[0.14em] uppercase text-ink flex-1 justify-center">
+        <nav class="hidden xl:flex items-center gap-10 2xl:gap-12 text-sm font-bold tracking-[0.14em] uppercase text-ink flex-1 justify-center">
             <a href="#home"       class="nav-link active hover:text-brand transition whitespace-nowrap">Home</a>
             <a href="#about"      class="nav-link hover:text-brand transition whitespace-nowrap">About Us</a>
             <a href="#products"   class="nav-link hover:text-brand transition whitespace-nowrap">Products</a>
-            <a href="#clients"    class="nav-link hover:text-brand transition whitespace-nowrap">Industries</a>
+            <a href="#clients"    class="nav-link hover:text-brand transition whitespace-nowrap">Customers</a>
             <a href="gallery.html" class="nav-link hover:text-brand transition whitespace-nowrap">Gallery</a>
             <a href="#contact"    class="nav-link hover:text-brand transition whitespace-nowrap">Contact Us</a>
         </nav>
-
-        <!-- Right actions -->
-        <div class="hidden lg:flex items-center gap-3 flex-shrink-0">
-
-            <!-- Search -->
-            <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full px-4 py-2 gap-2">
-                <svg class="w-3.5 h-3.5 text-ink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <use href="#icon-search"/>
-                </svg>
-                <input
-                    id="navSearch"
-                    type="text"
-                    placeholder="Search products..."
-                    class="bg-transparent text-sm font-medium focus:outline-none w-32 xl:w-40 text-ink placeholder-gray-800"
-                >
-            </div>
-
-        </div>
 
         <!-- Mobile menu toggle -->
         <button id="mobileMenuBtn"
@@ -417,21 +396,9 @@
             <a href="#home"        class="py-3 border-b border-gray-50 hover:text-brand transition">Home</a>
             <a href="#about"       class="py-3 border-b border-gray-50 hover:text-brand transition">About Us</a>
             <a href="#products"    class="py-3 border-b border-gray-50 hover:text-brand transition">Products</a>
-            <a href="#clients"     class="py-3 border-b border-gray-50 hover:text-brand transition">Industries</a>
+            <a href="#clients"     class="py-3 border-b border-gray-50 hover:text-brand transition">Customers</a>
             <a href="gallery.html" class="py-3 border-b border-gray-50 hover:text-brand transition">Gallery</a>
             <a href="#contact"     class="py-3 hover:text-brand transition">Contact Us</a>
-
-            <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full px-4 py-2.5 gap-2 mt-3 lg:hidden">
-                <svg class="w-3.5 h-3.5 text-ink flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <use href="#icon-search"/>
-                </svg>
-                <input
-                    id="mobileSearch"
-                    type="text"
-                    placeholder="Search products..."
-                    class="bg-transparent text-sm font-medium focus:outline-none w-full text-ink placeholder-gray-800"
-                >
-            </div>
         </nav>
     </div>
 </header>
@@ -476,7 +443,7 @@
             <!-- Badge -->
             <div class="flex items-center gap-3 mb-7">
                 <div class="w-10 h-px bg-brand flex-shrink-0"></div>
-                <span class="text-sm font-black text-brand tracking-[0.2em] uppercase"><span class="years-exp">45</span> Years of Excellence</span>
+                <span class="text-sm font-black text-brand tracking-[0.2em] uppercase">45+ Years of Excellence</span>
             </div>
 
             <!-- Headline — full width of the left column -->
@@ -536,7 +503,7 @@
                 <h2 class="text-[1.65rem] sm:text-3xl lg:text-[2.15rem] font-black text-ink mb-7 leading-[1.1] uppercase">
                     ENGINEERING TRUST
                     <br>
-                    FOR OVER <span class="years-exp">45</span> YEARS
+                    FOR 45+ YEARS
                 </h2>
 
                 <p class="text-ink text-base sm:text-[17px] leading-relaxed mb-5">
@@ -834,7 +801,7 @@
                     </h3>
 
                     <p class="text-white text-[15px] leading-relaxed max-w-md mb-8">
-                        In over <span class="years-exp">45</span> years, we have never
+                        In 45+ years, we have never
                         left a requirement unmet. If the part exists, we deliver it.
                         If it doesn't, we engineer it — to your drawings, your
                         specifications, your deadline. Whatever it takes, you get
@@ -1108,7 +1075,7 @@
                 <div class="flex flex-wrap gap-3 mb-6">
 
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
-                        <span class="years-exp">45</span> Years Experience
+                        45+ Years Experience
                     </span>
 
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
@@ -1354,15 +1321,8 @@ window.addEventListener('load', () => {
     }, remaining);
 });
 
-// Years of experience — counted from the 1981 founding year so it
-// rolls over automatically each new year (45 in 2026, 46 in 2027, ...)
-const FOUNDING_YEAR = 1981;
-document.querySelectorAll('.years-exp').forEach(el => {
-    el.textContent = new Date().getFullYear() - FOUNDING_YEAR;
-});
 
-
-// Product catalog data — drives the grid, detail panel, and search.
+// Product catalog data — drives the grid and detail panel.
 // An item can list photos from assets/gallery/<galleryFolder>/ — those items
 // become clickable in the detail panel and open the photo viewer.
 const catalog = [
@@ -1513,7 +1473,6 @@ function renderGrid() {
         return `
         <div class="prod-row ${mirrored ? 'prod-row-right' : ''} group relative flex flex-col ${cardPad}"
              data-id="${cat.id}"
-             data-search="${cat.title.toUpperCase()} ${cat.items.map(it => it.name).join(' ')}"
              onclick="selectCategory('${cat.id}')"
              onmouseenter="hoverCategory('${cat.id}')"
              onmouseleave="cancelHoverCategory()">
@@ -1788,51 +1747,6 @@ function setMobileMenu(open) {
 }
 mobileMenuBtn.addEventListener('click', () => setMobileMenu(mobileMenu.classList.contains('hidden')));
 mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMobileMenu(false)));
-
-// Filter product grid cards as user types in the search bar
-// Always shows the "Custom Solutions" card when no other results match
-document.getElementById('navSearch').addEventListener('input', function () {
-    const term = this.value.toLowerCase().trim();
-    const cards = document.querySelectorAll('.prod-row');
-    if (!cards.length) return;   // product grid replaced by video — nothing to filter
-    let hasMatch = false;
-
-    cards.forEach(card => {
-        const isCustom = card.dataset.search.includes('CUSTOM SOLUTIONS');
-        const matches = !term || card.dataset.search.toLowerCase().includes(term);
-        if (matches && !isCustom) hasMatch = true;
-        card.style.display = matches ? '' : 'none';
-    });
-
-    // If searching but nothing matched, show the custom card as a fallback
-    if (term && !hasMatch) {
-        cards.forEach(card => {
-            if (card.dataset.search.includes('CUSTOM SOLUTIONS')) card.style.display = '';
-        });
-    }
-
-    // Collapse a card stack entirely when none of its cards matched
-    ['productGridLeft', 'productGridRight'].forEach(id => {
-        const stack = document.getElementById(id);
-        const any = [...stack.children].some(c => c.style.display !== 'none');
-        stack.style.display = any ? '' : 'none';
-    });
-
-    // If only one card is left, show it in the detail panel right away
-    const visible = [...cards].filter(c => c.style.display !== 'none');
-    if (visible.length === 1 && visible[0].dataset.id !== activeCatId) {
-        selectCategory(visible[0].dataset.id, false);
-    }
-
-    if (term.length === 1) document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
-});
-
-// Mobile search mirrors into the nav search so one filter handler serves both
-document.getElementById('mobileSearch').addEventListener('input', function () {
-    const nav = document.getElementById('navSearch');
-    nav.value = this.value;
-    nav.dispatchEvent(new Event('input'));
-});
 
 
 // Floating contact button: toggle dropdown, close on outside click
