@@ -419,14 +419,12 @@
             <div class="slide absolute inset-0 opacity-100 z-10 transition-opacity duration-1000">
                 <img src="assets/slide1.jpg" alt="" class="w-full h-full object-cover">
             </div>
-            <!-- <div class="slide absolute inset-0 opacity-0 z-0 transition-opacity duration-1000">
-                <video autoplay loop muted playsinline class="w-full h-full object-cover">
-                    <source src="assets/slide2.mp4" type="video/mp4">
-                </video>
-            </div> -->
-            <!-- <div class="slide absolute inset-0 opacity-0 z-0 transition-opacity duration-1000">
-                <img src="assets/slide3.gif" alt="" class="w-full h-full object-cover">
-            </div> -->
+            <div class="slide absolute inset-0 opacity-0 z-0 transition-opacity duration-1000">
+                <img src="assets/slide2.jpg" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="slide absolute inset-0 opacity-0 z-0 transition-opacity duration-1000">
+                <img src="assets/slide3.jpg" alt="" class="w-full h-full object-cover">
+            </div>
             <!-- subtle left-edge blend -->
             <div class="absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-transparent z-20 pointer-events-none"></div>
             <!-- mobile: strong white wash so hero text stays readable over the image -->
@@ -721,7 +719,7 @@
 </section>
 
 
-<section id="products" class="py-12 sm:py-14 lg:py-16 bg-white scroll-mt-[76px]">
+<section id="products" class="py-10 sm:py-12 lg:py-10 bg-white scroll-mt-[76px]">
     <div class="max-w-[min(92vw,1800px)] mx-auto px-5 sm:px-8">
 
         <!-- Products browser (left) and Our Promise card (right) sit side by
@@ -749,7 +747,10 @@
                 <!-- Product video — replaces the former category browser.
                      The showcase CTA sits on the video itself, over a dark
                      scrim so it stays readable on every frame -->
-                <div class="relative flex-1 rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
+                <!-- min-h-0 lets the video box shrink below the video's own
+                     aspect height, so the section fits a laptop screen when
+                     you jump to it from the nav -->
+                <div class="relative flex-1 min-h-0 xl:max-h-[calc(100vh-350px)] rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
                     <video
                         class="w-full h-full object-cover pointer-events-none"
                         src="assets/video.mp4"
@@ -790,17 +791,17 @@
                     </svg>
                 </div>
 
-                <div class="relative h-full flex flex-col p-7 sm:p-9 lg:p-10">
+                <div class="relative h-full flex flex-col p-7 sm:p-9 lg:p-8">
 
-                    <div class="text-sm font-black text-white tracking-[0.2em] uppercase mb-4">
+                    <div class="text-sm font-black text-white tracking-[0.2em] uppercase mb-3">
                         OUR PROMISE
                     </div>
 
-                    <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight mb-5">
+                    <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight mb-4">
                         NO CUSTOMER EVER<br>WALKS AWAY UNSATISFIED.
                     </h3>
 
-                    <p class="text-white text-[15px] leading-relaxed max-w-md mb-8">
+                    <p class="text-white text-[15px] leading-relaxed max-w-md mb-6">
                         In 45+ years, we have never
                         left a requirement unmet. If the part exists, we deliver it.
                         If it doesn't, we engineer it — to your drawings, your
@@ -808,9 +809,9 @@
                         exactly what you came for.
                     </p>
 
-                    <div class="space-y-5 mb-10">
+                    <div class="space-y-3.5 mb-6">
                         <div class="flex items-center gap-4">
-                            <div class="w-11 h-11 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
                                     <use href="#icon-target"/>
                                 </svg>
@@ -818,7 +819,7 @@
                             <div class="text-white font-bold text-sm leading-snug">One-point<br>solution for all</div>
                         </div>
                         <div class="flex items-center gap-4">
-                            <div class="w-11 h-11 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
                                     <use href="#icon-check-circle"/>
                                 </svg>
@@ -826,7 +827,7 @@
                             <div class="text-white font-bold text-sm leading-snug">Standard or<br>fully custom</div>
                         </div>
                         <div class="flex items-center gap-4">
-                            <div class="w-11 h-11 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
                                     <circle cx="12" cy="12" r="8.5"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5V12l3 2"/>
@@ -835,7 +836,7 @@
                             <div class="text-white font-bold text-sm leading-snug">On spec,<br>on time</div>
                         </div>
                         <div class="flex items-center gap-4">
-                            <div class="w-11 h-11 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
+                            <div class="w-10 h-10 rounded-full border border-blue-300/50 flex items-center justify-center flex-shrink-0">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
                                     <use href="#icon-shield-check"/>
                                 </svg>
@@ -846,12 +847,12 @@
 
                     <div class="mt-auto flex flex-col sm:flex-row xl:flex-col gap-3">
                         <a href="tel:+919820120832"
-                           class="inline-flex items-center justify-center gap-2.5 bg-white text-brand px-6 py-3.5 rounded-lg text-sm font-black tracking-widest hover:bg-blue-50 transition whitespace-nowrap">
+                           class="inline-flex items-center justify-center gap-2.5 bg-white text-brand px-6 py-3 rounded-lg text-sm font-black tracking-widest hover:bg-blue-50 transition whitespace-nowrap">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
                             DISCUSS YOUR NEED
                         </a>
                         <a href="https://wa.me/919820120834" target="_blank"
-                           class="inline-flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3.5 rounded-lg text-sm font-black tracking-widest hover:bg-[#1DA851] transition whitespace-nowrap">
+                           class="inline-flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3 rounded-lg text-sm font-black tracking-widest hover:bg-[#1DA851] transition whitespace-nowrap">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
                             WHATSAPP US
                         </a>
