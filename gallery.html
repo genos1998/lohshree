@@ -7,12 +7,12 @@
                       hover preview overlay)
       Icon library    Shared SVG icons, drawn once and reused via <use>
       Header          Logo, nav links back to the homepage sections
-      Gallery         Thumbnails grouped by category (rendered by JS)
+      Gallery         One flat grid of every media file (rendered by JS)
       Hover preview   Enlarged media shown while hovering a thumbnail
       Lightbox        Fullscreen viewer with prev/next navigation
       Footer          Copyright bar
       Contact button  Floating phone / WhatsApp / email menu
-      <script>        Gallery categories/file list + behavior
+      <script>        Gallery file list + behavior
 -->
 <html lang="en" class="scroll-smooth">
 <head>
@@ -196,8 +196,8 @@
             </p>
         </div>
 
-        <!-- Gallery sections, one per category (rendered by renderGrid below) -->
-        <div id="galleryGrid" class="space-y-12"></div>
+        <!-- One flat grid of every file listed in `media` below -->
+        <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5"></div>
 
         <!-- Empty gallery message -->
         <div id="emptyGallery" class="hidden text-center py-20">
@@ -207,9 +207,9 @@
             </svg>
             <h3 class="text-xl font-black text-ink mb-2">Gallery Coming Soon</h3>
             <p class="text-ink max-w-md mx-auto">
-                Add images, videos, or GIFs to a category folder under
+                Drop images, videos, or GIFs into
                 <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">assets/gallery/</code>
-                and list them in the <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">categories</code> array in this file.
+                and add their file names to the <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">media</code> array in this file.
             </p>
         </div>
     </div>
@@ -252,9 +252,6 @@
         <img    id="lbImage" class="max-w-full max-h-[85vh] object-contain hidden rounded-lg" alt="">
         <video  id="lbVideo" class="max-w-full max-h-[85vh] object-contain hidden rounded-lg" autoplay muted loop playsinline controls></video>
     </div>
-
-    <!-- Caption -->
-    <div id="lbCaption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm font-medium bg-black/40 px-4 py-2 rounded-full"></div>
 </div>
 
 
@@ -507,87 +504,45 @@
 'use strict';
 
 // ── GALLERY CONTENT ────────────────────────────────────────────
-// Media lives in one folder per category: assets/gallery/<folder>/<file>.
+// Every file listed here is shown in one flat grid — no categories, no
+// captions. All media sits directly in assets/gallery/, so each entry is
+// just a file name.
 // Supports: .png .jpg .jpeg .webp .gif .mp4 .webm .mov
 //
-// To add a photo/video: drop the file into its category folder and add its
-// name to that category's "files" list below. The file name becomes the
-// label shown on the page:
-//   'drive-shaft-with-sprocket.png'  →  "Drive Shaft With Sprocket"
-// To add a new category: create the folder and add a { title, folder, files }
-// entry here.
+// To add a photo/video: drop the file into assets/gallery/ and add its file
+// name to this list. Order here is the order shown on the page.
 const GALLERY_PATH = 'assets/gallery/';
 const VIDEO_EXTS   = ['mp4', 'webm', 'mov'];
 
-const categories = [
-    {
-        title:  'Extractor Machine Parts',
-        folder: 'shafts',
-        files:  ['drive-shaft-with-sprocket.png'],
-    },
-    {
-        title:  'Rotary Valves',
-        folder: 'rotary-valves',
-        files:  ['rotary-valve.png', 'square-type-rotary-valve.png'],
-    },
-    {
-        title:  'Conveyor Parts',
-        folder: 'conveyor-parts',
-        files:  ['flanged-hubs.png'],
-    },
-    {
-        title:  'Gears & Sprockets',
-        folder: 'gears-sprockets',
-        files:  ['spur-gear.png'],
-    },
-    {
-        title:  'Plant Accessories',
-        folder: 'plant-accessories',
-        files:  ['steel-nozzles.png', 'ejector-assembly.png'],
-    },
-    {
-        title:  'In Action',
-        folder: 'in-action',
-        files:  ['sample-animation.gif', 'workshop-video.mp4'],
-    },
+const media = [
+    'slide2.jpg',
+    'slide3.jpg',
+    'slide1.jpg',
 ];
 
 function getExt(f)  { return f.split('.').pop().toLowerCase(); }
 function isVideo(f) { return VIDEO_EXTS.includes(getExt(f)); }
 function isGif(f)   { return getExt(f) === 'gif'; }
 
-// 'square-type-rotary-valve.png' → 'Square Type Rotary Valve'
-function labelFromFile(file) {
-    return file
-        .replace(/\.[^.]+$/, '')          // drop the extension
-        .replace(/[-_]+/g, ' ')           // dashes/underscores → spaces
-        .replace(/\b\w/g, c => c.toUpperCase()); // capitalize each word
-}
-
-// Flat list of every item across all categories — the hover preview and
-// lightbox use this so prev/next moves through the whole gallery
-const galleryItems = categories.flatMap(cat =>
-    cat.files.map(file => ({
-        file,
-        category: cat.title,
-        src:      GALLERY_PATH + cat.folder + '/' + file,
-        caption:  labelFromFile(file),
-    }))
-);
+// Flat list backing the grid, the hover preview and the lightbox, so
+// prev/next moves straight through every item on the page
+const galleryItems = media.map(file => ({
+    file,
+    src: GALLERY_PATH + file,
+}));
 
 const grid           = document.getElementById('galleryGrid');
 const emptyMsg       = document.getElementById('emptyGallery');
 const lightbox       = document.getElementById('lightbox');
 const lbImage        = document.getElementById('lbImage');
 const lbVideo        = document.getElementById('lbVideo');
-const lbCaption      = document.getElementById('lbCaption');
 
 let lbIndex = 0;
 
 
 // ── RENDER ─────────────────────────────────────────────────────
-// One thumbnail card + its label underneath. `i` is the item's position in
-// the flat galleryItems list (used by the lightbox).
+// One thumbnail per item, no label. `i` is the item's position in the flat
+// galleryItems list (used by the lightbox).
 function thumbHTML(item, i) {
     let media, badge = '';
 
@@ -606,20 +561,17 @@ function thumbHTML(item, i) {
         if (isGif(item.file)) {
             badge = '<div class="absolute top-2 right-2 bg-black/60 text-white text-xs font-bold px-2 py-1 rounded">GIF</div>';
         }
-        media = `<img src="${item.src}" alt="${item.caption}" class="w-full h-full object-cover" loading="lazy">${badge}`;
+        media = `<img src="${item.src}" alt="" class="w-full h-full object-cover" loading="lazy">${badge}`;
     }
 
     return `
-    <div>
-        <div class="gallery-thumb relative rounded-xl overflow-hidden border border-blue-100 bg-gray-100 aspect-square cursor-pointer"
-             data-index="${i}" data-src="${item.src}" data-type="${isVideo(item.file) ? 'video' : 'image'}" data-caption="${item.caption}">
-            ${media}
-        </div>
-        <div class="mt-2 text-sm font-semibold text-ink text-center">${item.caption}</div>
+    <div class="gallery-thumb relative rounded-xl overflow-hidden border border-blue-100 bg-gray-100 aspect-square cursor-pointer"
+         data-index="${i}" data-src="${item.src}" data-type="${isVideo(item.file) ? 'video' : 'image'}">
+        ${media}
     </div>`;
 }
 
-// Renders one section per category: heading + grid of its thumbnails
+// Renders every item into one flat grid
 function renderGrid() {
     if (galleryItems.length === 0) {
         grid.classList.add('hidden');
@@ -627,18 +579,7 @@ function renderGrid() {
         return;
     }
 
-    let flatIndex = 0;
-    grid.innerHTML = categories
-        .filter(cat => cat.files.length > 0)
-        .map(cat => `
-        <section>
-            <h2 class="text-xl font-black text-ink uppercase tracking-wide">${cat.title}</h2>
-            <div class="w-10 h-0.5 bg-brand mt-1 mb-5"></div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-                ${cat.files.map(() => thumbHTML(galleryItems[flatIndex], flatIndex++)).join('')}
-            </div>
-        </section>`)
-        .join('');
+    grid.innerHTML = galleryItems.map(thumbHTML).join('');
 
     attachThumbListeners();
 }
@@ -723,8 +664,6 @@ function closeLightbox() {
 
 function renderLightbox() {
     const item = galleryItems[lbIndex];
-    lbCaption.textContent = item.caption;
-
     if (isVideo(item.file)) {
         lbImage.classList.add('hidden');
         lbVideo.classList.remove('hidden');
