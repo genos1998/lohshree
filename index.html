@@ -10,7 +10,7 @@
       Header          Logo, nav links, mobile menu
       Hero            Headline + image/video slideshow
       About           Journey story, milestone timeline + values card
-      Products        Product grid (rendered by JS) + promise banner
+      Solutions       Product grid (rendered by JS) + promise banner
       Showcase        Conveyor belt carrying product photos from
                       assets/gallery/ (rendered by JS)
       Footer          Contact info, certifications, copyright
@@ -380,8 +380,8 @@
         <nav class="hidden xl:flex items-center gap-10 2xl:gap-12 text-sm font-bold tracking-[0.14em] uppercase text-ink flex-1 justify-center">
             <a href="#home"       class="nav-link active hover:text-brand transition whitespace-nowrap">Home</a>
             <a href="#about"      class="nav-link hover:text-brand transition whitespace-nowrap">About Us</a>
-            <a href="#products"   class="nav-link hover:text-brand transition whitespace-nowrap">Products</a>
-            <a href="#clients"    class="nav-link hover:text-brand transition whitespace-nowrap">Customers</a>
+            <a href="#solutions"  class="nav-link hover:text-brand transition whitespace-nowrap">Solutions</a>
+            <a href="#showcase"   class="nav-link hover:text-brand transition whitespace-nowrap">Showcase</a>
             <a href="gallery.html" class="nav-link hover:text-brand transition whitespace-nowrap">Gallery</a>
             <a href="#contact"    class="nav-link hover:text-brand transition whitespace-nowrap">Contact Us</a>
         </nav>
@@ -405,8 +405,8 @@
         <nav class="px-6 py-4 flex flex-col text-sm font-bold tracking-[0.14em] uppercase text-ink">
             <a href="#home"        class="py-3 border-b border-gray-50 hover:text-brand transition">Home</a>
             <a href="#about"       class="py-3 border-b border-gray-50 hover:text-brand transition">About Us</a>
-            <a href="#products"    class="py-3 border-b border-gray-50 hover:text-brand transition">Products</a>
-            <a href="#clients"     class="py-3 border-b border-gray-50 hover:text-brand transition">Customers</a>
+            <a href="#solutions"   class="py-3 border-b border-gray-50 hover:text-brand transition">Solutions</a>
+            <a href="#showcase"    class="py-3 border-b border-gray-50 hover:text-brand transition">Showcase</a>
             <a href="gallery.html" class="py-3 border-b border-gray-50 hover:text-brand transition">Gallery</a>
             <a href="#contact"     class="py-3 hover:text-brand transition">Contact Us</a>
         </nav>
@@ -471,9 +471,9 @@
 
             <!-- CTAs -->
             <div class="flex flex-wrap gap-3">
-                <a href="#products"
+                <a href="#solutions"
                    class="inline-flex items-center gap-2 bg-ink text-white text-sm font-black px-7 py-3.5 tracking-widest hover:bg-gray-700 transition">
-                    EXPLORE PRODUCTS
+                    EXPLORE SOLUTIONS
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <use href="#icon-chevron-right"/>
                     </svg>
@@ -721,7 +721,7 @@
 </section>
 
 
-<section id="products" class="py-10 sm:py-12 lg:py-10 bg-white scroll-mt-[76px]">
+<section id="solutions" class="py-10 sm:py-12 lg:py-10 bg-white scroll-mt-[76px]">
     <div class="max-w-[min(92vw,1800px)] mx-auto px-5 sm:px-8">
 
         <!-- Products browser (left) and Our Promise card (right) sit side by
@@ -729,7 +729,7 @@
              so the product card grid never gets squeezed -->
         <div class="grid xl:grid-cols-[1fr_400px] gap-6 xl:gap-8 items-stretch">
 
-            <!-- PRODUCTS PANEL -->
+            <!-- SOLUTIONS PANEL -->
             <div class="bg-[#F4F6FE] rounded-2xl border border-blue-100 p-5 sm:p-7 flex flex-col">
 
                 <div class="text-sm font-black text-brand tracking-[0.2em] uppercase mb-2">
@@ -871,7 +871,7 @@
 
 <!-- SHOWCASE — Product photos riding the conveyor belt -->
 <section
-    id="clients"
+    id="showcase"
     class="py-12 scroll-mt-[76px]"
     style="background:linear-gradient(
         180deg,
@@ -939,9 +939,12 @@
                          belt sits where it always did and the headroom is only
                          used while a plate is popped up. -->
                     <div class="relative overflow-hidden pt-20 -mt-20">
-                        <!-- Edge fades so plates roll in/out smoothly -->
-                        <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
+                        <!-- Edge fades so plates roll in/out smoothly. They start
+                             below the pt-20 headroom — spanning it would lay a
+                             white gradient over the heading the -mt-20 tucks
+                             this box under. -->
+                        <div class="pointer-events-none absolute top-20 bottom-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
+                        <div class="pointer-events-none absolute top-20 bottom-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
                         <!-- Product plates: photos from assets/gallery/, one per plate,
                              rendered by renderProductPlates() in the script below -->
                         <div id="conveyorItems" class="conveyor-items flex items-end"></div>
