@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pkill -9 -f \"http.server 8781\")",
+      "Bash(pkill -9 -f \"http.server 8782\")",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1600,1400 --virtual-time-budget=8000 --screenshot=slog.png \"http://localhost:8783/_m.html\")",
+      "Bash(python3 -c ' *)",
+      "Bash(pkill -9 -f \"http.server 8783\")",
+      "Bash(python3 -c \"import PIL; print\\('PIL', PIL.__version__\\)\")",
+      "Bash(python3 /tmp/claude-1000/-home-opsmx-lohshree/68c4665a-7f7c-4a99-a12e-95c62801f91b/scratchpad/mkthumbs.py)",
+      "Bash(python3 -c \"import playwright\")",
+      "Bash(timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=15000 --window-size=1600,9000 --screenshot=page.png http://localhost:8777/index.html)",
+      "Bash(timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=15000 --window-size=1600,900 --screenshot=belt.png \"http://localhost:8777/index.html#clients\")",
+      "Bash(timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --window-size=1500,700 --screenshot=/tmp/claude-1000/-home-opsmx-lohshree/68c4665a-7f7c-4a99-a12e-95c62801f91b/scratchpad/belt.png \"http://localhost:8777/_belt_preview.html\")",
+      "Bash(timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=15000 --window-size=1400,900 --screenshot=/tmp/claude-1000/-home-opsmx-lohshree/68c4665a-7f7c-4a99-a12e-95c62801f91b/scratchpad/gal.png \"http://localhost:8777/gallery.html#part-18\")",
+      "Bash(timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=2200 --window-size=1400,900 --screenshot=/tmp/claude-1000/-home-opsmx-lohshree/68c4665a-7f7c-4a99-a12e-95c62801f91b/scratchpad/gal2.png \"http://localhost:8777/gallery.html#part-18\")",
+      "Bash(timeout 60 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=5000 --dump-dom \"http://localhost:8777/gallery.html#part-18\")",
+      "Bash(timeout 60 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=8000 --dump-dom \"http://localhost:8777/index.html\")",
+      "Bash(git -C /home/opsmx/lohshree status --short -- '*.html')",
+      "Bash(timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --window-size=1500,560 --screenshot=/tmp/claude-1000/-home-opsmx-lohshree/68c4665a-7f7c-4a99-a12e-95c62801f91b/scratchpad/hover.png \"http://localhost:8777/_belt_hover.html\")",
+      "Bash(timeout 60 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=6000 --dump-dom \"http://localhost:8777/gallery.html#part-22\")",
+      "Bash(timeout 60 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --dump-dom \"http://localhost:8777/gallery.html#part-22\")"
+    ]
+  }
+}

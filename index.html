@@ -11,12 +11,12 @@
       Hero            Headline + image/video slideshow
       About           Journey story, milestone timeline + values card
       Products        Product grid (rendered by JS) + promise banner
-      Clients         Conveyor belt with client logos from assets/logos/,
-                      named logo-1.png, logo-2.png, ... (rendered by JS)
+      Showcase        Conveyor belt carrying product photos from
+                      assets/gallery/ (rendered by JS)
       Footer          Contact info, certifications, copyright
       Product detail  Inline panel showing the items of the selected category
       Contact button  Floating phone / WhatsApp / email menu
-      <script>        Page data (product catalog, client names) + behavior
+      <script>        Page data (product catalog, belt photos) + behavior
 -->
 <html lang="en" class="scroll-smooth">
 <head>
@@ -108,6 +108,31 @@
         .conveyor:hover .conveyor-items,
         .conveyor:hover .belt-loop,
         .conveyor:hover .roller { animation-play-state: paused; }
+
+        /* Hovering a part stops the belt (rule above) and pops that plate up so
+           it can be looked at. It grows from its bottom edge, so it stays
+           sitting on the belt and rises into the padding above the track.
+           Clicking opens that part in the gallery. */
+        .belt-plate {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            transform-origin: bottom center;
+            will-change: transform;
+        }
+        /* z-20 clears the edge fades (z-10) so a plate hovered near either end
+           of the belt is shown in full, not through the fade */
+        .belt-plate:hover,
+        .belt-plate:focus-visible {
+            transform: scale(1.42) translateY(-6px);
+            border-color: #95A6F6;
+            box-shadow: 0 -14px 34px -8px rgba(27,42,207,0.4);
+            z-index: 20;
+            outline: none;
+        }
+        .belt-plate:hover img,
+        .belt-plate:focus-visible img { transform: scale(1.04); }
+        .belt-plate img { transition: transform 0.25s ease; }
 
         /* Product grid card hover effect */
         /* Handwritten signature in the About section */
@@ -258,6 +283,19 @@
     <symbol id="icon-shield-check" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>
+    </symbol>
+    <!-- Packed carton with an approval badge — the "Ready Made / Made Ready"
+         slogan mark. Isometric box (top lozenge + centre seam) with a check
+         circle overlapping its lower-right corner; the circle is filled with
+         the About section background (#F4F6FE) so it masks the box edges
+         behind it rather than tangling with them. -->
+    <symbol id="icon-box-check" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9.5 2.6 2.5 6.3v8.4l7 3.7 7-3.7V6.3Z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 9.5 10l7-3.7"/>
+        <path stroke-linecap="round" d="M9.5 10v8.4"/>
+        <circle cx="18.3" cy="17.6" r="4.2" fill="#F4F6FE"/>
+        <path stroke-linecap="round" stroke-linejoin="round" d="m16.4 17.6 1.4 1.4 2.6-2.9"/>
     </symbol>
     <symbol id="icon-calendar" viewBox="0 0 24 24">
         <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
@@ -410,18 +448,25 @@
             <!-- Badge -->
             <div class="flex items-center gap-3 mb-7">
                 <div class="w-10 h-px bg-brand flex-shrink-0"></div>
-                <span class="text-sm font-black text-brand tracking-[0.2em] uppercase">45+ Years of Excellence</span>
+                <span class="text-sm font-black text-brand tracking-[0.2em] uppercase">45+ YEARS OF EVOLVING WITH INDUSTRY</span>
             </div>
 
             <!-- Headline — full width of the left column -->
             <h1 class="font-black leading-[1.03] tracking-tight mb-6" style="font-size: clamp(2.3rem, 4.5vw, 4.2rem);">
-                <span class="text-ink block">PRECISION<br>ENGINEERING.</span>
-                <span class="text-brand block">BUILT TO EXTRACT<br>PERFORMANCE.</span>
+                <span class="text-ink block">ENGINEERING<br>EXCELLENCE</span>
+                <span class="text-brand block">TAILORED FOR EVERY<br>REQUIREMENT</span>
             </h1>
 
             <!-- Sub -->
+            <!-- The non-breaking spaces in the last clause tie "and production
+                 demands." into one unbreakable chunk, so "and" can never be
+                 left dangling at the end of a line — it always travels down
+                 with the words it belongs to. The rest reflows normally. -->
             <p class="text-ink text-base leading-relaxed mb-9">
-                Manufacturers of high-precision shafts, valves and fabricated components for solvent extraction plants and heavy industrial applications.
+                Every industry presents unique challenges. Our strength lies
+                in adapting to them. With 45+ years of engineering expertise,
+                we provide dependable manufacturing solutions that meet
+                evolving technical and&nbsp;production&nbsp;demands.
             </p>
 
             <!-- CTAs -->
@@ -491,6 +536,25 @@
                     <img src="logo.png" alt="Lohshree Engineers logo"
                          class="w-16 h-16 object-contain drop-shadow-sm">
                 </div>
+
+                <!-- Slogan. The two words trade places between the lines, and
+                     the colours travel with the words rather than with the
+                     positions, so the mirror reads at a glance. Kept as one
+                     <p> so screen readers announce it as a single phrase. -->
+                <div class="mt-10 pt-8 border-t border-blue-100">
+                    <div class="flex items-center gap-4 sm:gap-5">
+                        <p class="border-l-[3px] border-brand pl-5 font-black uppercase
+                                  text-[1.9rem] sm:text-[2.2rem] leading-[1.12] tracking-[0.04em]">
+                            <span class="block"><span class="text-ink">Ready</span> <span class="text-brand">Made</span></span>
+                            <span class="block"><span class="text-brand">Made</span> <span class="text-ink">Ready</span></span>
+                        </p>
+                        <svg class="w-[4rem] h-[4rem] sm:w-[4.6rem] sm:h-[4.6rem] flex-shrink-0 text-ink"
+                             fill="none" stroke="currentColor" stroke-width="1.5"
+                             viewBox="0 0 24 24" aria-hidden="true">
+                            <use href="#icon-box-check"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <!-- TIMELINE + VALUES -->
@@ -531,7 +595,7 @@
                         </div>
                         <div class="relative border-t-2 border-blue-200 pt-4">
                             <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
-                            <div class="text-sm font-black text-ink mb-1.5">Expanding Horizons</div>
+                            <div class="text-sm font-black text-ink mb-1.5">Strategic Growth</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
                                 A growing team, our first factory and long-term client bonds.
                             </p>
@@ -547,7 +611,7 @@
                         </div>
                         <div class="relative border-t-2 border-blue-200 pt-4">
                             <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
-                            <div class="text-sm font-black text-ink mb-1.5">Stronger Together</div>
+                            <div class="text-sm font-black text-ink mb-1.5">Smart Innovation</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
                                 Bigger facilities, our first automation and skilled professionals.
                             </p>
@@ -673,7 +737,7 @@
                 </div>
 
                 <h2 class="text-3xl sm:text-[2rem] font-black text-ink leading-tight mb-3">
-                    Whatever it takes to keep your plant running, we make it
+                    Whatever it takes to keep your Solvent Extraction Plant running, We make it
                 </h2>
 
                 <p class="text-[15px] text-black leading-relaxed mb-6">
@@ -805,7 +869,7 @@
 </section>
 
 
-<!-- TRUSTED BY — Client Logo Marquee -->
+<!-- SHOWCASE — Product photos riding the conveyor belt -->
 <section
     id="clients"
     class="py-12 scroll-mt-[76px]"
@@ -847,6 +911,9 @@
                         <div class="text-white text-lg font-black tracking-wide">
                             Delivered All Over India
                         </div>
+                        <div class="text-white text-sm font-semibold mt-1">
+                            Connected to Global Industries
+                        </div>
                     </div>
                 </div>
             </div>
@@ -858,27 +925,25 @@
 
                     <div>
                         <h3 class="text-4xl font-black text-ink leading-tight">
-                            THE COMPANIES WE POWER.
+                            The Parts Powering the Majority of Solvent Extraction Plants
                         </h3>
-
-                        <p class="text-ink mt-3 max-w-xl">
-                            Trusted by leading solvent extraction, sugar, edible oil
-                            and industrial processing companies.
-                        </p>
                     </div>
-
                 </div>
 
                 <!-- CONVEYOR BELT -->
                 <div class="conveyor relative">
 
-                    <!-- Name plates riding on the belt -->
-                    <div class="relative overflow-hidden">
+                    <!-- Product plates riding on the belt. The top padding is the
+                         headroom a hovered plate pops up into; the matching
+                         negative margin cancels it out of the layout, so the
+                         belt sits where it always did and the headroom is only
+                         used while a plate is popped up. -->
+                    <div class="relative overflow-hidden pt-20 -mt-20">
                         <!-- Edge fades so plates roll in/out smoothly -->
                         <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
                         <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
-                        <!-- Logo plates: assets/logos/logo-1.png, logo-2.png, ... rendered by
-     renderLogoPlates() in the script below -->
+                        <!-- Product plates: photos from assets/gallery/, one per plate,
+                             rendered by renderProductPlates() in the script below -->
                         <div id="conveyorItems" class="conveyor-items flex items-end"></div>
                     </div>
 
@@ -1068,6 +1133,7 @@
                         </svg>
                         <span>
                             <span class="block text-xs font-black uppercase tracking-widest text-blue-200 mb-0.5">To place orders</span>
+                            <div class="text-sm text-blue-200 mt-0.5">Arif Shaikh — Director</div>
                             <span class="text-white font-semibold">+91 98201 20832</span>
                         </span>
                     </a>
@@ -1183,6 +1249,7 @@
             </div>
             <div>
                 <div class="font-bold text-sm text-blue-700">To place orders</div>
+                <div class="font-semibold text-sm text-black mt-0.5">Arif Shaikh — Director</div>
                 <div class="font-semibold text-sm text-ink">98201 20832</div>
             </div>
         </a>
@@ -1448,56 +1515,48 @@ function renderGrid() {
 renderGrid();
 
 
-// Client logos ride on the conveyor belt. Logos live in assets/logos/ named
-// logo-1.png, logo-2.png, logo-3.png, ... — the page probes for each number
-// in turn (any of the extensions below) and shows every file it finds, so
-// adding the next number is all it takes to put a new logo on the belt.
-// Probing plain <img> loads needs no server support, so this works the same
-// on nginx, GitHub Pages, or opening index.html straight from disk.
-const LOGOS_PATH      = 'assets/logos/';
-const LOGO_EXTS       = ['png', 'jpg', 'jpeg', 'webp', 'svg'];
-const LOGO_MAX        = 60;  // never probe past logo-60
-const LOGO_MAX_GAP    = 3;   // stop after this many missing numbers in a row
+// Product photos ride on the conveyor belt — one photo per plate, arriving
+// one after another. The belt uses the small copies in assets/gallery/thumbs/
+// (400px, ~20KB each) rather than the full-size gallery photos, so the
+// homepage stays light. To put another part on the belt: drop the photo in
+// assets/gallery/, save a 400px .jpg copy of it in assets/gallery/thumbs/
+// under the same number, and add that file name to the list below. Order
+// here is the order it rides in.
+const BELT_PATH   = 'assets/gallery/thumbs/';
+const BELT_PHOTOS = [
+    '1.jpg',  '2.jpg',  '3.jpg',  '4.jpg',  '5.jpg',
+    '6.jpg',  '7.jpg',  '8.jpg',  '9.jpg',  '10.jpg',
+    '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg',
+    '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg',
+    '21.jpg', '22.jpg', '23.jpg', '24.jpg', '25.jpg',
+    '26.jpg', '27.jpg', '28.jpg',
+];
 
-const PLATE_CLASSES = 'flex-shrink-0 mr-10 px-7 py-4 rounded-t-xl bg-gradient-to-b from-white to-blue-50 '
-    + 'border border-b-0 border-blue-200 shadow-[0_-4px_14px_-6px_rgba(27,42,207,0.25)] text-ink uppercase';
+const PLATE_CLASSES = 'belt-plate block flex-shrink-0 mr-10 p-3 rounded-t-xl bg-gradient-to-b from-white to-blue-50 '
+    + 'border border-b-0 border-blue-200 shadow-[0_-4px_14px_-6px_rgba(27,42,207,0.25)]';
 
-function imageExists(src) {
-    return new Promise(resolve => {
-        const img = new Image();
-        img.onload  = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = src;
-    });
-}
-
-// Returns the logo files that exist, in numeric order. A few missing numbers
-// in a row are tolerated (e.g. logo-2 was deleted but logo-3 remains).
-async function probeLogoList() {
-    const found = [];
-    let gap = 0;
-    for (let i = 1; i <= LOGO_MAX && gap < LOGO_MAX_GAP; i++) {
-        const hits = await Promise.all(LOGO_EXTS.map(ext =>
-            imageExists(`${LOGOS_PATH}logo-${i}.${ext}`).then(ok => ok ? `logo-${i}.${ext}` : null)));
-        const file = hits.find(Boolean);
-        if (file) { found.push(file); gap = 0; } else { gap++; }
-    }
-    return found;
-}
-
-// Builds the logo plates riding on the conveyor belt. The set is repeated
+// Builds the photo plates riding on the conveyor belt. The set is repeated
 // until it spans the belt, then doubled so the -50% marquee loops seamlessly;
 // the animation duration scales with width so the plates always travel at the
-// belt's surface speed (~57px/s) no matter how many logos there are.
-async function renderLogoPlates(files) {
+// belt's surface speed (~57px/s) no matter how many photos there are.
+// Every plate uses the same fixed window with object-contain, so the boxes
+// stay uniform and no part gets cropped, portrait or landscape.
+// Each plate links to the gallery page anchored on the same part — the file
+// number is the anchor (18.jpg on the belt -> gallery.html#part-18), so the
+// gallery scrolls straight to that photo however the two lists are ordered.
+async function renderProductPlates(files) {
     const track = document.getElementById('conveyorItems');
-    const set = files.map((f, i) =>
-        `<div class="${PLATE_CLASSES} flex items-center">
-            <img src="${LOGOS_PATH}${encodeURIComponent(f)}"
-                 alt="Client logo ${i + 1}"
-                 class="h-12 w-auto max-w-[200px] object-contain"
+    const set = files.map((f, i) => {
+        const stem = f.replace(/\.[^.]+$/, '');
+        return `<a href="gallery.html#part-${encodeURIComponent(stem)}"
+            class="${PLATE_CLASSES}"
+            aria-label="View this part in the gallery">
+            <img src="${BELT_PATH}${encodeURIComponent(f)}"
+                 alt="Lohshree Engineers product ${i + 1}"
+                 class="h-28 w-36 object-contain rounded-lg bg-white"
                  draggable="false">
-        </div>`).join('');
+        </a>`;
+    }).join('');
     track.innerHTML = set;
     await Promise.all([...track.querySelectorAll('img')].map(img => img.decode().catch(() => {})));
     const containerW = track.parentElement.clientWidth;
@@ -1507,10 +1566,7 @@ async function renderLogoPlates(files) {
     track.style.animationDuration = (track.scrollWidth / 2 / 57).toFixed(2) + 's';
 }
 
-(async () => {
-    const logos = await probeLogoList();
-    if (logos.length) await renderLogoPlates(logos);
-})();
+renderProductPlates(BELT_PHOTOS);
 
 
 // Detail panel — shows the selected category's items inline next to the grid
