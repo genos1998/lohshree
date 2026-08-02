@@ -19,7 +19,19 @@
       "Bash(git -C /home/opsmx/lohshree status --short -- '*.html')",
       "Bash(timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --window-size=1500,560 --screenshot=/tmp/claude-1000/-home-opsmx-lohshree/68c4665a-7f7c-4a99-a12e-95c62801f91b/scratchpad/hover.png \"http://localhost:8777/_belt_hover.html\")",
       "Bash(timeout 60 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=6000 --dump-dom \"http://localhost:8777/gallery.html#part-22\")",
-      "Bash(timeout 60 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --dump-dom \"http://localhost:8777/gallery.html#part-22\")"
+      "Bash(timeout 60 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=12000 --dump-dom \"http://localhost:8777/gallery.html#part-22\")",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,1000 --virtual-time-budget=15000 --screenshot=/tmp/claude-1000/-home-opsmx-lohshree/1e56f1cf-c1ee-4122-842f-949f7f9fb3ad/scratchpad/index_full.png --screenshot-format=png file:///home/opsmx/lohshree/index.html)",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,20000 --virtual-time-budget=20000 --screenshot=tall.png file:///home/opsmx/lohshree/index.html)",
+      "Bash(python3 -c \"import websocket; print\\('websocket-client ok'\\)\")",
+      "Bash(python3 -c \"import websockets; print\\('websockets ok'\\)\")",
+      "Bash(node -e \"console.log\\(process.version\\)\")",
+      "Read(//usr/lib/**)",
+      "Bash(pkill -f remote-debugging-port)",
+      "Bash(google-chrome --headless=new --disable-gpu --no-sandbox --hide-scrollbars --remote-debugging-port=9222 --user-data-dir=./cdp-profile --window-size=1440,900 about:blank)",
+      "Bash(node /tmp/claude-1000/-home-opsmx-lohshree/1e56f1cf-c1ee-4122-842f-949f7f9fb3ad/scratchpad/shot.mjs file:///home/opsmx/lohshree/index.html /tmp/claude-1000/-home-opsmx-lohshree/1e56f1cf-c1ee-4122-842f-949f7f9fb3ad/scratchpad/fullpage.png 1440 900)",
+      "Bash(node shot.mjs file:///home/opsmx/lohshree/index.html fullpage.png 1440 900)",
+      "Bash(cp fullpage.png /home/opsmx/lohshree/index_preview.png)",
+      "Bash(cp page_1x.png /home/opsmx/lohshree/index_preview_small.png)"
     ]
   }
 }
