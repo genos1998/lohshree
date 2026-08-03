@@ -73,7 +73,15 @@
       "Bash(ps -eo cmd)",
       "Bash(kill -9 51987)",
       "Bash(kill -9 53057)",
-      "Bash(kill -9 53589)"
+      "Bash(kill -9 53589)",
+      "Bash(node shoot.mjs m-index 390 844 1 \"http://localhost:8123/index.html\" 14)",
+      "Bash(node shoot.mjs m-gallery 390 844 1 \"http://localhost:8123/gallery.html\" 8)",
+      "Bash(node shoot.mjs m-terms 390 844 1 \"http://localhost:8123/terms.html\" 3)",
+      "Bash(node shoot.mjs m-priv 390 844 1 \"http://localhost:8123/privacy.html\" 2)",
+      "Bash(node shoot.mjs f-index 390 844 1 \"http://localhost:8123/index.html\" 14)",
+      "Bash(node shoot.mjs f-gallery 390 844 1 \"http://localhost:8123/gallery.html\" 2)",
+      "Bash(node shoot.mjs f-terms 390 844 1 \"http://localhost:8123/terms.html\" 1)",
+      "Bash(node shoot.mjs f-priv 390 844 1 \"http://localhost:8123/privacy.html\" 1)"
     ]
   }
 }

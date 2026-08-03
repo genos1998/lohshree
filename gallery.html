@@ -215,6 +215,32 @@
             <a href="#contact"            class="nav-link hover:text-brand transition whitespace-nowrap">Contact Us</a>
         </nav>
 
+        <!-- Mobile menu toggle — below xl the nav above is hidden, and until
+             this button existed the gallery had no navigation at all on a
+             phone. Same pattern and ids as the homepage header. -->
+        <button id="mobileMenuBtn"
+            class="xl:hidden w-11 h-11 rounded-lg border border-gray-200 flex items-center justify-center text-ink flex-shrink-0"
+            aria-label="Toggle menu" aria-expanded="false">
+            <svg id="menuIconOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="menuIconClose" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <use href="#icon-close"/>
+            </svg>
+        </button>
+
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobileMenu" class="hidden xl:hidden border-t border-gray-100 bg-white shadow-lg">
+        <nav class="px-6 py-4 flex flex-col text-sm font-bold tracking-[0.14em] uppercase text-ink">
+            <a href="index.html"           class="py-3 border-b border-gray-50 hover:text-brand transition">Home</a>
+            <a href="index.html#about"     class="py-3 border-b border-gray-50 hover:text-brand transition">About Us</a>
+            <a href="index.html#solutions" class="py-3 border-b border-gray-50 hover:text-brand transition">Solutions</a>
+            <a href="index.html#showcase"  class="py-3 border-b border-gray-50 hover:text-brand transition">Showcase</a>
+            <a href="gallery.html"         class="py-3 border-b border-gray-50 text-brand transition">Gallery</a>
+            <a href="#contact"             class="py-3 hover:text-brand transition">Contact Us</a>
+        </nav>
     </div>
 </header>
 
@@ -398,7 +424,7 @@
 
     <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 pb-10 border-b border-blue-900">
+        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 max-lg:gap-10 pb-10 border-b border-blue-900">
 
             <!-- Brand -->
             <div>
@@ -530,8 +556,9 @@
             </div>
         </div>
 
-        <!-- Bottom Bar -->
-        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
+        <!-- Bottom Bar — extra bottom padding below lg keeps the legal links
+             clear of the floating Contact pill that overlays that corner -->
+        <div class="py-5 max-lg:pb-28 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
             <p>
                 © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
             </p>
@@ -1014,6 +1041,21 @@ function jumpToHashPart() {
 
 jumpToHashPart();
 window.addEventListener('hashchange', jumpToHashPart);
+
+
+// ── MOBILE MENU ────────────────────────────────────────────────
+// Same behavior as the homepage header: toggle panel, swap the icon,
+// close after a link is tapped.
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu    = document.getElementById('mobileMenu');
+function setMobileMenu(open) {
+    mobileMenu.classList.toggle('hidden', !open);
+    document.getElementById('menuIconOpen').classList.toggle('hidden', open);
+    document.getElementById('menuIconClose').classList.toggle('hidden', !open);
+    mobileMenuBtn.setAttribute('aria-expanded', open);
+}
+mobileMenuBtn.addEventListener('click', () => setMobileMenu(mobileMenu.classList.contains('hidden')));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMobileMenu(false)));
 
 
 // ── CONTACT TOGGLE ─────────────────────────────────────────────

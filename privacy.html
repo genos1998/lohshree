@@ -133,10 +133,15 @@
             <a href="#contact"             class="hover:text-brand transition whitespace-nowrap">Contact Us</a>
         </nav>
 
-        <!-- Below xl the nav is hidden; a legal page still needs one way back -->
+        <!-- Below xl the nav is hidden; a legal page still needs one way
+             back. Kept to one word — "Back to site" plus the wordmark
+             overflowed a 390px phone screen. -->
         <a href="index.html"
-           class="xl:hidden text-xs font-black tracking-[0.14em] uppercase text-brand border border-blue-200 rounded-lg px-4 py-2.5 whitespace-nowrap">
-            Back to site
+           class="xl:hidden inline-flex items-center gap-1 text-xs font-black tracking-[0.14em] uppercase text-brand border border-blue-200 rounded-lg px-3 py-2.5 whitespace-nowrap flex-shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Home
         </a>
 
     </div>
@@ -500,7 +505,7 @@
 
     <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 pb-10 border-b border-blue-900">
+        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 max-lg:gap-10 pb-10 border-b border-blue-900">
 
             <!-- Brand -->
             <div>
@@ -593,7 +598,7 @@
         </div>
 
         <!-- Bottom Bar -->
-        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
+        <div class="py-5 max-lg:pb-28 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
             <p>© 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.</p>
             <div class="flex gap-6">
                 <a href="privacy.html" class="text-white font-bold">Privacy Policy</a>

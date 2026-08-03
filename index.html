@@ -249,6 +249,17 @@
             color: #1B2ACF;
         }
 
+        /* MOBILE ONLY — on phones the hero headline's clamp() floor
+           (2.3rem) leaves one word per line; a fixed 2rem lets each thought
+           hold together. !important because the clamp sits in an inline
+           style. Desktop (>=1024px) is untouched by everything in here. */
+        @media (max-width: 640px) {
+            #home h1 {
+                font-size: 2rem !important;
+                line-height: 1.12 !important;
+            }
+        }
+
         /* IMAGE PROTECTION — deters casual saving of the product photos: no
            dragging an image out to the desktop, no long-press save sheet on
            mobile, no selecting media. Right-click over media is blocked by
@@ -496,8 +507,10 @@
         </div>
     </div>
 
-    <!-- Slide controls — bottom-right of the image -->
-    <div class="absolute bottom-8 right-6 lg:right-[22%] z-40 flex gap-2">
+    <!-- Slide controls — bottom-right of the image. On phones they sit
+         bottom-LEFT instead, clear of the floating Contact pill that owns
+         the bottom-right corner. -->
+    <div class="absolute bottom-8 right-6 max-sm:right-auto max-sm:left-8 lg:right-[22%] z-40 flex gap-2">
         <button id="prevSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <use href="#icon-chevron-left"/>
@@ -657,10 +670,15 @@
                         WHAT WE STAND FOR
                     </div>
 
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:divide-x lg:divide-slate-200">
+                    <!-- On phones (max-sm) each value flips from a centered
+                         column to an icon-left row — same content, far less
+                         cramped in a 2-col squeeze. The plain wrapper div
+                         around each text stack renders identically on
+                         desktop. -->
+                    <div class="grid grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-6 lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:divide-x lg:divide-slate-200">
 
-                        <div class="text-center px-4">
-                            <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
+                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <path stroke-linejoin="round" d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/>
                                     <path stroke-linecap="round" d="m14.5 12.5 2-2"/>
@@ -669,30 +687,34 @@
                                     <path stroke-linecap="round" d="m17.5 15.5 2-2"/>
                                 </svg>
                             </div>
-                            <div class="text-[16px] font-bold text-ink">Precision Engineering</div>
-                            <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
-                            <p class="text-[13px] text-ink leading-relaxed">
-                                Manufactured to your exact specifications with strict tolerances.
-                            </p>
+                            <div>
+                                <div class="text-[16px] font-bold text-ink">Precision Engineering</div>
+                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <p class="text-[13px] text-ink leading-relaxed">
+                                    Manufactured to your exact specifications with strict tolerances.
+                                </p>
+                            </div>
                         </div>
 
-                        <div class="text-center px-4">
-                            <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
+                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <path stroke-linejoin="round" d="M6 3h12l4 6-10 13L2 9l4-6z"/>
                                     <path stroke-linejoin="round" d="M11 3 8 9l4 13 4-13-3-6"/>
                                     <path stroke-linecap="round" d="M2 9h20"/>
                                 </svg>
                             </div>
-                            <div class="text-[16px] font-bold text-ink">Quality Assured</div>
-                            <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
-                            <p class="text-[13px] text-ink leading-relaxed">
-                                Every component undergoes rigorous quality inspections.
-                            </p>
+                            <div>
+                                <div class="text-[16px] font-bold text-ink">Quality Assured</div>
+                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <p class="text-[13px] text-ink leading-relaxed">
+                                    Every component undergoes rigorous quality inspections.
+                                </p>
+                            </div>
                         </div>
 
-                        <div class="text-center px-4">
-                            <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
+                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
                                     <path stroke-linecap="round" d="M15 18H9"/>
@@ -701,26 +723,30 @@
                                     <circle cx="7" cy="18" r="2"/>
                                 </svg>
                             </div>
-                            <div class="text-[16px] font-bold text-ink">Reliable Delivery</div>
-                            <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
-                            <p class="text-[13px] text-ink leading-relaxed">
-                                Committed timelines backed by efficient production.
-                            </p>
+                            <div>
+                                <div class="text-[16px] font-bold text-ink">Reliable Delivery</div>
+                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <p class="text-[13px] text-ink leading-relaxed">
+                                    Committed timelines backed by efficient production.
+                                </p>
+                            </div>
                         </div>
 
-                        <div class="text-center px-4">
-                            <div class="w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
+                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <rect x="3.5" y="3.5" width="17" height="17" rx="2"/>
                                     <path stroke-linecap="round" d="M12 3.5v2.2a2.2 2.2 0 1 1 0 4.4v10.4"/>
                                     <path stroke-linecap="round" d="M20.5 12h-2.2a2.2 2.2 0 1 1-4.4 0H3.5"/>
                                 </svg>
                             </div>
-                            <div class="text-[16px] font-bold text-ink">Tailored Solutions</div>
-                            <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
-                            <p class="text-[13px] text-ink leading-relaxed">
-                                Flexible manufacturing designed around your requirements.
-                            </p>
+                            <div>
+                                <div class="text-[16px] font-bold text-ink">Tailored Solutions</div>
+                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <p class="text-[13px] text-ink leading-relaxed">
+                                    Flexible manufacturing designed around your requirements.
+                                </p>
+                            </div>
                         </div>
 
                     </div>
@@ -750,7 +776,7 @@
                     ENGINEERED FOR RELIABILITY
                 </div>
 
-                <h2 class="text-3xl sm:text-[2rem] font-black text-ink leading-tight mb-3">
+                <h2 class="text-3xl max-sm:text-2xl sm:text-[2rem] font-black text-ink leading-tight mb-3">
                     Whatever it takes to keep your Solvent Extraction Plant running, We make it
                 </h2>
 
@@ -933,12 +959,12 @@
             </div>
 
             <!-- RIGHT CONTENT -->
-            <div class="p-8 lg:px-12 lg:py-8 min-w-0">
+            <div class="p-8 max-sm:p-5 lg:px-12 lg:py-8 min-w-0">
 
-                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10 max-sm:mb-6">
 
                     <div>
-                        <h3 class="text-4xl font-black text-ink leading-tight">
+                        <h3 class="text-4xl max-sm:text-[1.6rem] font-black text-ink leading-tight">
                             The Parts Powering the Majority of Solvent Extraction Plants
                         </h3>
                     </div>
@@ -1067,7 +1093,7 @@
 
     <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 pb-10 border-b border-blue-900">
+        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 max-lg:gap-10 pb-10 border-b border-blue-900">
 
             <!-- Brand -->
             <div>
@@ -1199,8 +1225,9 @@
             </div>
         </div>
 
-        <!-- Bottom Bar -->
-        <div class="py-5 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
+        <!-- Bottom Bar — extra bottom padding below lg keeps the legal links
+             clear of the floating Contact pill that overlays that corner -->
+        <div class="py-5 max-lg:pb-28 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
             <p>
                 © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
             </p>
