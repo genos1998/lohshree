@@ -31,7 +31,21 @@
       "Bash(node /tmp/claude-1000/-home-opsmx-lohshree/1e56f1cf-c1ee-4122-842f-949f7f9fb3ad/scratchpad/shot.mjs file:///home/opsmx/lohshree/index.html /tmp/claude-1000/-home-opsmx-lohshree/1e56f1cf-c1ee-4122-842f-949f7f9fb3ad/scratchpad/fullpage.png 1440 900)",
       "Bash(node shot.mjs file:///home/opsmx/lohshree/index.html fullpage.png 1440 900)",
       "Bash(cp fullpage.png /home/opsmx/lohshree/index_preview.png)",
-      "Bash(cp page_1x.png /home/opsmx/lohshree/index_preview_small.png)"
+      "Bash(cp page_1x.png /home/opsmx/lohshree/index_preview_small.png)",
+      "Bash(ls -la /home/opsmx/lohshree/ && ls -la /tmp/claude-1000/-home-opsmx-lohshree/ 2>/dev/null)",
+      "Read(//tmp/claude-1000/-home-opsmx-lohshree/**)",
+      "Bash(node -e \"require.resolve\\('puppeteer'\\)\")",
+      "Bash(npm ls *)",
+      "Bash(google-chrome --version)",
+      "Bash(google-chrome --headless=new --remote-debugging-port=9333 --hide-scrollbars --allow-file-access-from-files --disable-gpu --no-sandbox --user-data-dir=./chrome-profile about:blank)",
+      "Bash(curl -s http://127.0.0.1:9333/json/version)",
+      "Bash(curl -s -X PUT http://127.0.0.1:9333/json/new)",
+      "Bash(pkill -f \"remote-debugging-port=9333\")",
+      "Bash(rm -rf chrome-profile)",
+      "Bash(google-chrome --headless=new --remote-debugging-port=9334 --hide-scrollbars --allow-file-access-from-files --disable-gpu --no-sandbox --user-data-dir=./chrome-profile about:blank)",
+      "Bash(curl -s http://127.0.0.1:9334/json/version)",
+      "Bash(pkill -f \"remote-debugging-port=9334\")",
+      "Bash(exit 0)"
     ]
   }
 }
