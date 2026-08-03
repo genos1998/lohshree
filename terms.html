@@ -85,6 +85,96 @@
             -webkit-user-select: none;
             user-select: none;
         }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MOBILE EXPERIENCE — under 768px only; desktop never sees it.
+
+           Legal text is the one place a phone beats a laptop, so the job
+           here is reading comfort: a narrower measure, larger body text,
+           clear space between clauses, and headings that are obviously
+           headings when there is no sidebar to navigate by.
+           ═══════════════════════════════════════════════════════════════ */
+        @media (max-width: 767px) {
+
+            :root { --m-gutter: 22px; }
+
+            /* ── Title band ──────────────────────────────────────────── */
+            main > div, section > div { padding-left: var(--m-gutter); padding-right: var(--m-gutter); }
+            section h1 { font-size: 1.85rem; line-height: 1.12; }
+            section > div { padding-top: 38px; padding-bottom: 40px; }
+            section p { font-size: 15px; line-height: 1.65; }
+
+            /* ── Body ────────────────────────────────────────────────── */
+            main > div { padding-top: 34px; padding-bottom: 44px; }
+            main .grid { display: block; gap: 0; }
+
+            /* the call-out box goes edge-to-edge-ish with roomier padding */
+            main > div > div:first-child { padding: 24px 20px; border-radius: 18px; margin-bottom: 36px; }
+
+            /* 15.5px/1.8 is the comfortable phone reading setting; the
+               desktop 15px/1.75 measured fine at 700px but not at 350px */
+            .legal { font-size: 15.5px; }
+            .legal p, .legal li { line-height: 1.8; }
+            .legal p { margin-bottom: 1.15rem; }
+            .legal li { margin-bottom: 0.7rem; }
+            .legal ul, .legal ol { padding-left: 1.15rem; }
+            .legal section { scroll-margin-top: 88px; }
+            /* clause headings need to carry the structure on their own
+               here — the jump list they replace is desktop-only */
+            .legal h2 {
+                font-size: 1.02rem;
+                line-height: 1.35;
+                padding-top: 26px;
+                border-top: 2px solid #DEE4FD;
+                margin-bottom: 1rem;
+            }
+            .legal > div > section:first-child h2 { padding-top: 0; border-top: 0; }
+            .legal h3 { font-size: 0.98rem; margin: 1.6rem 0 0.6rem; }
+            .legal .space-y-10 > * + * { margin-top: 2.6rem; }
+
+            /* full-width closing button, comfortable to hit */
+            .legal a[class*="bg-ink"] {
+                display: flex;
+                width: 100%;
+                min-height: 54px;
+                justify-content: center;
+                border-radius: 12px;
+                font-size: 12px;
+            }
+
+            /* ── Footer — separate blocks, generous air ──────────────── */
+            footer#contact { padding-top: 36px; }
+            footer#contact > div { padding-left: var(--m-gutter); padding-right: var(--m-gutter); }
+            footer#contact .footer-grid { display: block; gap: 0; padding-bottom: 0; border-bottom: 0; }
+            footer#contact .footer-grid > div + div {
+                border-top: 1px solid rgba(148, 166, 246, 0.22);
+                padding-top: 30px;
+                margin-top: 4px;
+            }
+            footer#contact .footer-heading {
+                display: block;
+                border-top: 1px solid rgba(148, 166, 246, 0.22);
+                padding-top: 30px;
+                margin-top: 30px;
+            }
+            footer#contact .footer-contact a { min-height: 44px; align-items: center; }
+            footer#contact .footer-certs { gap: 18px 22px; margin-top: 0; }
+            footer#contact .footer-chips { gap: 10px; margin-bottom: 26px; }
+            footer#contact .footer-chips span {
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                padding: 7px 12px;
+                border-radius: 999px;
+                background: rgba(148, 166, 246, 0.14);
+            }
+            footer#contact .footer-bottom {
+                display: block;
+                text-align: center;
+                padding: 26px 0 120px;
+            }
+            footer#contact .footer-bottom .flex { justify-content: center; gap: 26px; margin-top: 14px; }
+            footer#contact .footer-bottom a { padding: 12px 4px; display: inline-block; min-height: 44px; }
+        }
     </style>
 </head>
 <body class="bg-white text-ink font-sans antialiased">
@@ -603,7 +693,7 @@
 
 
 <!-- FOOTER WAVE DIVIDER -->
-<div class="relative h-16 overflow-hidden bg-white">
+<div class="footer-wave relative h-16 overflow-hidden bg-white">
     <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="absolute inset-0 w-full h-full">
         <path d="M0,62 C300,120 500,0 720,48 C980,100 1180,20 1440,62" fill="none" stroke="#6379EE" stroke-width="3"/>
         <path fill="#081048"
@@ -621,7 +711,7 @@
 
     <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 max-lg:gap-10 pb-10 border-b border-blue-900">
+        <div class="footer-grid grid lg:grid-cols-[1.2fr_1fr] gap-16 max-lg:gap-10 pb-10 border-b border-blue-900">
 
             <!-- Brand -->
             <div>
@@ -638,13 +728,14 @@
                     rotary valves, conveyor systems and custom manufacturing solutions.
                 </p>
 
-                <div class="flex flex-wrap gap-3 mb-6">
+                <div class="footer-chips flex flex-wrap gap-3 mb-6">
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">45+ Years Experience</span>
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">Solvent Extraction Specialists</span>
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">Custom Manufacturing</span>
                 </div>
 
-                <div class="flex flex-wrap gap-4 mt-6">
+                <h4 class="footer-heading hidden text-sm font-black text-white tracking-[0.2em] uppercase mb-5">Certifications</h4>
+                <div class="footer-certs flex flex-wrap gap-4 mt-6">
                     <div class="flex items-center gap-2 text-xs text-blue-50">
                         <img src="assets/iso.png" alt="ISO 9001:2008" class="h-12 w-auto">
                         <span>ISO 9001:2008</span>
@@ -661,7 +752,7 @@
             </div>
 
             <!-- Contact -->
-            <div>
+            <div class="footer-contact">
                 <h4 class="text-sm font-black text-white tracking-[0.2em] uppercase mb-5">Contact</h4>
 
                 <div class="space-y-3 text-base">
@@ -714,7 +805,7 @@
         </div>
 
         <!-- Bottom Bar -->
-        <div class="py-5 max-lg:pb-28 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
+        <div class="footer-bottom py-5 max-lg:pb-28 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
             <p>© 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.</p>
             <div class="flex gap-6">
                 <a href="privacy.html" class="hover:text-white transition">Privacy Policy</a>

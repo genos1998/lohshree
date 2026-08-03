@@ -249,16 +249,6 @@
             color: #1B2ACF;
         }
 
-        /* MOBILE ONLY — on phones the hero headline's clamp() floor
-           (2.3rem) leaves one word per line; a fixed 2rem lets each thought
-           hold together. !important because the clamp sits in an inline
-           style. Desktop (>=1024px) is untouched by everything in here. */
-        @media (max-width: 640px) {
-            #home h1 {
-                font-size: 2rem !important;
-                line-height: 1.12 !important;
-            }
-        }
 
         /* IMAGE PROTECTION — deters casual saving of the product photos: no
            dragging an image out to the desktop, no long-press save sheet on
@@ -272,6 +262,330 @@
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════
+           MOBILE EXPERIENCE — everything below applies ONLY under 768px.
+           Nothing in this block can reach the desktop design: at >=768px
+           the whole media query is inert, so the finished desktop layout,
+           spacing and typography stay exactly as they are.
+
+           This is deliberately NOT a shrunk desktop. On a phone the page
+           gets its own running order (the product film rides up directly
+           behind the hero), an image-first hero, swipe rails instead of
+           squeezed grids, one card per row, 52px+ tap targets and a
+           single 22px gutter down the whole page.
+
+           Selectors are id-scoped (#home ..., #about ...) so they outrank
+           Tailwind's single-class utilities, which the CDN injects into
+           the document AFTER this stylesheet.
+           ═══════════════════════════════════════════════════════════════ */
+        @media (max-width: 767px) {
+
+            :root {
+                --m-gutter: 22px;   /* one gutter for the entire page */
+                --m-air: 60px;      /* air between sections */
+                /* the photo takes ~38% of the screen — enough to lead the
+                   page, capped so the CTA still lands above the fold on a
+                   short 360x740 handset */
+                --hero-h: clamp(200px, 38vh, 330px);
+            }
+
+            /* ── 1. RUNNING ORDER ──────────────────────────────────────
+               Desktop reads left-to-right, so Solutions can sit third.
+               A thumb scrolls one column, so the machinery film moves up
+               to second — visual proof before the company history. */
+            body { display: flex; flex-direction: column; }
+            body > *             { order: 9; }     /* anything unlisted goes last */
+            body > header        { order: 0; }
+            body > #home         { order: 1; }
+            body > #solutions    { order: 2; }
+            body > #about        { order: 3; }
+            body > #showcase     { order: 4; }
+            body > .footer-wave  { order: 5; }
+            body > footer        { order: 6; }
+
+            /* ── 2. HERO — image first ─────────────────────────────────
+               Was: full-bleed photo bleached to 15% opacity behind five
+               lines of headline, with the CTA pushed under the fold.
+               Now: the machinery is a real block at full contrast, then
+               a compact headline, two lines of copy and a full-width CTA
+               — all inside the first screen. */
+            #home {
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+                padding-bottom: 34px;
+            }
+            #home .hero-media {
+                position: relative;
+                order: -1;
+                inset: auto;
+                width: 100%;
+                height: var(--hero-h);
+                clip-path: none;
+                pointer-events: auto;
+            }
+            /* the 85% white wash only existed so text could sit on the
+               photo; nothing sits on it now, so the parts read properly */
+            #home .hero-media .bg-white\/85 { display: none; }
+
+            #home .hero-copy { position: static; height: auto; min-height: 0; display: block; }
+            #home .hero-copy-inner { width: 100%; padding: 22px var(--m-gutter) 0; }
+
+            #home .hero-badge { font-size: 10.5px; letter-spacing: 0.16em; line-height: 1.6; }
+            #home .hero-copy-inner > div:first-child { margin-bottom: 14px; }
+
+            /* ~30% down from the desktop floor. The hand-tuned <br> breaks
+               stay: they carry no space character, so hiding them would run
+               the words together (ENGINEERINGEXCELLENCE), and the desktop
+               break points happen to be the right ones for a phone too. */
+            #home h1 {
+                font-size: clamp(1.55rem, 7.2vw, 1.95rem) !important;
+                line-height: 1.12 !important;
+                letter-spacing: -0.015em;
+                margin-bottom: 14px;
+            }
+
+            #home .hero-sub { font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+            #home .hero-sub-full  { display: none; }
+            #home .hero-sub-short { display: inline; }
+
+            #home .hero-cta {
+                display: flex;
+                width: 100%;
+                min-height: 54px;
+                justify-content: center;
+                border-radius: 12px;
+                font-size: 13px;
+                letter-spacing: 0.12em;
+            }
+
+            /* arrows ride on the photo itself, above its bottom edge */
+            #home .hero-controls {
+                top: var(--hero-h);
+                right: 14px;
+                bottom: auto;
+                left: auto;
+                transform: translateY(-54px);
+            }
+            #home .hero-controls button {
+                width: 42px; height: 42px;
+                border-radius: 10px;
+                backdrop-filter: blur(4px);
+            }
+
+            /* ── 3. PRODUCT FILM — the strongest thing on the page ─────
+               Was: a ~180px letterboxed thumbnail inside a bordered card.
+               Now: a 4:5 portrait that fills the phone the way a reel
+               does, edge to edge, with a real play control. */
+            #solutions { padding: var(--m-air) 0 0; scroll-margin-top: 76px; }
+            #solutions > div { padding: 0; max-width: none; }
+            #solutions .sol-grid { display: block; }
+            #solutions .sol-panel {
+                border-radius: 0;
+                border-left: 0;
+                border-right: 0;
+                padding: 34px var(--m-gutter) 30px;
+            }
+            #solutions .sol-panel > div:first-child { font-size: 11px; letter-spacing: 0.18em; }
+            #solutions .sol-panel h2 { font-size: 1.5rem; line-height: 1.22; margin-bottom: 12px; }
+            #solutions .sol-panel > p { font-size: 15px; line-height: 1.65; margin-bottom: 22px; }
+
+            #solutions .video-frame {
+                flex: none;
+                aspect-ratio: 4 / 5;
+                min-height: 0;
+                max-height: none;
+                border: 0;
+                border-radius: 24px;
+                box-shadow: 0 26px 50px -22px rgba(8, 16, 72, 0.65);
+            }
+            #solutions .video-frame video { border-radius: 24px; }
+            #solutions .video-expand { display: flex; }
+            #solutions .video-cta {
+                left: 16px; right: 16px; bottom: 16px;
+                justify-content: center;
+                min-height: 52px;
+                border-radius: 14px;
+                font-size: 12px;
+            }
+
+            /* ── 4. OUR PROMISE ───────────────────────────────────────── */
+            #solutions .promise-card { border-radius: 0; margin-top: var(--m-air); }
+            #solutions .promise-inner { padding: 36px var(--m-gutter) 40px; }
+            #solutions .promise-inner > div:first-child { font-size: 11px; letter-spacing: 0.18em; }
+            #solutions .promise-card h3 { font-size: 1.45rem; line-height: 1.22; }
+            #solutions .promise-card p { font-size: 15px; line-height: 1.7; }
+            #solutions .promise-ctas { gap: 12px; }
+            #solutions .promise-ctas a { min-height: 54px; border-radius: 12px; }
+
+            /* ── 5. JOURNEY — swipe rail ───────────────────────────────
+               Was: four 170px cards two-up, each caption breaking to one
+               word per line. Now: one card at a time at 78% width, so the
+               next card peeks in — the peek is what tells a thumb to swipe. */
+            #about { padding: var(--m-air) 0; }
+            #about .about-wrap { padding: 0; max-width: none; }
+            #about .about-grid { display: block; gap: 0; }
+            #about .about-intro { padding: 0 var(--m-gutter); margin-bottom: 34px; }
+            #about .about-intro > div:first-child { font-size: 11px; letter-spacing: 0.16em; }
+            #about .about-intro h2 { font-size: 1.6rem; line-height: 1.15; margin-bottom: 18px; }
+            #about .about-intro p { font-size: 15px; line-height: 1.7; }
+            #about .about-intro .signature { font-size: 1.7rem; }
+            #about .about-intro .mt-10 { margin-top: 30px; padding-top: 26px; }
+            #about .about-intro .mt-10 p { font-size: 1.6rem; line-height: 1.15; }
+
+            #about .journey-track {
+                display: flex;
+                gap: 14px;
+                margin: 0 0 42px;
+                padding: 2px var(--m-gutter) 8px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-padding-left: var(--m-gutter);
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            #about .journey-track::-webkit-scrollbar { display: none; }
+            #about .journey-card {
+                flex: 0 0 78%;
+                scroll-snap-align: start;
+                text-align: left;
+                background: #fff;
+                border: 1px solid #DEE4FD;
+                border-radius: 18px;
+                padding: 12px 12px 16px;
+                box-shadow: 0 10px 26px -18px rgba(27, 42, 207, 0.4);
+            }
+            #about .journey-media {
+                max-width: none;
+                width: 100%;
+                aspect-ratio: 4 / 3;
+                margin-bottom: 14px;
+                border-radius: 12px;
+            }
+            #about .journey-caption { border-top: 0; padding: 0 4px; }
+            #about .journey-caption > span { display: none; }   /* timeline dot */
+            #about .journey-title { font-size: 15px; margin-bottom: 6px; }
+            #about .journey-caption p { font-size: 13.5px; line-height: 1.6; max-width: none; margin: 0; }
+
+            /* ── 6. WHAT WE STAND FOR — one per row ───────────────────
+               Was: four items two-up, 60px-wide text columns. Now: a
+               56px icon beside a full-width heading and description,
+               separated by hairlines. */
+            #about .values-card {
+                margin: 0 var(--m-gutter);
+                border-radius: 20px;
+                padding: 26px 20px 4px;
+            }
+            #about .values-card > div:first-child { font-size: 11px; letter-spacing: 0.16em; margin-bottom: 22px; }
+            #about .values-grid { display: block; }
+            #about .value-item {
+                display: grid;
+                grid-template-columns: 56px 1fr;
+                align-items: start;
+                gap: 18px;
+                padding: 0 0 22px;
+                margin-bottom: 22px;
+                text-align: left;
+                border-bottom: 1px solid #EEF1FE;
+            }
+            #about .value-item:last-child { border-bottom: 0; }
+            #about .value-icon { width: 56px; height: 56px; margin: 0; }
+            #about .value-icon svg { width: 27px; height: 27px; }
+            #about .value-title { font-size: 16px; }
+            #about .value-rule { margin: 9px 0; }
+            #about .value-item p { font-size: 14px; line-height: 1.6; }
+
+            /* ── 7. PARTS — swipe rail ────────────────────────────────
+               The conveyor belt is a desktop delight; at 390px the plates
+               were 90px wide. The same photos work far harder as a rail
+               showing one large part at a time, so the belt hardware and
+               its edge fades stand down here. */
+            #showcase { padding: var(--m-air) 0 40px; }
+            #showcase > div { padding: 0; max-width: none; }
+            #showcase .showcase-card { border-radius: 0; border-left: 0; border-right: 0; }
+            #showcase .showcase-map { min-height: 0; padding: 26px 20px 28px; }
+            #showcase .showcase-map img { max-height: 210px; }
+            #showcase .showcase-body { padding: 30px 0 26px; }
+            #showcase .showcase-head { margin-bottom: 22px; padding: 0 var(--m-gutter); }
+            #showcase .showcase-title { font-size: 1.5rem; line-height: 1.2; }
+
+            #showcase .belt-assembly, #showcase .belt-fade { display: none; }
+            #showcase .belt-viewport { padding-top: 0; margin-top: 0; overflow: visible; }
+            #showcase #conveyorItems {
+                animation: none !important;
+                display: flex;
+                align-items: stretch;
+                width: auto;
+                gap: 14px;
+                padding: 2px var(--m-gutter) 10px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-padding-left: var(--m-gutter);
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            #showcase #conveyorItems::-webkit-scrollbar { display: none; }
+            #showcase .belt-plate {
+                flex: 0 0 80%;
+                scroll-snap-align: start;
+                margin-right: 0;
+                padding: 10px;
+                border-radius: 18px;
+                border-bottom-width: 1px;
+                transform: none !important;
+                box-shadow: 0 14px 30px -18px rgba(27, 42, 207, 0.5);
+            }
+            #showcase .belt-plate img {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4 / 3;
+            }
+
+            /* ── 8. FOOTER — separate blocks, not one dense column ───── */
+            footer#contact { padding-top: 36px; }
+            footer#contact > div { padding-left: var(--m-gutter); padding-right: var(--m-gutter); }
+            footer#contact .footer-grid { display: block; gap: 0; padding-bottom: 0; border-bottom: 0; }
+            footer#contact .footer-grid > div + div,
+            footer#contact .footer-certs,
+            footer#contact .footer-heading {
+                border-top: 1px solid rgba(148, 166, 246, 0.22);
+            }
+            footer#contact .footer-grid > div + div { padding-top: 30px; margin-top: 4px; }
+            footer#contact .footer-heading { display: block; padding-top: 30px; margin-top: 30px; }
+            footer#contact .footer-certs { border-top: 0; margin-top: 0; gap: 18px 22px; }
+            footer#contact .footer-chips { gap: 10px; margin-bottom: 26px; }
+            footer#contact .footer-chips span {
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                padding: 7px 12px;
+                border-radius: 999px;
+                background: rgba(148, 166, 246, 0.14);
+            }
+            /* every contact row is a real 44px touch target */
+            footer#contact .footer-contact .space-y-3 > * { padding: 4px 0; }
+            footer#contact .footer-contact a { min-height: 44px; align-items: center; }
+            /* the floating Contact pill owns the bottom-right corner, so the
+               legal links clear it instead of hiding underneath */
+            footer#contact .footer-bottom {
+                display: block;
+                text-align: center;
+                padding: 26px 0 120px;
+            }
+            footer#contact .footer-bottom .flex { justify-content: center; gap: 26px; margin-top: 14px; }
+            footer#contact .footer-bottom a { padding: 12px 4px; display: inline-block; min-height: 44px; }
+        }
+
+        /* Short handsets (iPhone SE class, 667px tall, and any phone held in
+           landscape). Same layout, pulled in a notch so EXPLORE SOLUTIONS
+           still lands on the first screen without scrolling. */
+        @media (max-width: 767px) and (max-height: 700px) {
+            :root { --hero-h: clamp(180px, 32vh, 235px); }
+            #home .hero-copy-inner { padding-top: 18px; }
+            #home h1 { font-size: 1.4rem !important; }
+            #home .hero-sub { font-size: 14.5px; margin-bottom: 18px; }
+            #home .hero-copy-inner > div:first-child { margin-bottom: 12px; }
         }
     </style>
 </head>
@@ -447,7 +761,7 @@
          the left edge of the About section's brand chevron (a 220px shape centered at
          calc(48% - 18px)) — so the hero diagonal meets where the chevron begins at every
          viewport width, not just one screen size. ── -->
-    <div class="absolute right-0 top-0 bottom-0 w-full lg:w-[calc(52%+128px)] pointer-events-none lg:[clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]">
+    <div class="hero-media absolute right-0 top-0 bottom-0 w-full lg:w-[calc(52%+128px)] pointer-events-none lg:[clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]">
 
         <!-- Slideshow -->
         <div id="hero-slider" class="absolute inset-0 pointer-events-auto">
@@ -466,14 +780,14 @@
     </div>
 
     <!-- ── Left text content — fills the full left column ── -->
-    <div class="relative z-30 h-full min-h-[88vh] flex items-center">
+    <div class="hero-copy relative z-30 h-full min-h-[88vh] flex items-center">
         <!-- Use full-bleed left padding so text starts near viewport edge -->
-        <div class="w-full pl-8 sm:pl-12 lg:pl-20 xl:pl-28 pr-4 lg:w-[46%] py-24 lg:py-0">
+        <div class="hero-copy-inner w-full pl-8 sm:pl-12 lg:pl-20 xl:pl-28 pr-4 lg:w-[46%] py-24 lg:py-0">
 
             <!-- Badge -->
             <div class="flex items-center gap-3 mb-7">
                 <div class="w-10 h-px bg-brand flex-shrink-0"></div>
-                <span class="text-sm font-black text-brand tracking-[0.2em] uppercase">45+ YEARS OF EVOLVING WITH INDUSTRY</span>
+                <span class="hero-badge text-sm font-black text-brand tracking-[0.2em] uppercase">45+ YEARS OF EVOLVING WITH INDUSTRY</span>
             </div>
 
             <!-- Headline — full width of the left column -->
@@ -487,17 +801,27 @@
                  demands." into one unbreakable chunk, so "and" can never be
                  left dangling at the end of a line — it always travels down
                  with the words it belongs to. The rest reflows normally. -->
-            <p class="text-ink text-base leading-relaxed mb-9">
-                Every industry presents unique challenges. Our strength lies
-                in adapting to them. With 45+ years of engineering expertise,
-                we provide dependable manufacturing solutions that meet
-                evolving technical and&nbsp;production&nbsp;demands.
+            <p class="hero-sub text-ink text-base leading-relaxed mb-9">
+                <!-- Desktop copy, unchanged. Hidden below 768px, where four
+                     sentences push the CTA off the first screen. -->
+                <span class="hero-sub-full">
+                    Every industry presents unique challenges. Our strength lies
+                    in adapting to them. With 45+ years of engineering expertise,
+                    we provide dependable manufacturing solutions that meet
+                    evolving technical and&nbsp;production&nbsp;demands.
+                </span>
+                <!-- Mobile copy: the same promise in two lines. -->
+                <span class="hero-sub-short hidden">
+                    45+ years of precision manufacturing for solvent extraction
+                    plants — standard parts and fully custom builds, made to
+                    your&nbsp;specification.
+                </span>
             </p>
 
             <!-- CTAs -->
             <div class="flex flex-wrap gap-3">
                 <a href="#solutions"
-                   class="inline-flex items-center gap-2 bg-ink text-white text-sm font-black px-7 py-3.5 tracking-widest hover:bg-gray-700 transition">
+                   class="hero-cta inline-flex items-center gap-2 bg-ink text-white text-sm font-black px-7 py-3.5 tracking-widest hover:bg-gray-700 transition">
                     EXPLORE SOLUTIONS
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <use href="#icon-chevron-right"/>
@@ -510,7 +834,7 @@
     <!-- Slide controls — bottom-right of the image. On phones they sit
          bottom-LEFT instead, clear of the floating Contact pill that owns
          the bottom-right corner. -->
-    <div class="absolute bottom-8 right-6 max-sm:right-auto max-sm:left-8 lg:right-[22%] z-40 flex gap-2">
+    <div class="hero-controls absolute bottom-8 right-6 lg:right-[22%] z-40 flex gap-2">
         <button id="prevSlide" class="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center transition shadow-sm">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <use href="#icon-chevron-left"/>
@@ -529,12 +853,12 @@
 
     <div class="absolute inset-x-0 top-0 h-px bg-gray-200"></div>
 
-    <div class="relative max-w-[min(92vw,1800px)] mx-auto px-5 sm:px-8 py-12 sm:py-14 lg:py-16">
+    <div class="about-wrap relative max-w-[min(92vw,1800px)] mx-auto px-5 sm:px-8 py-12 sm:py-14 lg:py-16">
 
-        <div class="grid lg:grid-cols-[minmax(320px,400px)_1fr] gap-10 lg:gap-12 items-start">
+        <div class="about-grid grid lg:grid-cols-[minmax(320px,400px)_1fr] gap-10 lg:gap-12 items-start">
 
             <!-- OUR JOURNEY -->
-            <div>
+            <div class="about-intro">
                 <div class="text-sm font-black text-brand tracking-[0.18em] uppercase mb-3">
                     OUR JOURNEY. OUR LEGACY.
                 </div>
@@ -588,7 +912,7 @@
             <div>
 
                 <!-- Milestones -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 mb-10">
+                <div class="journey-track grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 mb-10">
 
                     <!-- Each photo shows the company growing: from a tiny
                          workshop shed to a full-scale plant. The four source
@@ -597,64 +921,64 @@
                          fills edge to edge without trimming anything. Capped
                          at 170px so the thumbnails stay in scale with the
                          caption text below rather than filling the column. -->
-                    <div class="text-center">
-                        <div class="w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
+                    <div class="journey-card text-center">
+                        <div class="journey-media w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
                             <img src="assets/beginning.jpg"
                                  alt="A small workshop shed with a lathe and a single machinist"
                                  class="w-full h-full object-cover"
                                  loading="lazy" decoding="async">
                         </div>
-                        <div class="relative border-t-2 border-blue-200 pt-4">
+                        <div class="journey-caption relative border-t-2 border-blue-200 pt-4">
                             <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
-                            <div class="text-sm font-black text-ink mb-1.5">The Beginning</div>
+                            <div class="journey-title text-sm font-black text-ink mb-1.5">The Beginning</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
                                 A small workshop, a handful of people and a vision for precision.
                             </p>
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <div class="w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
+                    <div class="journey-card text-center">
+                        <div class="journey-media w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
                             <img src="assets/expansion.jpg"
                                  alt="A larger factory with a growing team on the shop floor"
                                  class="w-full h-full object-cover"
                                  loading="lazy" decoding="async">
                         </div>
-                        <div class="relative border-t-2 border-blue-200 pt-4">
+                        <div class="journey-caption relative border-t-2 border-blue-200 pt-4">
                             <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
-                            <div class="text-sm font-black text-ink mb-1.5">Strategic Growth</div>
+                            <div class="journey-title text-sm font-black text-ink mb-1.5">Strategic Growth</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
                                 A growing team, our first factory and long-term client bonds.
                             </p>
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <div class="w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
+                    <div class="journey-card text-center">
+                        <div class="journey-media w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
                             <img src="assets/stronger.jpg"
                                  alt="Bigger facilities with automation alongside skilled professionals"
                                  class="w-full h-full object-cover"
                                  loading="lazy" decoding="async">
                         </div>
-                        <div class="relative border-t-2 border-blue-200 pt-4">
+                        <div class="journey-caption relative border-t-2 border-blue-200 pt-4">
                             <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
-                            <div class="text-sm font-black text-ink mb-1.5">Smart Innovation</div>
+                            <div class="journey-title text-sm font-black text-ink mb-1.5">Smart Innovation</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
                                 Bigger facilities, our first automation and skilled professionals.
                             </p>
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <div class="w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
+                    <div class="journey-card text-center">
+                        <div class="journey-media w-full max-w-[170px] mx-auto aspect-square mb-4 rounded-xl border border-blue-100 shadow-sm overflow-hidden">
                             <img src="assets/future.jpg"
                                  alt="A full-scale modern plant lit up at dusk"
                                  class="w-full h-full object-cover"
                                  loading="lazy" decoding="async">
                         </div>
-                        <div class="relative border-t-2 border-blue-200 pt-4">
+                        <div class="journey-caption relative border-t-2 border-blue-200 pt-4">
                             <span class="absolute -top-[5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-brand"></span>
-                            <div class="text-sm font-black text-ink mb-1.5">Engineering Future</div>
+                            <div class="journey-title text-sm font-black text-ink mb-1.5">Engineering Future</div>
                             <p class="text-[13px] text-ink leading-relaxed max-w-[190px] mx-auto">
                                 A full-scale plant where our experts and robots build side by side.
                             </p>
@@ -664,7 +988,7 @@
                 </div>
 
                 <!-- WHAT WE STAND FOR -->
-                <div class="bg-white rounded-2xl border border-blue-100 shadow-sm p-6 sm:p-8">
+                <div class="values-card bg-white rounded-2xl border border-blue-100 shadow-sm p-6 sm:p-8">
 
                     <div class="text-sm font-black text-brand tracking-[0.18em] uppercase mb-7">
                         WHAT WE STAND FOR
@@ -675,10 +999,10 @@
                          cramped in a 2-col squeeze. The plain wrapper div
                          around each text stack renders identically on
                          desktop. -->
-                    <div class="grid grid-cols-2 max-sm:grid-cols-1 max-sm:gap-y-6 lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:divide-x lg:divide-slate-200">
+                    <div class="values-grid grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0 lg:divide-x lg:divide-slate-200">
 
-                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
-                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="value-item text-center px-4">
+                            <div class="value-icon w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <path stroke-linejoin="round" d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/>
                                     <path stroke-linecap="round" d="m14.5 12.5 2-2"/>
@@ -688,16 +1012,16 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-[16px] font-bold text-ink">Precision Engineering</div>
-                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <div class="value-title text-[16px] font-bold text-ink">Precision Engineering</div>
+                                <div class="value-rule w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
                                 <p class="text-[13px] text-ink leading-relaxed">
                                     Manufactured to your exact specifications with strict tolerances.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
-                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="value-item text-center px-4">
+                            <div class="value-icon w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <path stroke-linejoin="round" d="M6 3h12l4 6-10 13L2 9l4-6z"/>
                                     <path stroke-linejoin="round" d="M11 3 8 9l4 13 4-13-3-6"/>
@@ -705,16 +1029,16 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-[16px] font-bold text-ink">Quality Assured</div>
-                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <div class="value-title text-[16px] font-bold text-ink">Quality Assured</div>
+                                <div class="value-rule w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
                                 <p class="text-[13px] text-ink leading-relaxed">
                                     Every component undergoes rigorous quality inspections.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
-                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="value-item text-center px-4">
+                            <div class="value-icon w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
                                     <path stroke-linecap="round" d="M15 18H9"/>
@@ -724,16 +1048,16 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-[16px] font-bold text-ink">Reliable Delivery</div>
-                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <div class="value-title text-[16px] font-bold text-ink">Reliable Delivery</div>
+                                <div class="value-rule w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
                                 <p class="text-[13px] text-ink leading-relaxed">
                                     Committed timelines backed by efficient production.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="text-center px-4 max-sm:flex max-sm:items-center max-sm:gap-4 max-sm:text-left max-sm:px-1">
-                            <div class="w-16 h-16 mx-auto mb-5 max-sm:mx-0 max-sm:mb-0 max-sm:w-14 max-sm:h-14 max-sm:flex-shrink-0 rounded-full bg-brandLight flex items-center justify-center">
+                        <div class="value-item text-center px-4">
+                            <div class="value-icon w-16 h-16 mx-auto mb-5 rounded-full bg-brandLight flex items-center justify-center">
                                 <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
                                     <rect x="3.5" y="3.5" width="17" height="17" rx="2"/>
                                     <path stroke-linecap="round" d="M12 3.5v2.2a2.2 2.2 0 1 1 0 4.4v10.4"/>
@@ -741,8 +1065,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <div class="text-[16px] font-bold text-ink">Tailored Solutions</div>
-                                <div class="w-7 h-[3px] bg-brand rounded-full mx-auto my-3 max-sm:mx-0 max-sm:my-2"></div>
+                                <div class="value-title text-[16px] font-bold text-ink">Tailored Solutions</div>
+                                <div class="value-rule w-7 h-[3px] bg-brand rounded-full mx-auto my-3"></div>
                                 <p class="text-[13px] text-ink leading-relaxed">
                                     Flexible manufacturing designed around your requirements.
                                 </p>
@@ -767,16 +1091,16 @@
         <!-- Products browser (left) and Our Promise card (right) sit side by
              side once there's enough room (xl); below that they stack full-width
              so the product card grid never gets squeezed -->
-        <div class="grid xl:grid-cols-[1fr_400px] gap-6 xl:gap-8 items-stretch">
+        <div class="sol-grid grid xl:grid-cols-[1fr_400px] gap-6 xl:gap-8 items-stretch">
 
             <!-- SOLUTIONS PANEL -->
-            <div class="bg-[#F4F6FE] rounded-2xl border border-blue-100 p-5 sm:p-7 flex flex-col">
+            <div class="sol-panel bg-[#F4F6FE] rounded-2xl border border-blue-100 p-5 sm:p-7 flex flex-col">
 
                 <div class="text-sm font-black text-brand tracking-[0.2em] uppercase mb-2">
                     ENGINEERED FOR RELIABILITY
                 </div>
 
-                <h2 class="text-3xl max-sm:text-2xl sm:text-[2rem] font-black text-ink leading-tight mb-3">
+                <h2 class="text-3xl sm:text-[2rem] font-black text-ink leading-tight mb-3">
                     Whatever it takes to keep your Solvent Extraction Plant running, We make it
                 </h2>
 
@@ -792,7 +1116,7 @@
                 <!-- min-h-0 lets the video box shrink below the video's own
                      aspect height, so the section fits a laptop screen when
                      you jump to it from the nav -->
-                <div class="relative flex-1 min-h-0 xl:max-h-[calc(100vh-350px)] rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
+                <div class="video-frame relative flex-1 min-h-0 xl:max-h-[calc(100vh-350px)] rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
                     <video
                         class="w-full h-full object-cover pointer-events-none"
                         src="assets/video.mp4"
@@ -804,8 +1128,18 @@
 
                     <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/65 via-black/25 to-transparent pointer-events-none"></div>
 
+                    <!-- Mobile-only: plays the showcase full screen with sound.
+                         `hidden` keeps it off the desktop layout entirely. -->
+                    <button id="videoExpand"
+                            class="video-expand hidden absolute inset-0 items-center justify-center"
+                            aria-label="Play the product showcase full screen">
+                        <span class="w-[74px] h-[74px] rounded-full bg-white/22 backdrop-blur-md ring-1 ring-white/50 flex items-center justify-center shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </span>
+                    </button>
+
                     <a href="gallery.html"
-                       class="group absolute bottom-4 right-4 sm:bottom-5 sm:right-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-black text-brand tracking-[0.16em] uppercase shadow-[0_8px_24px_rgba(2,6,23,0.35)] ring-1 ring-black/5 hover:bg-brand hover:text-white hover:ring-brand transition">
+                       class="video-cta group absolute bottom-4 right-4 sm:bottom-5 sm:right-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-black text-brand tracking-[0.16em] uppercase shadow-[0_8px_24px_rgba(2,6,23,0.35)] ring-1 ring-black/5 hover:bg-brand hover:text-white hover:ring-brand transition">
                         Product Showcase
                         <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <use href="#icon-chevron-right"/>
@@ -819,7 +1153,7 @@
                  every customer gets exactly what they came for, standard or
                  custom, no exceptions. Metallic cobalt-blue gradient, gear
                  watermark echoes the footer. -->
-            <div class="relative overflow-hidden rounded-2xl"
+            <div class="promise-card relative overflow-hidden rounded-2xl"
                  style="background: linear-gradient(135deg,
                      #1B2ACF 0%,
                      #141FA3 45%,
@@ -833,7 +1167,7 @@
                     </svg>
                 </div>
 
-                <div class="relative h-full flex flex-col p-7 sm:p-9 lg:p-8">
+                <div class="promise-inner relative h-full flex flex-col p-7 sm:p-9 lg:p-8">
 
                     <div class="text-sm font-black text-white tracking-[0.2em] uppercase mb-3">
                         OUR PROMISE
@@ -887,7 +1221,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-auto flex flex-col sm:flex-row xl:flex-col gap-3">
+                    <div class="promise-ctas mt-auto flex flex-col sm:flex-row xl:flex-col gap-3">
                         <a href="tel:+919820120832"
                            class="inline-flex items-center justify-center gap-2.5 bg-white text-brand px-6 py-3 rounded-lg text-sm font-black tracking-widest hover:bg-blue-50 transition whitespace-nowrap">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><use href="#icon-phone"/></svg>
@@ -920,7 +1254,7 @@
     );">
     <div class="max-w-[min(92vw,1800px)] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[340px_1fr] overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
+        <div class="showcase-card grid lg:grid-cols-[340px_1fr] overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
 
             <!-- LEFT ACCENT PANEL -->
             <div class="relative overflow-hidden"
@@ -943,7 +1277,7 @@
                         );
                     ">
                 </div>
-                <div class="relative h-full min-h-[280px] flex flex-col items-center justify-center gap-4 p-6">
+                <div class="showcase-map relative h-full min-h-[280px] flex flex-col items-center justify-center gap-4 p-6">
                     <img src="assets/map.png"
                         alt="Clients across India served from Navi Mumbai"
                         class="max-h-[300px] w-auto object-contain">
@@ -959,12 +1293,12 @@
             </div>
 
             <!-- RIGHT CONTENT -->
-            <div class="p-8 max-sm:p-5 lg:px-12 lg:py-8 min-w-0">
+            <div class="showcase-body p-8 lg:px-12 lg:py-8 min-w-0">
 
-                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10 max-sm:mb-6">
+                <div class="showcase-head flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
 
                     <div>
-                        <h3 class="text-4xl max-sm:text-[1.6rem] font-black text-ink leading-tight">
+                        <h3 class="showcase-title text-4xl font-black text-ink leading-tight">
                             The Parts Powering the Majority of Solvent Extraction Plants
                         </h3>
                     </div>
@@ -978,20 +1312,20 @@
                          negative margin cancels it out of the layout, so the
                          belt sits where it always did and the headroom is only
                          used while a plate is popped up. -->
-                    <div class="relative overflow-hidden pt-20 -mt-20">
+                    <div class="belt-viewport relative overflow-hidden pt-20 -mt-20">
                         <!-- Edge fades so plates roll in/out smoothly. They start
                              below the pt-20 headroom — spanning it would lay a
                              white gradient over the heading the -mt-20 tucks
                              this box under. -->
-                        <div class="pointer-events-none absolute top-20 bottom-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
-                        <div class="pointer-events-none absolute top-20 bottom-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
+                        <div class="belt-fade pointer-events-none absolute top-20 bottom-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
+                        <div class="belt-fade pointer-events-none absolute top-20 bottom-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
                         <!-- Product plates: photos from assets/gallery/, one per plate,
                              rendered by renderProductPlates() in the script below -->
                         <div id="conveyorItems" class="conveyor-items flex items-end"></div>
                     </div>
 
                     <!-- Belt assembly: slatted loop wrapping two end drums -->
-                    <div class="relative h-12 -mt-px">
+                    <div class="belt-assembly relative h-12 -mt-px">
 
                         <!-- Belt loop (pill shape = belt wrapping the end drums) -->
                         <div class="belt-loop absolute inset-x-0 top-0 h-11 rounded-full shadow-lg z-10"></div>
@@ -1057,7 +1391,7 @@
 
 
 <!-- FOOTER WAVE DIVIDER -->
-<div class="relative h-16 overflow-hidden bg-[#DEE4FD]">
+<div class="footer-wave relative h-16 overflow-hidden bg-[#DEE4FD]">
     <svg
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
@@ -1093,7 +1427,7 @@
 
     <div class="max-w-[1400px] mx-auto px-5 sm:px-8">
 
-        <div class="grid lg:grid-cols-[1.2fr_1fr] gap-16 max-lg:gap-10 pb-10 border-b border-blue-900">
+        <div class="footer-grid grid lg:grid-cols-[1.2fr_1fr] gap-16 max-lg:gap-10 pb-10 border-b border-blue-900">
 
             <!-- Brand -->
             <div>
@@ -1119,7 +1453,7 @@
                     rotary valves, conveyor systems and custom manufacturing solutions.
                 </p>
 
-                <div class="flex flex-wrap gap-3 mb-6">
+                <div class="footer-chips flex flex-wrap gap-3 mb-6">
 
                     <span class="text-sm font-bold uppercase tracking-wider text-blue-50">
                         45+ Years Experience
@@ -1135,7 +1469,10 @@
 
                 </div>
 
-                <div class="flex flex-wrap gap-4 mt-6">
+                <!-- Mobile-only label; the certifications read as their own
+                     block on a phone instead of trailing the description. -->
+                <h4 class="footer-heading hidden text-sm font-black text-white tracking-[0.2em] uppercase mb-5">Certifications</h4>
+                <div class="footer-certs flex flex-wrap gap-4 mt-6">
                     <div class="flex items-center gap-2 text-xs text-blue-50">
                         <img src="assets/iso.png"
                             alt="ISO 9001:2008"
@@ -1161,7 +1498,7 @@
             </div>
 
             <!-- Contact -->
-            <div>
+            <div class="footer-contact">
 
                 <h4 class="text-sm font-black text-white tracking-[0.2em] uppercase mb-5">
                     Contact
@@ -1227,7 +1564,7 @@
 
         <!-- Bottom Bar — extra bottom padding below lg keeps the legal links
              clear of the floating Contact pill that overlays that corner -->
-        <div class="py-5 max-lg:pb-28 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
+        <div class="footer-bottom py-5 max-lg:pb-28 flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-blue-50">
             <p>
                 © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
             </p>
@@ -1602,6 +1939,13 @@ async function renderProductPlates(files) {
         </a>`;
     }).join('');
     track.innerHTML = set;
+
+    // Under 768px the belt is styled as a swipe rail instead of a marquee
+    // (see the mobile block in the stylesheet). A rail is scrolled by hand,
+    // so it needs the photos exactly once — no doubling for a seamless loop,
+    // and no animation to time.
+    if (window.matchMedia('(max-width: 767px)').matches) return;
+
     await Promise.all([...track.querySelectorAll('img')].map(img => img.decode().catch(() => {})));
     const containerW = track.parentElement.clientWidth;
     const setW = Math.max(track.scrollWidth, 1);
@@ -1611,6 +1955,41 @@ async function renderProductPlates(files) {
 }
 
 renderProductPlates(BELT_PHOTOS);
+
+
+// ── SHOWCASE FILM, FULL SCREEN (mobile) ───────────────────────
+// The film loops silently as a design element. On a phone it is the
+// hero product shot, so the play badge over it opens the real thing:
+// full screen, with sound and controls. Leaving full screen puts the
+// silent decorative loop back exactly as it was.
+const videoExpand   = document.getElementById('videoExpand');
+const showcaseVideo = document.querySelector('#solutions video');
+
+if (videoExpand && showcaseVideo) {
+    videoExpand.addEventListener('click', () => {
+        showcaseVideo.controls = true;
+        showcaseVideo.muted = false;
+        showcaseVideo.style.pointerEvents = 'auto';
+
+        // iOS Safari only fullscreens the video element itself
+        const open = showcaseVideo.requestFullscreen
+                  || showcaseVideo.webkitRequestFullscreen
+                  || showcaseVideo.webkitEnterFullscreen;
+        if (open) Promise.resolve(open.call(showcaseVideo)).catch(() => {});
+        showcaseVideo.play().catch(() => {});
+    });
+
+    const restoreLoop = () => {
+        if (document.fullscreenElement) return;
+        showcaseVideo.controls = false;
+        showcaseVideo.muted = true;
+        showcaseVideo.style.pointerEvents = '';
+        showcaseVideo.play().catch(() => {});
+    };
+    document.addEventListener('fullscreenchange', restoreLoop);
+    document.addEventListener('webkitfullscreenchange', restoreLoop);
+    showcaseVideo.addEventListener('webkitendfullscreen', restoreLoop);
+}
 
 
 // Detail panel — shows the selected category's items inline next to the grid
