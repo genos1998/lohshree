@@ -32,7 +32,46 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
+
+      # SITE ADDRESS — single source of truth.
+      #
+      # A handful of tags have to carry the full public address, because
+      # the programs that read them never run our JavaScript and have no
+      # page to resolve a relative path against:
+      #   * <link rel="canonical">   - search engines
+      #   * <meta property="og:url">  - WhatsApp / e-mail link previews
+      #   * <meta property="og:image">
+      #
+      # Rather than maintain that address by hand in several files, this
+      # step stamps in whatever GitHub Pages is actually serving, taken
+      # from the configure-pages output above. Move to a custom domain
+      # and set it in Settings > Pages, and the next deploy rewrites every
+      # tag on its own - nothing in the HTML needs editing.
+      #
+      # SITE_URL_DEFAULT is what the committed files say today; it keeps
+      # the repo valid on its own, so opening the files locally or
+      # publishing them by any other route still yields correct tags.
+      - name: Stamp the live site address into canonical / preview tags
+        env:
+          SITE_URL_DEFAULT: https://genos1998.github.io/lohshree
+        run: |
+          LIVE="${{ steps.pages.outputs.base_url }}"
+          LIVE="${LIVE%/}"                      # never a trailing slash
+          if [ -z "$LIVE" ]; then
+            echo "::warning::base_url was empty - keeping $SITE_URL_DEFAULT"
+            exit 0
+          fi
+          if [ "$LIVE" = "$SITE_URL_DEFAULT" ]; then
+            echo "Site address unchanged: $LIVE"
+            exit 0
+          fi
+          echo "Rewriting $SITE_URL_DEFAULT -> $LIVE"
+          grep -rl --include='*.html' -F "$SITE_URL_DEFAULT" . \
+            | xargs -r sed -i "s|$SITE_URL_DEFAULT|$LIVE|g"
+          grep -rn --include='*.html' -F "$LIVE" . | head -20
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -716,7 +716,7 @@
             <a href="#about"      class="nav-link hover:text-brand transition whitespace-nowrap">About Us</a>
             <a href="#solutions"  class="nav-link hover:text-brand transition whitespace-nowrap">Solutions</a>
             <a href="#showcase"   class="nav-link hover:text-brand transition whitespace-nowrap">Showcase</a>
-            <a href="gallery.html" class="nav-link hover:text-brand transition whitespace-nowrap">Gallery</a>
+            <a href="gallery/" class="nav-link hover:text-brand transition whitespace-nowrap">Gallery</a>
             <a href="#contact"    class="nav-link hover:text-brand transition whitespace-nowrap">Contact Us</a>
         </nav>
 
@@ -741,7 +741,7 @@
             <a href="#about"       class="py-3 border-b border-gray-50 hover:text-brand transition">About Us</a>
             <a href="#solutions"   class="py-3 border-b border-gray-50 hover:text-brand transition">Solutions</a>
             <a href="#showcase"    class="py-3 border-b border-gray-50 hover:text-brand transition">Showcase</a>
-            <a href="gallery.html" class="py-3 border-b border-gray-50 hover:text-brand transition">Gallery</a>
+            <a href="gallery/" class="py-3 border-b border-gray-50 hover:text-brand transition">Gallery</a>
             <a href="#contact"     class="py-3 hover:text-brand transition">Contact Us</a>
         </nav>
     </div>
@@ -1148,7 +1148,7 @@
                         </span>
                     </button>
 
-                    <a href="gallery.html"
+                    <a href="gallery/"
                        class="video-cta group absolute bottom-4 right-4 sm:bottom-5 sm:right-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[13px] font-black text-brand tracking-[0.16em] uppercase shadow-[0_8px_24px_rgba(2,6,23,0.35)] ring-1 ring-black/5 hover:bg-brand hover:text-white hover:ring-brand transition">
                         Product Showcase
                         <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -1579,10 +1579,10 @@
                 © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
             </p>
             <div class="flex gap-6">
-                <a href="privacy.html" class="hover:text-white transition">
+                <a href="privacy/" class="hover:text-white transition">
                     Privacy Policy
                 </a>
-                <a href="terms.html" class="hover:text-white transition">
+                <a href="terms/" class="hover:text-white transition">
                     Terms & Conditions
                 </a>
             </div>
@@ -1939,7 +1939,7 @@ async function renderProductPlates(files) {
     const track = document.getElementById('conveyorItems');
     const set = files.map((f, i) => {
         const stem = f.replace(/\.[^.]+$/, '');
-        return `<a href="gallery.html#part-${encodeURIComponent(stem)}"
+        return `<a href="gallery/#part-${encodeURIComponent(stem)}"
             class="${PLATE_CLASSES}"
             aria-label="View this part in the gallery">
             <img src="${BELT_PATH}${encodeURIComponent(f)}"
@@ -2243,5 +2243,29 @@ document.addEventListener('dragstart', e => {
     if (e.target instanceof Element && e.target.closest('img, video')) e.preventDefault();
 });
 </script>
+
+<!-- LOCAL FILE VIEWING ─────────────────────────────────────────────
+     The clean URLs (…/gallery/) rely on a web server serving index.html
+     for a folder. Opened straight off the disk there is no server, so a
+     folder link would land on a directory listing instead of the page.
+     This appends the index.html ONLY when running on file:// — over
+     http(s) nothing is touched and the clean URLs stay clean.
+     Delegated from the document, so links the scripts build later (the
+     conveyor plates) are covered as well. -->
+<script>
+if (location.protocol === 'file:') {
+    document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (/^(?:[a-z][a-z0-9+.-]*:|#)/i.test(href)) return;   // absolute, mailto:, tel:, #anchor
+        var parts = href.split('#');
+        if (!parts[0].endsWith('/')) return;                   // only folder-style links
+        e.preventDefault();
+        location.href = parts[0] + 'index.html' + (parts[1] ? '#' + parts[1] : '');
+    }, true);
+}
+</script>
+
 </body>
 </html>
