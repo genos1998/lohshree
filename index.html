@@ -248,6 +248,20 @@
         .preloader-tagline span {
             color: #1B2ACF;
         }
+
+        /* IMAGE PROTECTION — deters casual saving of the product photos: no
+           dragging an image out to the desktop, no long-press save sheet on
+           mobile, no selecting media. Right-click over media is blocked by
+           the script at the foot of the page.
+           This is a deterrent, not real protection — anything a browser
+           displays has already been downloaded to the visitor's machine. The
+           enforceable position is the copyright clause in terms.html. */
+        img, video {
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body class="bg-white text-ink font-sans antialiased">
@@ -1191,10 +1205,10 @@
                 © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
             </p>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition">
+                <a href="privacy.html" class="hover:text-white transition">
                     Privacy Policy
                 </a>
-                <a href="#" class="hover:text-white transition">
+                <a href="terms.html" class="hover:text-white transition">
                     Terms & Conditions
                 </a>
             </div>
@@ -1798,6 +1812,18 @@ sections.forEach(sec => observer.observe(sec));
 
 navLinks.forEach(a => {
     a.addEventListener('click', () => setActiveLink(a.getAttribute('href').slice(1)));
+});
+
+
+// ── IMAGE PROTECTION ───────────────────────────────────────────
+// Companion to the img/video rules in the stylesheet. Right-click and drag
+// are blocked over media only, so text on the page can still be
+// right-clicked, selected and copied as normal.
+document.addEventListener('contextmenu', e => {
+    if (e.target instanceof Element && e.target.closest('img, video')) e.preventDefault();
+});
+document.addEventListener('dragstart', e => {
+    if (e.target instanceof Element && e.target.closest('img, video')) e.preventDefault();
 });
 </script>
 </body>

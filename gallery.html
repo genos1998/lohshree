@@ -18,8 +18,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lohshree Engineers Pvt. Ltd.</title>
+    <title>Gallery — Lohshree Engineers Pvt. Ltd.</title>
+    <meta name="description" content="Precision-engineered components for solvent extraction plants — shafts, rotary valves, sprockets, conveyor parts and custom manufacturing.">
     <link rel="icon" href="favicon.png" sizes="any">
+
+    <!-- Link preview card shown when someone shares a gallery link on
+         WhatsApp or by e-mail. These have to be absolute URLs, so they name
+         the deployed site — update them if it moves to its own domain. -->
+    <meta property="og:type"        content="website">
+    <meta property="og:site_name"   content="Lohshree Engineers Pvt. Ltd.">
+    <meta property="og:title"       content="Gallery — Lohshree Engineers Pvt. Ltd.">
+    <meta property="og:description" content="Precision-engineered components for solvent extraction plants — shafts, rotary valves, sprockets, conveyor parts and custom manufacturing.">
+    <meta property="og:url"         content="https://genos1998.github.io/lohshree/gallery.html">
+    <meta property="og:image"       content="https://genos1998.github.io/lohshree/logo.png">
+    <meta name="twitter:card"       content="summary">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -119,6 +131,20 @@
             border-color: #1B2ACF;
         }
 
+        /* IMAGE PROTECTION — deters casual saving of the product photos: no
+           dragging an image out to the desktop, no long-press save sheet on
+           mobile, no selecting media. Right-click over media is blocked by
+           the script at the foot of the page.
+           This is a deterrent, not real protection — anything a browser
+           displays has already been downloaded to the visitor's machine. The
+           enforceable position is the copyright clause in terms.html. */
+        img, video {
+            -webkit-user-drag: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
     </style>
 </head>
 <body class="bg-white text-ink font-sans antialiased">
@@ -144,6 +170,18 @@
     </symbol>
     <symbol id="icon-chevron-right" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+    </symbol>
+    <symbol id="icon-share" viewBox="0 0 24 24">
+        <circle cx="18" cy="5" r="2.6"/>
+        <circle cx="6" cy="12" r="2.6"/>
+        <circle cx="18" cy="19" r="2.6"/>
+        <path stroke-linecap="round" d="m8.4 10.8 7.2-4.2M8.4 13.2l7.2 4.2"/>
+    </symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M10.5 13.5a4 4 0 0 0 5.66 0l2.6-2.6a4 4 0 0 0-5.66-5.66l-1.3 1.3"/>
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M13.5 10.5a4 4 0 0 0-5.66 0l-2.6 2.6a4 4 0 1 0 5.66 5.66l1.3-1.3"/>
     </symbol>
     <symbol id="icon-gear" viewBox="0 0 100 100">
         <path fill-rule="evenodd"
@@ -219,7 +257,7 @@
 
 <!-- FULLSCREEN LIGHTBOX — click a photo to open -->
 <div id="lightbox"
-     class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-6"
+     class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center px-6 pt-6 pb-24"
      style="opacity:0; visibility:hidden; transition: opacity 0.3s ease, visibility 0.3s ease;">
 
     <!-- Close -->
@@ -229,6 +267,88 @@
             <use href="#icon-close"/>
         </svg>
     </button>
+
+    <!-- Share — sends a link to THIS PAGE with a #photo-… hash, so the
+         recipient lands on the gallery with the photo open. The link never
+         points at the file in assets/gallery/, so sharing never hands out a
+         directly downloadable image URL.
+         Sits centred just below the photo — a small icon in the top corner
+         went unnoticed, this lands where the eye already is. The lightbox
+         carries matching bottom padding so the photo never sits under it. -->
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-30">
+
+        <div id="sharePanel"
+             class="hidden absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-[17rem] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden text-left">
+
+            <div class="px-4 py-3 border-b border-gray-100">
+                <div class="text-xs font-black text-brand tracking-[0.16em] uppercase">Share this part</div>
+                <div class="text-[11px] text-gray-500 leading-snug mt-1">
+                    Sends a link to this page. The photo itself stays on our site.
+                </div>
+            </div>
+
+            <button type="button" data-share="whatsapp"
+                    class="w-full flex items-center gap-3 px-4 py-3 border-b border-gray-100 hover:bg-gray-50 transition">
+                <span class="w-8 h-8 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><use href="#icon-whatsapp"/></svg>
+                </span>
+                <span class="text-left">
+                    <span class="block font-bold text-sm text-ink">WhatsApp</span>
+                    <!-- Unhidden by the script on computers, where WhatsApp
+                         cannot be handed a message directly -->
+                    <span id="waHint" class="hidden text-[11px] text-gray-500 leading-snug">
+                        Opens WhatsApp — pick any chat
+                    </span>
+                </span>
+            </button>
+
+            <button type="button" data-share="email"
+                    class="w-full flex items-center gap-3 px-4 py-3 border-b border-gray-100 hover:bg-gray-50 transition">
+                <span class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <use href="#icon-mail"/>
+                    </svg>
+                </span>
+                <span class="font-bold text-sm text-ink">Email</span>
+            </button>
+
+            <button type="button" data-share="copy"
+                    class="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition">
+                <span class="w-8 h-8 bg-brand rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <use href="#icon-link"/>
+                    </svg>
+                </span>
+                <span class="font-bold text-sm text-ink">Copy message + link</span>
+            </button>
+
+            <!-- Unhidden by the script only where the device has a share
+                 sheet of its own (phones, mostly) -->
+            <button type="button" data-share="native"
+                    class="hidden w-full items-center gap-3 px-4 py-3 border-t border-gray-100 hover:bg-gray-50 transition">
+                <span class="w-8 h-8 bg-ink rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <use href="#icon-share"/>
+                    </svg>
+                </span>
+                <span class="font-bold text-sm text-ink">More apps…</span>
+            </button>
+        </div>
+
+        <button id="lbShare"
+                class="inline-flex items-center gap-2.5 whitespace-nowrap text-white rounded-full pl-5 pr-6 py-3 text-[13px] font-black tracking-[0.16em] uppercase shadow-[0_10px_30px_rgba(0,0,0,0.55)] ring-1 ring-white/25 hover:brightness-125 transition"
+                style="background: linear-gradient(135deg,
+                    #1B2ACF 0%,
+                    #141FA3 45%,
+                    #0E1670 75%,
+                    #081048 100%);"
+                aria-label="Share this part" aria-expanded="false">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <use href="#icon-share"/>
+            </svg>
+            Share this part
+        </button>
+    </div>
 
     <!-- Prev / Next -->
     <button id="lbPrev"
@@ -249,6 +369,12 @@
         <img    id="lbImage" class="max-w-full max-h-[85vh] object-contain hidden rounded-lg" alt="">
         <video  id="lbVideo" class="max-w-full max-h-[85vh] object-contain hidden rounded-lg" autoplay muted loop playsinline controls></video>
     </div>
+</div>
+
+<!-- Confirmation for "Copy link" -->
+<div id="shareToast"
+     class="pointer-events-none fixed bottom-8 left-1/2 -translate-x-1/2 z-[130] bg-ink text-white text-sm font-bold px-5 py-3 rounded-full shadow-2xl opacity-0 transition-opacity duration-300">
+    Link copied
 </div>
 
 
@@ -410,10 +536,10 @@
                 © 2026 Lohshree Engineers Pvt. Ltd. All rights reserved.
             </p>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition">
+                <a href="privacy.html" class="hover:text-white transition">
                     Privacy Policy
                 </a>
-                <a href="#" class="hover:text-white transition">
+                <a href="terms.html" class="hover:text-white transition">
                     Terms & Conditions
                 </a>
             </div>
@@ -639,6 +765,11 @@ function openLightbox(index) {
 function closeLightbox() {
     lightbox.style.opacity = '0';
     lbVideo.pause();
+    document.getElementById('sharePanel').classList.add('hidden');
+    // Drop the #photo-… hash so the address bar goes back to the plain gallery.
+    // Guarded because replaceState is refused on file:// URLs in some browsers,
+    // and a failure here must not stop the lightbox closing.
+    try { history.replaceState(null, '', location.pathname + location.search); } catch {}
     setTimeout(() => {
         lightbox.style.visibility = 'hidden';
         document.body.style.overflow = '';
@@ -647,6 +778,16 @@ function closeLightbox() {
 
 function renderLightbox() {
     const item = galleryItems[lbIndex];
+
+    // Keep the address bar on the photo being viewed, so it can be copied
+    // straight out of the browser as well as from the share menu.
+    // replaceState (not location.hash) — it adds no history entry and fires
+    // no hashchange, so it never re-triggers the deep-link handlers below.
+    // Guarded: refused on file:// in some browsers, and the photo must still
+    // render if it fails.
+    try { history.replaceState(null, '', '#photo-' + encodeURIComponent(photoId(item))); } catch {}
+    document.getElementById('sharePanel').classList.add('hidden');
+
     if (isVideo(item.file)) {
         lbImage.classList.add('hidden');
         lbVideo.classList.remove('hidden');
@@ -678,7 +819,162 @@ document.addEventListener('keydown', e => {
 });
 
 
+// ── SHARE A PHOTO ──────────────────────────────────────────────
+// What gets shared is a link to THIS PAGE carrying a #photo-… hash, e.g.
+//   https://…/gallery.html#photo-12
+// Opening it lands the visitor on the gallery with that photo open in the
+// lightbox. The file in assets/gallery/ is never named in the link, so
+// sharing hands out a page to look at, not an image to download.
+const shareBtn   = document.getElementById('lbShare');
+const sharePanel = document.getElementById('sharePanel');
+const shareToast = document.getElementById('shareToast');
+
+// The message that travels with every share, ahead of the link
+const SHARE_TITLE = 'Lohshree Engineers Pvt. Ltd.';
+const SHARE_TEXT  = 'Check out this precisely manufactured part by Lohshree Engineers';
+
+// '12.jpg' → '12'. Matches the id the grid gives each thumbnail.
+function photoId(item) { return item.file.replace(/\.[^.]+$/, ''); }
+
+// Built from the current URL rather than origin + pathname, so it is correct
+// whatever the site is served from — GitHub Pages, a custom domain, or a file
+// opened locally while testing.
+function shareUrlFor(item) {
+    return location.href.split('#')[0] + '#photo-' + encodeURIComponent(photoId(item));
+}
+
+let toastTimer;
+function showToast(msg) {
+    shareToast.textContent = msg;
+    shareToast.style.opacity = '1';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { shareToast.style.opacity = '0'; }, 2200);
+}
+
+async function copyLink(text, toastMsg = 'Message + link copied') {
+    try {
+        await navigator.clipboard.writeText(text);         // needs https (or localhost)
+    } catch {
+        const ta = document.createElement('textarea');     // fallback for http / file://
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch { showToast('Press Ctrl+C to copy'); }
+        ta.remove();
+    }
+    showToast(toastMsg);
+}
+
+// Phones and computers need different WhatsApp URLs:
+//   wa.me/?text=…   hands the message to the phone app — but in a desktop
+//                   browser it only redirects to an interstitial that tries
+//                   to launch the DESKTOP APP, and stalls on a download
+//                   prompt when that app isn't installed.
+//   web.whatsapp.com/send/?text=…&type=custom_url&app_absent=0
+//                   is the web path WhatsApp's own interstitial uses: it
+//                   opens WhatsApp Web with the message ready and lets the
+//                   user pick the chat.
+// The message is also copied to the clipboard on the desktop route, as a
+// silent fallback in case WhatsApp drops the text.
+function isMobileDevice() {
+    if (navigator.userAgentData) return navigator.userAgentData.mobile === true;
+    return /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+}
+
+// Both routes end in the same place: WhatsApp open, message ready, user picks
+// the chat. Phones navigate in place — the app takes over the screen, and a
+// new tab would just be left stranded behind it when they come back.
+function whatsappTarget(text) {
+    const enc = encodeURIComponent(text);
+    return isMobileDevice()
+        ? { url: 'https://wa.me/?text=' + enc, sameTab: true }
+        : { url: 'https://web.whatsapp.com/send/?text=' + enc + '&type=custom_url&app_absent=0', sameTab: false };
+}
+
+// Tell desktop users what the WhatsApp option will do before they click it
+if (!isMobileDevice()) {
+    document.getElementById('waHint').classList.replace('hidden', 'block');
+}
+
+// The device's own share sheet, where there is one
+if (navigator.share) {
+    const nativeBtn = sharePanel.querySelector('[data-share="native"]');
+    nativeBtn.classList.remove('hidden');
+    nativeBtn.classList.add('flex');
+}
+
+shareBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = sharePanel.classList.toggle('hidden') === false;
+    shareBtn.setAttribute('aria-expanded', String(open));
+});
+
+sharePanel.addEventListener('click', e => {
+    const btn = e.target.closest('[data-share]');
+    if (!btn) return;
+
+    const item = galleryItems[lbIndex];
+    const url  = shareUrlFor(item);
+    const body = `${SHARE_TEXT}\n\n${url}`;
+
+    switch (btn.dataset.share) {
+        case 'whatsapp': {
+            const wa = whatsappTarget(body);
+            if (wa.sameTab) {
+                window.location.href = wa.url;
+            } else {
+                // Copy first, while this page still holds focus — a clipboard
+                // write is refused once the new tab takes it
+                copyLink(body, 'Opening WhatsApp Web…');
+                window.open(wa.url, '_blank', 'noopener');
+            }
+            break;
+        }
+        case 'email':
+            window.location.href = 'mailto:?subject=' + encodeURIComponent(SHARE_TEXT)
+                                 + '&body=' + encodeURIComponent(body);
+            break;
+        case 'copy':
+            // Copies the message and the link together, so a paste into any
+            // chat reads the same as the WhatsApp share
+            copyLink(body);
+            break;
+        case 'native':
+            navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url }).catch(() => {});
+            break;
+    }
+
+    sharePanel.classList.add('hidden');
+    shareBtn.setAttribute('aria-expanded', 'false');
+});
+
+// Click anywhere else closes the menu (the button itself stops propagation)
+document.addEventListener('click', e => {
+    if (!sharePanel.classList.contains('hidden') && !sharePanel.contains(e.target)) {
+        sharePanel.classList.add('hidden');
+        shareBtn.setAttribute('aria-expanded', 'false');
+    }
+});
+
+
 renderGrid();
+
+
+// ── OPENING A SHARED LINK ─────────────────────────────────────
+// #photo-12 → open photo 12 in the lightbox. Unknown names are ignored, so
+// a stale link just shows the gallery rather than an error.
+function openSharedPhoto() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id.startsWith('photo-')) return;
+
+    const name = id.slice('photo-'.length);
+    const i = galleryItems.findIndex(item => photoId(item) === name);
+    if (i !== -1) openLightbox(i);
+}
+
+openSharedPhoto();
+window.addEventListener('hashchange', openSharedPhoto);
 
 
 // ── DEEP LINK FROM THE HOMEPAGE BELT ──────────────────────────
@@ -727,6 +1023,18 @@ contactToggle.addEventListener('click', () => contactMenu.classList.toggle('hidd
 document.addEventListener('click', e => {
     if (!contactToggle.contains(e.target) && !contactMenu.contains(e.target))
         contactMenu.classList.add('hidden');
+});
+
+
+// ── IMAGE PROTECTION ───────────────────────────────────────────
+// Companion to the img/video rules in the stylesheet. Right-click and drag
+// are blocked over media only, so text on the page can still be
+// right-clicked, selected and copied as normal.
+document.addEventListener('contextmenu', e => {
+    if (e.target instanceof Element && e.target.closest('img, video')) e.preventDefault();
+});
+document.addEventListener('dragstart', e => {
+    if (e.target instanceof Element && e.target.closest('img, video')) e.preventDefault();
 });
 </script>
 </body>
