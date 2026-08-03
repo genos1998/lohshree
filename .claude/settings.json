@@ -93,7 +93,8 @@
       "Bash(node /tmp/claude-1000/-home-opsmx-lohshree/7f9dbec3-2300-4159-9f3e-1409fb5fc03d/scratchpad/fold.mjs)",
       "Bash(node shoot.mjs g2 390 844 1 \"http://localhost:8123/gallery.html\" 2)",
       "Bash(node shoot.mjs t2 390 844 1 \"http://localhost:8123/terms.html\" 2)",
-      "Bash(node geodiff2.mjs)"
+      "Bash(node geodiff2.mjs)",
+      "Bash(node /tmp/claude-1000/-home-opsmx-lohshree/7f9dbec3-2300-4159-9f3e-1409fb5fc03d/scratchpad/gal4.mjs)"
     ]
   }
 }

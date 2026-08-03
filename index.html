@@ -402,7 +402,8 @@
                 box-shadow: 0 26px 50px -22px rgba(8, 16, 72, 0.65);
             }
             #solutions .video-frame video { border-radius: 24px; }
-            #solutions .video-expand { display: flex; }
+            /* the badge sits high enough to clear the PRODUCT SHOWCASE button */
+            #solutions .video-expand { display: flex; padding-bottom: 70px; }
             #solutions .video-cta {
                 left: 16px; right: 16px; bottom: 16px;
                 justify-content: center;
@@ -511,25 +512,19 @@
             #showcase .showcase-head { margin-bottom: 22px; padding: 0 var(--m-gutter); }
             #showcase .showcase-title { font-size: 1.5rem; line-height: 1.2; }
 
+            /* The parts keep travelling on their own here, exactly as they do
+               on the desktop belt — only the belt hardware and its edge fades
+               stand down, so each part gets the full width of the phone. */
             #showcase .belt-assembly, #showcase .belt-fade { display: none; }
-            #showcase .belt-viewport { padding-top: 0; margin-top: 0; overflow: visible; }
+            #showcase .belt-viewport { padding-top: 0; margin-top: 0; overflow: hidden; }
             #showcase #conveyorItems {
-                animation: none !important;
                 display: flex;
                 align-items: stretch;
-                width: auto;
                 gap: 14px;
-                padding: 2px var(--m-gutter) 10px;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                scroll-padding-left: var(--m-gutter);
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
+                padding: 2px 0 10px;
             }
-            #showcase #conveyorItems::-webkit-scrollbar { display: none; }
             #showcase .belt-plate {
-                flex: 0 0 80%;
-                scroll-snap-align: start;
+                flex: 0 0 72vw;
                 margin-right: 0;
                 padding: 10px;
                 border-radius: 18px;
@@ -1117,11 +1112,19 @@
                      aspect height, so the section fits a laptop screen when
                      you jump to it from the nav -->
                 <div class="video-frame relative flex-1 min-h-0 xl:max-h-[calc(100vh-350px)] rounded-xl border border-blue-100 bg-white overflow-hidden shadow-sm">
+                    <!-- controlslist strips Download, Picture-in-Picture, cast
+                         and playback-rate from the player that appears when the
+                         film is opened full screen on a phone. Same standing as
+                         the image deterrents: it removes the one-tap route, not
+                         a determined copier. The enforceable position is the
+                         copyright clause in terms.html. -->
                     <video
                         class="w-full h-full object-cover pointer-events-none"
                         src="assets/video.mp4"
                         autoplay muted loop playsinline
                         disablepictureinpicture
+                        disableremoteplayback
+                        controlslist="nodownload noplaybackrate noremoteplayback"
                         preload="metadata">
                         Your browser does not support the video tag.
                     </video>
@@ -1130,11 +1133,18 @@
 
                     <!-- Mobile-only: plays the showcase full screen with sound.
                          `hidden` keeps it off the desktop layout entirely. -->
+                    <!-- Solid white disc, not a translucent one: the film runs
+                         underneath it, so a see-through button disappeared
+                         against the lighter frames. The ring and shadow hold
+                         it up against any frame the video happens to be on. -->
                     <button id="videoExpand"
-                            class="video-expand hidden absolute inset-0 items-center justify-center"
+                            class="video-expand hidden absolute inset-0 flex-col items-center justify-center gap-3"
                             aria-label="Play the product showcase full screen">
-                        <span class="w-[74px] h-[74px] rounded-full bg-white/22 backdrop-blur-md ring-1 ring-white/50 flex items-center justify-center shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
-                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span class="w-[76px] h-[76px] rounded-full bg-white ring-[6px] ring-white/25 flex items-center justify-center shadow-[0_14px_38px_rgba(0,0,0,0.6)]">
+                            <svg class="w-8 h-8 text-brand ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </span>
+                        <span class="text-[11px] font-black tracking-[0.18em] uppercase text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                            Tap to watch
                         </span>
                     </button>
 
@@ -1939,19 +1949,17 @@ async function renderProductPlates(files) {
         </a>`;
     }).join('');
     track.innerHTML = set;
-
-    // Under 768px the belt is styled as a swipe rail instead of a marquee
-    // (see the mobile block in the stylesheet). A rail is scrolled by hand,
-    // so it needs the photos exactly once — no doubling for a seamless loop,
-    // and no animation to time.
-    if (window.matchMedia('(max-width: 767px)').matches) return;
-
     await Promise.all([...track.querySelectorAll('img')].map(img => img.decode().catch(() => {})));
     const containerW = track.parentElement.clientWidth;
     const setW = Math.max(track.scrollWidth, 1);
     const half = set.repeat(Math.max(1, Math.ceil(containerW / setW)));
     track.innerHTML = half + half;
-    track.style.animationDuration = (track.scrollWidth / 2 / 57).toFixed(2) + 's';
+
+    // Surface speed. A phone shows one large part instead of five small ones,
+    // so the same 57px/s would read as barely moving — 82px/s keeps the same
+    // sense of a belt running past.
+    const speed = window.matchMedia('(max-width: 767px)').matches ? 82 : 57;
+    track.style.animationDuration = (track.scrollWidth / 2 / speed).toFixed(2) + 's';
 }
 
 renderProductPlates(BELT_PHOTOS);
@@ -1970,6 +1978,9 @@ if (videoExpand && showcaseVideo) {
         showcaseVideo.controls = true;
         showcaseVideo.muted = false;
         showcaseVideo.style.pointerEvents = 'auto';
+        // re-assert on the element itself: some builds only honour the
+        // attribute if it is present when controls are switched on
+        showcaseVideo.setAttribute('controlslist', 'nodownload noplaybackrate noremoteplayback');
 
         // iOS Safari only fullscreens the video element itself
         const open = showcaseVideo.requestFullscreen

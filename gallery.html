@@ -174,20 +174,31 @@
             .gallery-thumb:hover, .gallery-thumb:focus-visible { transform: none; }
 
             /* ── Lightbox ────────────────────────────────────────────── */
-            #lightbox { padding: 12px 12px 96px; }
+            /* touch-action/overscroll keep the browser's own left-edge back
+               gesture out of the viewer: without them a swipe towards the
+               next photo navigates away from the gallery instead. Vertical
+               panning is left to the browser. */
+            #lightbox {
+                padding: 12px 12px 96px;
+                touch-action: pan-y;
+                overscroll-behavior: contain;
+            }
             #lightbox img, #lightbox video { max-height: 74vh; border-radius: 14px; }
-            /* 44px is the accessible minimum tap target; the desktop
-               buttons were 36-40px and sat too close to the screen edge */
-            #lightbox button { width: 46px; height: 46px; }
+            /* 44px is the accessible minimum tap target; the desktop close
+               and prev/next buttons were 36-40px and sat too close to the
+               screen edge.
+               Scoped to DIRECT children of the lightbox on purpose: this
+               must reach close/prev/next and nothing else. As a plain
+               `#lightbox button` it also squashed the Share pill into a
+               46px circle with its label spilling out, and forced every row
+               of the share menu to 46px wide so the labels wrapped. */
+            #lightbox > button { width: 46px; height: 46px; }
             #lbPrev { left: 8px; }
             #lbNext { right: 8px; }
-            #lbShare {
-                width: auto; height: auto;
-                padding: 14px 24px;
-                font-size: 12px;
-            }
-            #sharePanel { width: min(19rem, calc(100vw - 32px)); }
-            #sharePanel button { padding: 15px 16px; }
+
+            #lbShare { padding: 15px 26px; font-size: 12px; }
+            #sharePanel { width: min(19rem, calc(100vw - 40px)); }
+            #sharePanel button { padding: 15px 16px; text-align: left; }
 
             /* ── Footer — separate blocks, generous air ──────────────── */
             footer#contact { padding-top: 36px; }
@@ -915,13 +926,53 @@ document.getElementById('lbNext').addEventListener('click', () => {
     renderLightbox();
 });
 
-lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+// A tap on the backdrop closes the viewer — but not the tap that ends a
+// swipe, which is what `justSwiped` guards against
+let justSwiped = false;
+lightbox.addEventListener('click', e => {
+    if (justSwiped) return;
+    if (e.target === lightbox) closeLightbox();
+});
 document.addEventListener('keydown', e => {
     if (lightbox.style.visibility !== 'visible') return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft')  { lbIndex = (lbIndex - 1 + galleryItems.length) % galleryItems.length; renderLightbox(); }
     if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % galleryItems.length; renderLightbox(); }
 });
+
+
+// ── SWIPE BETWEEN PHOTOS (touch) ──────────────────────────────
+// Arrow keys on a laptop, a thumb on a phone: swipe left for the next part,
+// right for the previous one. Touch-only, so nothing about the pointer
+// behaviour on desktop changes.
+const SWIPE_MIN = 45;      // px of travel before it counts as a swipe
+let touchX = 0, touchY = 0, tracking = false;
+
+lightbox.addEventListener('touchstart', e => {
+    // let the buttons and the share menu handle their own taps
+    tracking = !e.target.closest('button, #sharePanel, a');
+    if (!tracking) return;
+    touchX = e.changedTouches[0].clientX;
+    touchY = e.changedTouches[0].clientY;
+}, { passive: true });
+
+lightbox.addEventListener('touchend', e => {
+    if (!tracking) return;
+    tracking = false;
+
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+
+    // ignore short travel, and anything more vertical than horizontal so a
+    // scroll or a pull-to-dismiss gesture is never read as a swipe
+    if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+
+    lbIndex = (lbIndex + (dx < 0 ? 1 : -1) + galleryItems.length) % galleryItems.length;
+    renderLightbox();
+
+    justSwiped = true;
+    setTimeout(() => { justSwiped = false; }, 350);
+}, { passive: true });
 
 
 // ── SHARE A PHOTO ──────────────────────────────────────────────
