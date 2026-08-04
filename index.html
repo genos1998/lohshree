@@ -182,6 +182,9 @@
             justify-content: center;
             background: #ffffff;
             transition: opacity 0.5s ease, visibility 0.5s ease;
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+            overflow: hidden;
         }
         #preloader.loaded {
             opacity: 0;
@@ -194,15 +197,21 @@
             flex-direction: column;
             align-items: center;
             gap: 0.6rem;
+            width: 100%;
+            max-width: 640px;
+            text-align: center;
         }
         .preloader-word {
             display: flex;
             align-items: center;
+            justify-content: center;
             font-weight: 900;
-            font-size: clamp(2rem, 6vw, 4.5rem);
+            /* 8.2vw keeps the wordmark on one line down to ~320px wide */
+            font-size: clamp(1.9rem, 8.2vw, 4.5rem);
             letter-spacing: 0.06em;
             color: #111827;
             line-height: 1;
+            white-space: nowrap;
         }
         .preloader-gear {
             width: 0.85em;
@@ -231,7 +240,7 @@
             background: linear-gradient(90deg, #9ca3af, transparent);
         }
         .preloader-subtitle {
-            font-size: clamp(0.8rem, 1.6vw, 1rem);
+            font-size: clamp(0.7rem, 2.6vw, 1rem);
             font-weight: 700;
             letter-spacing: 0.2em;
             text-transform: uppercase;
@@ -239,14 +248,35 @@
             white-space: nowrap;
         }
         .preloader-tagline {
-            font-size: clamp(1rem, 2.2vw, 1.35rem);
+            font-size: clamp(0.85rem, 3.2vw, 1.35rem);
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             color: #111827;
+            line-height: 1.5;
+            white-space: nowrap;
         }
         .preloader-tagline span {
             color: #1B2ACF;
+        }
+
+        /* Phones: the tagline is the line that cramps — break it at the phrase
+           boundary ("Specialists in" / "Extractor Machine Parts") instead of
+           letting it wrap mid-phrase, and ease the tracking so it fits. */
+        @media (max-width: 767px) {
+            #preloader { padding: 2rem 1.25rem; }
+            .preloader-brand { gap: 0.75rem; }
+            .preloader-subtitle-row { gap: 0.75rem; }
+            .preloader-tagline {
+                letter-spacing: 0.08em;
+                line-height: 1.45;
+                white-space: normal;
+                max-width: 100%;
+            }
+            .preloader-tagline span {
+                display: block;
+                margin-top: 0.15em;
+            }
         }
 
 
