@@ -55,7 +55,7 @@ jobs:
       # publishing them by any other route still yields correct tags.
       - name: Stamp the live site address into canonical / preview tags
         env:
-          SITE_URL_DEFAULT: https://genos1998.github.io/lohshree
+          SITE_URL_DEFAULT: https://lohshree.com
         run: |
           LIVE="${{ steps.pages.outputs.base_url }}"
           LIVE="${LIVE%/}"                      # never a trailing slash

@@ -97,7 +97,11 @@
       "Bash(node /tmp/claude-1000/-home-opsmx-lohshree/7f9dbec3-2300-4159-9f3e-1409fb5fc03d/scratchpad/gal4.mjs)",
       "Bash(git mv *)",
       "Bash(google-chrome --headless --disable-gpu --hide-scrollbars --no-sandbox --window-size=1440,900 --screenshot=pre_1440.png --virtual-time-budget=2500 \"file:///home/opsmx/lohshree/index.html\")",
-      "Bash(google-chrome --headless --disable-gpu --hide-scrollbars --no-sandbox --window-size=768,1024 --screenshot=pre_768.png --virtual-time-budget=2500 \"file:///home/opsmx/lohshree/index.html\")"
+      "Bash(google-chrome --headless --disable-gpu --hide-scrollbars --no-sandbox --window-size=768,1024 --screenshot=pre_768.png --virtual-time-budget=2500 \"file:///home/opsmx/lohshree/index.html\")",
+      "Bash(git -C /home/opsmx/lohshree remote -v)",
+      "Bash(gh auth *)",
+      "Bash(gh api *)",
+      "Bash(xargs sed -i 's|https://genos1998.github.io/lohshree|https://lohshree.com|g')"
     ]
   }
 }
