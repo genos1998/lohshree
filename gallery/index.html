@@ -349,7 +349,7 @@
             </p>
         </div>
 
-        <!-- One flat grid of every file listed in `media` below -->
+        <!-- One flat grid of every file found in assets/gallery/ -->
         <div id="galleryGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5"></div>
 
         <!-- Empty gallery message -->
@@ -362,7 +362,7 @@
             <p class="text-ink max-w-md mx-auto">
                 Drop images, videos, or GIFs into
                 <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">assets/gallery/</code>
-                and add their file names to the <code class="bg-gray-100 px-2 py-0.5 rounded text-sm">media</code> array in this file.
+                and commit them — they appear here on the next deploy.
             </p>
         </div>
     </div>
@@ -741,60 +741,49 @@
 </div>
 
 
+<!-- The gallery's file list, generated from the contents of assets/gallery/
+     each time the site deploys. A plain script tag rather than fetch(), so
+     the page still works opened straight off the disk. -->
+<script src="../assets/gallery/manifest.js"></script>
 <script>
 'use strict';
 
 // ── GALLERY CONTENT ────────────────────────────────────────────
-// Every file listed here is shown in one flat grid — no categories, no
-// captions. All media sits directly in assets/gallery/, so each entry is
-// just a file name.
+// The gallery is whatever is sitting in assets/gallery/ — images, videos and
+// GIFs alike, shown in one flat grid, no categories, no captions.
 // Supports: .png .jpg .jpeg .webp .gif .mp4 .webm .mov
 //
-// To add a photo/video: drop the file into assets/gallery/ and add its file
-// name to this list. Order here is the order shown on the page.
+// To add a photo or video: put the file in assets/gallery/ and commit it.
+// That is the whole job — no list to edit here, no thumbnail to prepare.
+//
+// A browser cannot read a folder on a static host, so the folder is read at
+// deploy time instead: tools/build-gallery.py lists it, makes any missing
+// thumbnail, and writes assets/gallery/manifest.js, which this page loads
+// just above. Files come through in natural order (2 before 10). Run that
+// script by hand if you want to preview new files locally before pushing.
+//
+// The grid shows the thumbs/ copy, never the original: originals run to
+// hundreds of KB and the grid draws them at ~300px, so showing the real files
+// here cost tens of megabytes to paint a few dozen small squares. The full
+// file is fetched only when a photo is actually opened. The homepage conveyor
+// belt shows these same thumbs, so arriving from the homepage the grid is
+// already in cache and paints instantly. Anything with no thumbnail falls
+// back to the file itself, so it still shows up.
 const GALLERY_PATH = '../assets/gallery/';
+const THUMB_PATH   = GALLERY_PATH + 'thumbs/';
 const VIDEO_EXTS   = ['mp4', 'webm', 'mov'];
-
-const media = [
-    '1.jpg',
-    '2.jpg',
-    '3.jpg',
-    '4.jpg',
-    '5.jpg',
-    '6.jpg',
-    '7.jpg',
-    '8.jpg',
-    '9.jpg',
-    '10.jpg',
-    '11.jpg',
-    '12.jpg',
-    '13.jpg',
-    '14.jpg',
-    '15.jpg',
-    '16.jpg',
-    '17.jpg',
-    '18.jpg',
-    '19.jpg',
-    '20.jpg',
-    '21.jpg',
-    '22.jpg',
-    '23.jpg',
-    '24.jpg',
-    '25.jpg',
-    '26.jpg',
-    '27.jpg',
-    '28.jpg',
-];
 
 function getExt(f)  { return f.split('.').pop().toLowerCase(); }
 function isVideo(f) { return VIDEO_EXTS.includes(getExt(f)); }
 function isGif(f)   { return getExt(f) === 'gif'; }
 
 // Flat list backing the grid, the hover preview and the lightbox, so
-// prev/next moves straight through every item on the page
-const galleryItems = media.map(file => ({
-    file,
-    src: GALLERY_PATH + file,
+// prev/next moves straight through every item on the page.
+// Names are escaped, so a file called "rotary valve (2).jpg" works untouched.
+const galleryItems = (window.GALLERY_MEDIA || []).map(entry => ({
+    file:  entry.file,
+    src:   GALLERY_PATH + encodeURIComponent(entry.file),
+    thumb: entry.thumb ? THUMB_PATH + encodeURIComponent(entry.thumb) : null,
 }));
 
 const grid           = document.getElementById('galleryGrid');
@@ -813,8 +802,14 @@ function thumbHTML(item, i) {
     let media, badge = '';
 
     if (isVideo(item.file)) {
+        // A still frame stands in for the clip, so the grid costs one small
+        // picture per video instead of streaming every one of them. Only if
+        // no still could be made does the video itself go in the square.
+        const still = item.thumb
+            ? `<img src="${item.thumb}" alt="" class="w-full h-full object-cover" loading="lazy">`
+            : `<video src="${item.src}" class="w-full h-full object-cover" muted playsinline preload="metadata"></video>`;
         media = `
-            <video src="${item.src}" class="w-full h-full object-cover" muted playsinline preload="metadata"></video>
+            ${still}
             <div class="absolute top-2 right-2 bg-black/60 text-white text-xs font-bold px-2 py-1 rounded">Video</div>
             <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div class="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center">
@@ -827,7 +822,11 @@ function thumbHTML(item, i) {
         if (isGif(item.file)) {
             badge = '<div class="absolute top-2 right-2 bg-black/60 text-white text-xs font-bold px-2 py-1 rounded">GIF</div>';
         }
-        media = `<img src="${item.src}" alt="" class="w-full h-full object-cover" loading="lazy">${badge}`;
+        // data-full rather than the URL inline, so a file name carrying a
+        // quote cannot break out of the handler
+        media = `<img src="${item.thumb || item.src}" alt="" class="w-full h-full object-cover" loading="lazy"
+                      data-full="${item.src}"
+                      onerror="this.onerror=null;this.src=this.dataset.full;">${badge}`;
     }
 
     return `
@@ -864,8 +863,25 @@ function attachThumbListeners() {
             thumb.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
         }
 
+        // Start fetching the full-size photo the moment someone shows interest
+        // in it — a hover on a laptop, a finger landing on a phone — so the
+        // lightbox usually has it by the time the click registers. Only the
+        // photo being reached for is fetched, never the whole gallery.
+        thumb.addEventListener('mouseenter',  () => warmFull(thumb.dataset.index));
+        thumb.addEventListener('touchstart',  () => warmFull(thumb.dataset.index), { passive: true });
+
         thumb.addEventListener('click', () => openLightbox(parseInt(thumb.dataset.index)));
     });
+}
+
+// Pulls a full-size file into the browser cache, once per file. Images only —
+// videos are left to stream on demand rather than downloaded whole.
+const warmed = new Set();
+function warmFull(index) {
+    const item = galleryItems[index];
+    if (!item || isVideo(item.file) || warmed.has(item.src)) return;
+    warmed.add(item.src);
+    new Image().src = item.src;
 }
 
 
@@ -915,6 +931,12 @@ function renderLightbox() {
         lbImage.classList.remove('hidden');
         lbImage.src = item.src;
     }
+
+    // With one photo open, the next thing to happen is almost always a swipe
+    // or an arrow key, so fetch the photo on either side now. Two files, and
+    // only for someone already browsing full-size photos.
+    warmFull((lbIndex + 1) % galleryItems.length);
+    warmFull((lbIndex - 1 + galleryItems.length) % galleryItems.length);
 }
 
 document.getElementById('lbPrev').addEventListener('click', () => {

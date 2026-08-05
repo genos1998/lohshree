@@ -1163,7 +1163,7 @@
                          copyright clause in terms.html. -->
                     <video
                         class="w-full h-full object-cover pointer-events-none"
-                        src="assets/video.mp4"
+                        src="assets/gallery/video.mp4"
                         autoplay muted loop playsinline
                         disablepictureinpicture
                         disableremoteplayback
@@ -1747,6 +1747,9 @@
 
 
 <!-- SCRIPTS -->
+<!-- The gallery's file list, generated from the contents of assets/gallery/
+     each time the site deploys. The conveyor belt below rides on it. -->
+<script src="assets/gallery/manifest.js"></script>
 <script>
 'use strict';
 
@@ -1759,6 +1762,33 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         document.getElementById('preloader').classList.add('loaded');
     }, remaining);
+});
+
+
+// Warm the gallery in the background, so tapping GALLERY opens it at once.
+//
+// This costs almost nothing, because the conveyor belt further down already
+// loads every gallery thumbnail — and the gallery grid now shows those same
+// thumbs. All that is left to fetch is the gallery page itself. The full-size
+// photos are deliberately NOT fetched here: they run 1-5 MB each, some 57 MB
+// for the set, which is not something to spend on a visitor who may never
+// open the gallery. Those load when a photo is actually reached for.
+//
+// Waits for the homepage's own load to finish, then for an idle moment, so
+// this never competes with anything on screen. Skipped on metered or slow
+// connections, where even a small unrequested download is unwelcome.
+window.addEventListener('load', () => {
+    const net = navigator.connection;
+    if (net && (net.saveData || /2g/.test(net.effectiveType || ''))) return;
+
+    const whenIdle = window.requestIdleCallback || (fn => setTimeout(fn, 1500));
+    whenIdle(() => {
+        const link = document.createElement('link');
+        link.rel  = 'prefetch';
+        link.as   = 'document';
+        link.href = 'gallery/';
+        document.head.appendChild(link);
+    });
 });
 
 
@@ -1950,21 +1980,19 @@ renderGrid();
 
 
 // Product photos ride on the conveyor belt — one photo per plate, arriving
-// one after another. The belt uses the small copies in assets/gallery/thumbs/
-// (400px, ~20KB each) rather than the full-size gallery photos, so the
-// homepage stays light. To put another part on the belt: drop the photo in
-// assets/gallery/, save a 400px .jpg copy of it in assets/gallery/thumbs/
-// under the same number, and add that file name to the list below. Order
-// here is the order it rides in.
+// one after another. The belt carries the same set as the gallery page: every
+// file in assets/gallery/, read at deploy time into assets/gallery/manifest.js
+// (loaded just above) so that dropping a photo into that folder puts it on the
+// belt and in the gallery at once, with nothing here to edit.
+//
+// What rides is the 400px copy from assets/gallery/thumbs/, ~20KB against the
+// hundreds of KB of an original, so the homepage stays light. A video rides as
+// its still frame. Anything the deploy could not make a thumbnail for sits the
+// belt out rather than dragging a full-size file onto the homepage.
 const BELT_PATH   = 'assets/gallery/thumbs/';
-const BELT_PHOTOS = [
-    '1.jpg',  '2.jpg',  '3.jpg',  '4.jpg',  '5.jpg',
-    '6.jpg',  '7.jpg',  '8.jpg',  '9.jpg',  '10.jpg',
-    '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg',
-    '16.jpg', '17.jpg', '18.jpg', '19.jpg', '20.jpg',
-    '21.jpg', '22.jpg', '23.jpg', '24.jpg', '25.jpg',
-    '26.jpg', '27.jpg', '28.jpg',
-];
+const BELT_PHOTOS = (window.GALLERY_MEDIA || [])
+    .filter(entry => entry.thumb)
+    .map(entry => entry.thumb);
 
 const PLATE_CLASSES = 'belt-plate block flex-shrink-0 mr-10 p-3 rounded-t-xl bg-gradient-to-b from-white to-blue-50 '
     + 'border border-b-0 border-blue-200 shadow-[0_-4px_14px_-6px_rgba(27,42,207,0.25)]';
@@ -1980,6 +2008,8 @@ const PLATE_CLASSES = 'belt-plate block flex-shrink-0 mr-10 p-3 rounded-t-xl bg-
 // gallery scrolls straight to that photo however the two lists are ordered.
 async function renderProductPlates(files) {
     const track = document.getElementById('conveyorItems');
+    if (!track || files.length === 0) return;   // nothing to run on the belt
+
     const set = files.map((f, i) => {
         const stem = f.replace(/\.[^.]+$/, '');
         return `<a href="gallery/#part-${encodeURIComponent(stem)}"

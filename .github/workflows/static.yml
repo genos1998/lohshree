@@ -72,6 +72,23 @@ jobs:
             | xargs -r sed -i "s|$SITE_URL_DEFAULT|$LIVE|g"
           grep -rn --include='*.html' -F "$LIVE" . | head -20
 
+      # GALLERY CONTENTS — generated here, never maintained by hand.
+      #
+      # Putting a photo or a video on the site is meant to be nothing more
+      # than dropping the file into assets/gallery/ and committing it. A
+      # browser cannot read a folder on a static host, so this step reads it
+      # instead: it builds a thumbnail for anything that lacks one (a still
+      # frame, for a video) and writes assets/gallery/manifest.js, the file
+      # list that the gallery page and the homepage conveyor belt both load.
+      #
+      # Nothing is committed back to the repo — the listing is rebuilt into
+      # every deploy from whatever the folder holds at that moment.
+      # ffmpeg, used for video stills, is already on the runner.
+      - name: Build the gallery listing from assets/gallery/
+        run: |
+          python3 -m pip install --quiet --upgrade pillow
+          python3 tools/build-gallery.py
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

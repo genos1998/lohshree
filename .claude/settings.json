@@ -101,7 +101,13 @@
       "Bash(git -C /home/opsmx/lohshree remote -v)",
       "Bash(gh auth *)",
       "Bash(gh api *)",
-      "Bash(xargs sed -i 's|https://genos1998.github.io/lohshree|https://lohshree.com|g')"
+      "Bash(xargs sed -i 's|https://genos1998.github.io/lohshree|https://lohshree.com|g')",
+      "Bash(git -C /home/opsmx/lohshree diff --stat)",
+      "Bash(git -C /home/opsmx/lohshree log --oneline -3)",
+      "Bash(command -v node)",
+      "Bash(node -e ' *)",
+      "Bash(python3 /tmp/claude-1000/-home-opsmx-lohshree/415e008f-cd1e-4dd6-924c-9df8f100ddd3/scratchpad/recompress.py)",
+      "Bash(python3 tools/build-gallery.py)"
     ]
   }
 }
