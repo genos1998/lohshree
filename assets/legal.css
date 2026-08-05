@@ -1,0 +1,120 @@
+/* PRIVACY POLICY AND TERMS — the two legal pages are the same page with
+   different prose in it, so their styling lives here once rather than
+   twice. Site-wide rules (scrollbar, footer, media) are in site.css. */
+
+/* Legal prose — set once here so each clause is plain markup */
+.legal h2 {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #111827;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+}
+.legal h3 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 1.4rem 0 0.5rem;
+}
+.legal p { color: #1f2937; line-height: 1.75; margin-bottom: 1rem; }
+.legal ul { list-style: disc; padding-left: 1.35rem; margin-bottom: 1rem; }
+.legal ol { list-style: decimal; padding-left: 1.35rem; margin-bottom: 1rem; }
+.legal li { color: #1f2937; line-height: 1.75; margin-bottom: 0.5rem; }
+.legal strong { font-weight: 800; color: #111827; }
+.legal a { color: #1B2ACF; font-weight: 700; }
+.legal a:hover { text-decoration: underline; }
+.legal section { scroll-margin-top: 96px; }
+
+.toc a { display: block; padding: 0.35rem 0; color: #374151; font-size: 13px; line-height: 1.4; }
+.toc a:hover { color: #1B2ACF; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE EXPERIENCE — under 768px only; desktop never sees it.
+
+   Legal text is the one place a phone beats a laptop, so the job
+   here is reading comfort: a narrower measure, larger body text,
+   clear space between clauses, and headings that are obviously
+   headings when there is no sidebar to navigate by.
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+    :root { --m-gutter: 22px; }
+
+    /* ── Title band ──────────────────────────────────────────── */
+    main > div, section > div { padding-left: var(--m-gutter); padding-right: var(--m-gutter); }
+    section h1 { font-size: 1.85rem; line-height: 1.12; }
+    section > div { padding-top: 38px; padding-bottom: 40px; }
+    section p { font-size: 15px; line-height: 1.65; }
+
+    /* ── Body ────────────────────────────────────────────────── */
+    main > div { padding-top: 34px; padding-bottom: 44px; }
+    main .grid { display: block; gap: 0; }
+
+    /* the call-out box goes edge-to-edge-ish with roomier padding */
+    main > div > div:first-child { padding: 24px 20px; border-radius: 18px; margin-bottom: 36px; }
+
+    /* 15.5px/1.8 is the comfortable phone reading setting; the
+       desktop 15px/1.75 measured fine at 700px but not at 350px */
+    .legal { font-size: 15.5px; }
+    .legal p, .legal li { line-height: 1.8; }
+    .legal p { margin-bottom: 1.15rem; }
+    .legal li { margin-bottom: 0.7rem; }
+    .legal ul, .legal ol { padding-left: 1.15rem; }
+    .legal section { scroll-margin-top: 88px; }
+    /* clause headings need to carry the structure on their own
+       here — the jump list they replace is desktop-only */
+    .legal h2 {
+        font-size: 1.02rem;
+        line-height: 1.35;
+        padding-top: 26px;
+        border-top: 2px solid #DEE4FD;
+        margin-bottom: 1rem;
+    }
+    .legal > div > section:first-child h2 { padding-top: 0; border-top: 0; }
+    .legal h3 { font-size: 0.98rem; margin: 1.6rem 0 0.6rem; }
+    .legal .space-y-10 > * + * { margin-top: 2.6rem; }
+
+    /* full-width closing button, comfortable to hit */
+    .legal a[class*="bg-ink"] {
+        display: flex;
+        width: 100%;
+        min-height: 54px;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    /* ── Footer — separate blocks, generous air ──────────────── */
+    footer#contact { padding-top: 36px; }
+    footer#contact > div { padding-left: var(--m-gutter); padding-right: var(--m-gutter); }
+    footer#contact .footer-grid { display: block; gap: 0; padding-bottom: 0; border-bottom: 0; }
+    footer#contact .footer-grid > div + div {
+        border-top: 1px solid rgba(148, 166, 246, 0.22);
+        padding-top: 30px;
+        margin-top: 4px;
+    }
+    footer#contact .footer-heading {
+        display: block;
+        border-top: 1px solid rgba(148, 166, 246, 0.22);
+        padding-top: 30px;
+        margin-top: 30px;
+    }
+    footer#contact .footer-contact a { min-height: 44px; align-items: center; }
+    footer#contact .footer-certs { gap: 18px 22px; margin-top: 0; }
+    footer#contact .footer-chips { gap: 10px; margin-bottom: 26px; }
+    footer#contact .footer-chips span {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(148, 166, 246, 0.14);
+    }
+    footer#contact .footer-bottom {
+        display: block;
+        text-align: center;
+        padding: 26px 0 120px;
+    }
+    footer#contact .footer-bottom .flex { justify-content: center; gap: 26px; margin-top: 14px; }
+    footer#contact .footer-bottom a { padding: 12px 4px; display: inline-block; min-height: 44px; }
+}

@@ -1,0 +1,27 @@
+/* SITE-WIDE RULES — every page loads this.
+   Anything here is a decision about the site as a whole, not about one page;
+   page-specific styling stays inline in the page that needs it. */
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #DEE4FD; }
+::-webkit-scrollbar-thumb { background: #95A6F6; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #1B2ACF; }
+
+/* The footer sits on a dark photographic band; the shadow keeps the text
+   legible wherever the image happens to be pale */
+footer { text-shadow: 0 1px 3px rgba(2, 6, 23, 0.55); }
+
+/* IMAGE PROTECTION — deters casual saving of the product photos: no
+   dragging an image out to the desktop, no long-press save sheet on
+   mobile, no selecting media. Right-click over media is blocked by
+   the matching script in assets/site.js.
+   This is a deterrent, not real protection — anything a browser
+   displays has already been downloaded to the visitor's machine. The
+   enforceable position is the copyright clause in terms.html. */
+img, video {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

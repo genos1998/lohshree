@@ -2,9 +2,14 @@
 <!--
     LOHSHREE ENGINEERS — HOMEPAGE
 
+    Shared with every other page, so not repeated here:
+      assets/tailwind-brand.js   the brand colours
+      assets/site.css            scrollbar, footer text, media rules
+      assets/site.js             header menu, contact button, file:// links
+
     How this file is organized (top to bottom):
-      <head>          Tailwind CDN + brand colors, custom CSS (scrollbar,
-                      conveyor animation, preloader)
+      <head>          Tailwind CDN + the shared files above, then the CSS
+                      this page alone needs (conveyor animation, preloader)
       Icon library    Shared SVG icons, drawn once and reused via <use>
       Preloader       Splash shown on the first visit of a session
       Header          Logo, nav links, mobile menu
@@ -41,42 +46,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand:      '#1B2ACF',
-                        brandDark:  '#141FA3',
-                        brandLight: '#EEF1FE',
-                        ink:        '#111827',
-                        // Metallic cobalt-blue scale replacing Tailwind's blue,
-                        // so every blue-* tint stays on-brand
-                        blue: {
-                            50:  '#EEF1FE',
-                            100: '#DEE4FD',
-                            200: '#BFCAFB',
-                            300: '#95A6F6',
-                            400: '#6379EE',
-                            500: '#3A50E5',
-                            600: '#2338DC',
-                            700: '#1B2ACF',
-                            800: '#141FA3',
-                            900: '#0E1670',
-                            950: '#081048',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="assets/tailwind-brand.js"></script>
+    <link rel="stylesheet" href="assets/site.css">
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #DEE4FD; }
-        ::-webkit-scrollbar-thumb { background: #95A6F6; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #1B2ACF; }
-
         /* Conveyor belt — client names ride on a moving belt with spinning rollers */
         @keyframes marquee {
             0%   { transform: translateX(0); }
@@ -170,10 +142,6 @@
             to   { opacity: 1; transform: translateY(0); }
         }
         .detail-anim { animation: detailIn 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
-
-        /* Footer text: soft dark halo lifts the light text off the navy
-           background and gear watermark so it stays crisp and easy to read */
-        footer { text-shadow: 0 1px 3px rgba(2, 6, 23, 0.55); }
 
         /* Underline indicator for active nav link */
         .nav-link { position: relative; }
@@ -292,20 +260,6 @@
             }
         }
 
-
-        /* IMAGE PROTECTION — deters casual saving of the product photos: no
-           dragging an image out to the desktop, no long-press save sheet on
-           mobile, no selecting media. Right-click over media is blocked by
-           the script at the foot of the page.
-           This is a deterrent, not real protection — anything a browser
-           displays has already been downloaded to the visitor's machine. The
-           enforceable position is the copyright clause in terms.html. */
-        img, video {
-            -webkit-user-drag: none;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
 
         /* ═══════════════════════════════════════════════════════════════
            MOBILE EXPERIENCE — everything below applies ONLY under 768px.
@@ -2221,8 +2175,15 @@ function closePhotoViewer() {
     setTimeout(() => { photoViewer.style.visibility = 'hidden'; }, 260);
 }
 
-pvPrev.addEventListener('click', () => { pvIndex = (pvIndex - 1 + pvPhotos.length) % pvPhotos.length; renderPhotoViewer(); });
-pvNext.addEventListener('click', () => { pvIndex = (pvIndex + 1) % pvPhotos.length; renderPhotoViewer(); });
+// Buttons and arrow keys both move through the item's photos this way, so
+// the set stays a loop with no end to fall off
+function stepPhotoViewer(n) {
+    pvIndex = (pvIndex + n + pvPhotos.length) % pvPhotos.length;
+    renderPhotoViewer();
+}
+
+pvPrev.addEventListener('click', () => stepPhotoViewer(-1));
+pvNext.addEventListener('click', () => stepPhotoViewer(1));
 photoViewer.addEventListener('click', e => { if (e.target === photoViewer) closePhotoViewer(); });
 
 // Escape closes the photo viewer if it is open;
@@ -2231,37 +2192,14 @@ document.addEventListener('keydown', e => {
     const viewerOpen = photoViewer.style.visibility === 'visible';
     if (e.key === 'Escape' && viewerOpen) closePhotoViewer();
     if (viewerOpen && pvPhotos.length > 1) {
-        if (e.key === 'ArrowLeft')  { pvIndex = (pvIndex - 1 + pvPhotos.length) % pvPhotos.length; renderPhotoViewer(); }
-        if (e.key === 'ArrowRight') { pvIndex = (pvIndex + 1) % pvPhotos.length; renderPhotoViewer(); }
+        if (e.key === 'ArrowLeft')  stepPhotoViewer(-1);
+        if (e.key === 'ArrowRight') stepPhotoViewer(1);
     }
 });
 
 
-// Mobile menu: toggle panel + swap hamburger/close icons, close after navigating
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu    = document.getElementById('mobileMenu');
-
-function setMobileMenu(open) {
-    mobileMenu.classList.toggle('hidden', !open);
-    document.getElementById('menuIconOpen').classList.toggle('hidden', open);
-    document.getElementById('menuIconClose').classList.toggle('hidden', !open);
-    mobileMenuBtn.setAttribute('aria-expanded', open);
-}
-mobileMenuBtn.addEventListener('click', () => setMobileMenu(mobileMenu.classList.contains('hidden')));
-mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMobileMenu(false)));
-
-
-// Floating contact button: toggle dropdown, close on outside click
-const contactToggle = document.getElementById('contactToggle');
-const contactMenu   = document.getElementById('contactMenu');
-contactToggle.addEventListener('click', () => contactMenu.classList.toggle('hidden'));
-document.addEventListener('click', e => {
-    if (!contactToggle.contains(e.target) && !contactMenu.contains(e.target))
-        contactMenu.classList.add('hidden');
-});
-
-
 // Hero slideshow: auto-advances every 4.2s, with prev/next buttons
+const SLIDE_MS = 4200;
 const slides = document.querySelectorAll('#hero-slider .slide');
 let cur = 0, timer;
 
@@ -2273,12 +2211,13 @@ function goTo(n) {
     slides[cur].classList.replace('opacity-0','opacity-100');
 }
 const autoNext = () => goTo(cur + 1);
-function reset() { clearInterval(timer); timer = setInterval(autoNext, 4200); }
+// Also starts the slideshow: there is no timer to clear on the first call
+function reset() { clearInterval(timer); timer = setInterval(autoNext, SLIDE_MS); }
 
 if (slides.length) {
     document.getElementById('nextSlide').addEventListener('click', () => { goTo(cur+1); reset(); });
     document.getElementById('prevSlide').addEventListener('click', () => { goTo(cur-1); reset(); });
-    timer = setInterval(autoNext, 4200);
+    reset();
 }
 
 
@@ -2304,41 +2243,11 @@ navLinks.forEach(a => {
     a.addEventListener('click', () => setActiveLink(a.getAttribute('href').slice(1)));
 });
 
-
-// ── IMAGE PROTECTION ───────────────────────────────────────────
-// Companion to the img/video rules in the stylesheet. Right-click and drag
-// are blocked over media only, so text on the page can still be
-// right-clicked, selected and copied as normal.
-document.addEventListener('contextmenu', e => {
-    if (e.target instanceof Element && e.target.closest('img, video')) e.preventDefault();
-});
-document.addEventListener('dragstart', e => {
-    if (e.target instanceof Element && e.target.closest('img, video')) e.preventDefault();
-});
 </script>
 
-<!-- LOCAL FILE VIEWING ─────────────────────────────────────────────
-     The clean URLs (…/gallery/) rely on a web server serving index.html
-     for a folder. Opened straight off the disk there is no server, so a
-     folder link would land on a directory listing instead of the page.
-     This appends the index.html ONLY when running on file:// — over
-     http(s) nothing is touched and the clean URLs stay clean.
-     Delegated from the document, so links the scripts build later (the
-     conveyor plates) are covered as well. -->
-<script>
-if (location.protocol === 'file:') {
-    document.addEventListener('click', function (e) {
-        var a = e.target && e.target.closest && e.target.closest('a[href]');
-        if (!a) return;
-        var href = a.getAttribute('href') || '';
-        if (/^(?:[a-z][a-z0-9+.-]*:|#)/i.test(href)) return;   // absolute, mailto:, tel:, #anchor
-        var parts = href.split('#');
-        if (!parts[0].endsWith('/')) return;                   // only folder-style links
-        e.preventDefault();
-        location.href = parts[0] + 'index.html' + (parts[1] ? '#' + parts[1] : '');
-    }, true);
-}
-</script>
+<!-- Header, contact button, media rules and the file:// helper are the
+     same on every page; they live in assets/site.js. -->
+<script src="assets/site.js"></script>
 
 </body>
 </html>
