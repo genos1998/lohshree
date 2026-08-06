@@ -43,6 +43,8 @@ jobs:
       #   * <link rel="canonical">   - search engines
       #   * <meta property="og:url">  - WhatsApp / e-mail link previews
       #   * <meta property="og:image">
+      #   * sitemap.xml <loc>         - every address it lists
+      #   * robots.txt Sitemap:       - where the sitemap lives
       #
       # Rather than maintain that address by hand in several files, this
       # step stamps in whatever GitHub Pages is actually serving, taken
@@ -68,9 +70,11 @@ jobs:
             exit 0
           fi
           echo "Rewriting $SITE_URL_DEFAULT -> $LIVE"
-          grep -rl --include='*.html' -F "$SITE_URL_DEFAULT" . \
+          grep -rl --include='*.html' --include='sitemap.xml' --include='robots.txt' \
+            -F "$SITE_URL_DEFAULT" . \
             | xargs -r sed -i "s|$SITE_URL_DEFAULT|$LIVE|g"
-          grep -rn --include='*.html' -F "$LIVE" . | head -20
+          grep -rn --include='*.html' --include='sitemap.xml' --include='robots.txt' \
+            -F "$LIVE" . | head -20
 
       # GALLERY CONTENTS — generated here, never maintained by hand.
       #

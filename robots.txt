@@ -1,0 +1,15 @@
+# Lohshree Engineers Pvt. Ltd. — https://lohshree.com
+#
+# The whole site is meant to be found, so nothing is disallowed here.
+# The redirect stubs (gallery.html, privacy.html, terms.html) keep
+# themselves out of the index with their own noindex meta tag, which is
+# the right tool for the job — a Disallow rule here would block crawling
+# and so stop Google from ever reading that tag.
+#
+# The Sitemap line is how a crawler that was never submitted the sitemap
+# still finds it. The deploy workflow stamps the address below.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://lohshree.com/sitemap.xml

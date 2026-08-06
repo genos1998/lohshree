@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SITEMAP — the four real pages of the site.
+
+    Deliberately absent: gallery.html, privacy.html and terms.html at the
+    root. Those are redirect stubs kept alive for links already shared in
+    WhatsApp messages and quotations; each carries <meta name="robots"
+    content="noindex">, so listing them here would ask Google to index a
+    page that tells it not to. Only the destinations belong in a sitemap.
+
+    The addresses below are stamped by the deploy workflow, exactly like
+    the canonical and og:url tags in the HTML — change the domain in
+    Settings > Pages and the next deploy rewrites this file too. Nothing
+    here needs editing by hand.
+
+    <changefreq> and <priority> are omitted on purpose: Google ignores
+    both, and Bing treats them as advisory at best. <lastmod> is the only
+    hint that still carries weight, so keep it honest — a date that never
+    moves while the page does teaches crawlers to distrust it.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Homepage — company, products, showcase, contact -->
+    <url>
+        <loc>https://lohshree.com/</loc>
+        <lastmod>2026-08-05</lastmod>
+    </url>
+
+    <!-- Product photography; rebuilt whenever assets/gallery/ changes -->
+    <url>
+        <loc>https://lohshree.com/gallery/</loc>
+        <lastmod>2026-08-05</lastmod>
+    </url>
+
+    <url>
+        <loc>https://lohshree.com/privacy/</loc>
+        <lastmod>2026-08-05</lastmod>
+    </url>
+
+    <url>
+        <loc>https://lohshree.com/terms/</loc>
+        <lastmod>2026-08-05</lastmod>
+    </url>
+
+</urlset>
