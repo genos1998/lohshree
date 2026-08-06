@@ -42,6 +42,71 @@
     <meta property="og:url"         content="https://lohshree.com/">
     <meta property="og:image"       content="https://lohshree.com/logo.png">
     <meta name="twitter:card"       content="summary">
+
+    <!-- STRUCTURED DATA — the footer's contact block, restated as data.
+         The address, phone numbers and e-mail below are the same ones
+         rendered at the bottom of this page; if either changes, change
+         both. This is what lets Google treat the company name, location
+         and numbers as facts rather than guessing them from the text.
+         openingHours: the page says only "10 AM - 6 PM" with no days -
+         Mon-Sat is assumed here. Correct it if that is wrong. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Organization", "LocalBusiness"],
+      "@id": "https://lohshree.com/#organization",
+      "name": "Lohshree Engineers Pvt. Ltd.",
+      "alternateName": "Lohshree Engineers",
+      "url": "https://lohshree.com/",
+      "logo": "https://lohshree.com/logo.png",
+      "image": "https://lohshree.com/logo.png",
+      "description": "Manufacturer of precision components for solvent extraction plants - shafts, rotary valves, sprockets, Redler conveyor spares, plant accessories and fully custom parts made to drawing.",
+      "foundingDate": "1976",
+      "email": "lohshreeind@gmail.com",
+      "telephone": "+919820120834",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "D-28/18, TTC Industrial Area, Near Turbhe Telephone Exchange, Next to Raj CNG Pump, Thane Belapur Road",
+        "addressLocality": "Navi Mumbai",
+        "addressRegion": "Maharashtra",
+        "postalCode": "400705",
+        "addressCountry": "IN"
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"],
+        "opens": "10:00",
+        "closes": "18:00"
+      }],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "name": "To place orders",
+          "telephone": "+919820120832",
+          "email": "lohshreeind@gmail.com",
+          "areaServed": "IN",
+          "availableLanguage": ["en", "hi", "mr"]
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "name": "Office - for queries",
+          "telephone": "+919820120834",
+          "areaServed": "IN",
+          "availableLanguage": ["en", "hi", "mr"]
+        }
+      ],
+      "areaServed": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "knowsAbout": [
+        "Solvent extraction plant spare parts",
+        "Custom precision manufacturing"
+      ]
+    }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

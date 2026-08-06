@@ -111,7 +111,15 @@
       "Bash(grep -v '^\\\\s*$')",
       "Bash(sed -n '55,200p' .github/workflows/*.y*ml)",
       "Bash(python3 -c \"import yaml;d=yaml.safe_load\\(open\\('.github/workflows/static.yml'\\)\\);print\\('YAML valid, steps:',len\\(d['jobs']['deploy']['steps']\\)\\)\")",
-      "Bash(bash -n /tmp/claude-1000/-home-opsmx-lohshree/4ff64571-43ef-426d-b3ea-4c78453b59ee/scratchpad/blk.sh)"
+      "Bash(bash -n /tmp/claude-1000/-home-opsmx-lohshree/4ff64571-43ef-426d-b3ea-4c78453b59ee/scratchpad/blk.sh)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{redirect_url}\\\\n\" --max-time 15 http://lohshree.com/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{redirect_url}\\\\n\" --max-time 15 https://www.lohshree.com/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 15 \"https://lohshree.com/?gclid=test123\")",
+      "Bash(curl -s --max-time 15 https://lohshree.com/sitemap.xml)",
+      "Bash(curl -s --max-time 15 https://lohshree.com/)",
+      "Bash(python3 -c \"from PIL import Image; im=Image.open\\('favicon.png'\\); print\\('favicon',im.size,im.mode\\)\")",
+      "Bash(python3 -c \"import PIL;print\\('pillow',PIL.__version__\\)\")",
+      "Bash(git rm *)"
     ],
     "additionalDirectories": [
       "/home/opsmx/lohshree/.github/workflows"
