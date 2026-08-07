@@ -119,7 +119,11 @@
       "Bash(curl -s --max-time 15 https://lohshree.com/)",
       "Bash(python3 -c \"from PIL import Image; im=Image.open\\('favicon.png'\\); print\\('favicon',im.size,im.mode\\)\")",
       "Bash(python3 -c \"import PIL;print\\('pillow',PIL.__version__\\)\")",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(curl -sI https://lohshree.com/favicon.png)",
+      "Bash(curl -sI https://lohshree.com/favicon.ico)",
+      "Bash(curl -s https://lohshree.com/)",
+      "Bash(python3 tools/build-favicons.py)"
     ],
     "additionalDirectories": [
       "/home/opsmx/lohshree/.github/workflows"
