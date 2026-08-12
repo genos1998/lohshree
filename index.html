@@ -40,6 +40,19 @@
     <meta name="description" content="Precision-engineered components for solvent extraction plants — shafts, rotary valves, sprockets, conveyor parts and custom manufacturing.">
     <link rel="canonical" href="https://lohshree.com/">
 
+    <!-- Google picks the thumbnail it draws beside this site in search
+         results by itself; it cannot be set directly. What it can be given
+         is a better candidate than the logo — which is what it settled on
+         while the logo was the only image this page nominated. Three things
+         point it at the hero photo instead: max-image-preview:large below
+         (without it Google may only draw a tiny thumbnail, and the logo
+         suits that size better), og:image and the structured data's "image"
+         both naming the photo, and the hero <img> carrying real alt text.
+         Expect days to weeks before the result actually changes — Google
+         has to recrawl and re-decide. Requesting reindexing for
+         https://lohshree.com/ in Search Console speeds that up. -->
+    <meta name="robots" content="max-image-preview:large">
+
     <!-- Link preview card shown when someone shares the homepage on
          WhatsApp or by e-mail. These have to be absolute URLs, so they name
          the deployed site — the deploy workflow rewrites them if it moves. -->
@@ -48,8 +61,11 @@
     <meta property="og:title"       content="Lohshree Engineers Pvt. Ltd. — Precision Solvent Extraction Parts">
     <meta property="og:description" content="Precision-engineered components for solvent extraction plants — shafts, rotary valves, sprockets, conveyor parts and custom manufacturing.">
     <meta property="og:url"         content="https://lohshree.com/">
-    <meta property="og:image"       content="https://lohshree.com/logo.png">
-    <meta name="twitter:card"       content="summary">
+    <meta property="og:image"       content="https://lohshree.com/assets/slide1.jpg">
+    <meta property="og:image:width"  content="1382">
+    <meta property="og:image:height" content="1136">
+    <meta property="og:image:alt" content="Solvent extractor machine parts, standard and custom manufactured by Lohshree Engineers, trusted for 45+ years.">
+    <meta name="twitter:card"       content="summary_large_image">
 
     <!-- STRUCTURED DATA — the footer's contact block, restated as data.
          The address, phone numbers and e-mail below are the same ones
@@ -67,7 +83,7 @@
       "alternateName": "Lohshree Engineers",
       "url": "https://lohshree.com/",
       "logo": "https://lohshree.com/logo.png",
-      "image": "https://lohshree.com/logo.png",
+      "image": "https://lohshree.com/assets/slide1.jpg",
       "description": "Manufacturer of precision components for solvent extraction plants - shafts, rotary valves, sprockets, Redler conveyor spares, plant accessories and fully custom parts made to drawing.",
       "foundingDate": "1976",
       "email": "lohshreeind@gmail.com",
@@ -830,11 +846,17 @@
 
         <!-- Slideshow -->
         <div id="hero-slider" class="absolute inset-0 pointer-events-auto">
+            <!-- These two carry real alt text rather than alt="" on purpose.
+                 Decorative (empty-alt) images are ones Google will not choose
+                 as the search-result thumbnail, and slide1 is the image this
+                 page wants shown there — see the robots/og notes in <head>. -->
             <div class="slide absolute inset-0 opacity-100 z-10 transition-opacity duration-1000">
-                <img src="assets/slide1.jpg" alt="" class="w-full h-full object-cover">
+                <img src="assets/slide1.jpg" class="w-full h-full object-cover"
+                     alt="Solvent extractor components including drum shafts, drive shafts, tension shafts, rotary valves, and counter flanges manufactured by Lohshree Engineers">
             </div>
             <div class="slide absolute inset-0 opacity-0 z-0 transition-opacity duration-1000">
-                <img src="assets/slide2.jpg" alt="" class="w-full h-full object-cover">
+                <img src="assets/slide2.jpg" class="w-full h-full object-cover"
+                     alt="Solvent extractor components including drum shafts, drive shafts, tension shafts and gear manufactured by Lohshree Engineers">
             </div>
             <!-- subtle left-edge blend -->
             <div class="absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-transparent z-20 pointer-events-none"></div>
