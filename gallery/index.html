@@ -706,6 +706,9 @@
      each time the site deploys. A plain script tag rather than fetch(), so
      the page still works opened straight off the disk. -->
 <script src="../assets/gallery/manifest.js"></script>
+<!-- What each of those photos actually shows, used as the alt text on the
+     grid and lightbox. Separate from the manifest because that is generated. -->
+<script src="../assets/part-names.js"></script>
 <script>
 'use strict';
 
@@ -762,12 +765,17 @@ let lbIndex = 0;
 function thumbHTML(item, i) {
     let media, badge = '';
 
+    // The part in the frame, from assets/part-names.js. This is the only
+    // text the grid carries - the squares are deliberately unlabelled - so
+    // it is what a search engine reads each photo by.
+    const name = window.partName ? window.partName(item.file) : 'Lohshree Engineers';
+
     if (isVideo(item.file)) {
         // A still frame stands in for the clip, so the grid costs one small
         // picture per video instead of streaming every one of them. Only if
         // no still could be made does the video itself go in the square.
         const still = item.thumb
-            ? `<img src="${item.thumb}" alt="" class="w-full h-full object-cover" loading="lazy">`
+            ? `<img src="${item.thumb}" alt="${name}" class="w-full h-full object-cover" loading="lazy">`
             : `<video src="${item.src}" class="w-full h-full object-cover" muted playsinline preload="metadata"></video>`;
         media = `
             ${still}
@@ -785,7 +793,7 @@ function thumbHTML(item, i) {
         }
         // data-full rather than the URL inline, so a file name carrying a
         // quote cannot break out of the handler
-        media = `<img src="${item.thumb || item.src}" alt="" class="w-full h-full object-cover" loading="lazy"
+        media = `<img src="${item.thumb || item.src}" alt="${name}" class="w-full h-full object-cover" loading="lazy"
                       data-full="${item.src}"
                       onerror="this.onerror=null;this.src=this.dataset.full;">${badge}`;
     }
@@ -891,6 +899,9 @@ function renderLightbox() {
         lbVideo.pause();
         lbImage.classList.remove('hidden');
         lbImage.src = item.src;
+        // Set alongside src: the viewer reuses one <img>, so a name left
+        // over from the previously opened photo would describe the wrong part.
+        lbImage.alt = window.partName ? window.partName(item.file) : 'Lohshree Engineers';
     }
 
     // With one photo open, the next thing to happen is almost always a swipe

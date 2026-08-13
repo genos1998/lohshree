@@ -1799,6 +1799,9 @@
 <!-- The gallery's file list, generated from the contents of assets/gallery/
      each time the site deploys. The conveyor belt below rides on it. -->
 <script src="assets/gallery/manifest.js"></script>
+<!-- What each of those photos actually shows, used as the alt text on the
+     belt below. Separate from the manifest because that file is generated. -->
+<script src="assets/part-names.js"></script>
 <script>
 'use strict';
 
@@ -2061,11 +2064,12 @@ async function renderProductPlates(files) {
 
     const set = files.map((f, i) => {
         const stem = f.replace(/\.[^.]+$/, '');
+        const name = window.partName ? window.partName(f) : 'Lohshree Engineers';
         return `<a href="gallery/#part-${encodeURIComponent(stem)}"
             class="${PLATE_CLASSES}"
-            aria-label="View this part in the gallery">
+            aria-label="View ${name} in the gallery">
             <img src="${BELT_PATH}${encodeURIComponent(f)}"
-                 alt="Lohshree Engineers product ${i + 1}"
+                 alt="${name}"
                  class="h-28 w-36 object-contain rounded-lg bg-white"
                  draggable="false">
         </a>`;
