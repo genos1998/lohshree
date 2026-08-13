@@ -82,9 +82,10 @@
     <meta property="og:image"       content="https://lohshree.com/assets/slide1.jpg">
     <meta property="og:image:width"  content="1382">
     <meta property="og:image:height" content="1136">
-    <!-- "since 1978" rather than a running count of years: the old text said
-         45+ when the company was already past 50, because a number like that
-         goes stale silently and nobody notices. A founding year never does. -->
+    <!-- "since 1978" rather than "45+ years", which is what this said before:
+         a running count of years goes stale silently every January and nobody
+         notices, while a founding year never does. It must stay in step with
+         foundingDate in the structured data below and the About section. -->
     <meta property="og:image:alt" content="Solvent extractor machine parts, standard and custom manufactured by Lohshree Engineers, trusted since 1978.">
     <meta name="twitter:card"       content="summary_large_image">
 
@@ -94,7 +95,28 @@
          both. This is what lets Google treat the company name, location
          and numbers as facts rather than guessing them from the text.
          openingHours: the page says only "10 AM - 6 PM" with no days -
-         Mon-Sat is assumed here. Correct it if that is wrong. -->
+         Mon-Sat is assumed here. Correct it if that is wrong.
+
+         hasOfferCatalog at the end restates the `catalog` array from the
+         script at the bottom of this file. It is needed because the products
+         are drawn by JavaScript into this one URL, so there is no separate
+         page per part for a search engine to rank - this block is how Google
+         learns that "chain wheel" or "Belleville washer" is a thing this
+         company makes, rather than a word that happens to appear in the
+         markup. Keep the two in step: a part added to `catalog` needs an
+         entry here, and the reverse.
+
+         The rule for what may go in it: every entry must be a part actually
+         manufactured AND shown on this page, in the product panel or as a
+         gallery photograph. Anything else is misleading structured data
+         under Google's spam policy and risks a manual action against the
+         whole domain, so nothing aspirational and nothing "we could make if
+         asked". alternateName carries real trade synonyms only - a rotary
+         valve genuinely is called a rotary air lock valve - never invented
+         variants to catch extra searches.
+
+         Note this is JSON, not JavaScript: it cannot carry /* */ or //
+         comments. Anything that needs saying about it has to be said here. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -148,8 +170,97 @@
       },
       "knowsAbout": [
         "Solvent extraction plant spare parts",
-        "Custom precision manufacturing"
-      ]
+        "Solvent extractor machine parts",
+        "Rotary air lock valves",
+        "Redler and bulk flow conveyor spares",
+        "Extractor shaft assemblies",
+        "Gears, sprockets and chain wheels",
+        "Gun metal bushes and bearing housings",
+        "Custom precision manufacturing to drawing"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Solvent extraction plant spare parts",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "Extractor Machine Parts",
+            "description": "Shaft assemblies in M.S. and S.S. for 1200, 1500, 1800, 2000 and 2400 mm extractors.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drive Shaft Assembly", "description": "Assembly complete, M.S. and S.S., for 1200/1500/1800/2000/2400 mm extractors.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft Assembly", "description": "Assembly complete, M.S. and S.S., for 1200/1500/1800/2000/2400 mm extractors.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Scraper Shaft Assembly", "alternateName": "Scrapper Shaft", "description": "Assembly complete with stainless steel blades, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Brush Shaft Assembly", "description": "Assembly complete, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Transmission Shaft Assembly", "description": "Assembly complete, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drum Shaft Conveyor Assembly", "description": "Assembly complete, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Counter Flange", "description": "Counter flanges for extractor shaft assemblies." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft Tightening Arrangement", "description": "Tightening arrangement with gun metal bush." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Rotary Valves",
+            "description": "Bush type and mechanical seal rotary valves in all sizes.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Rotary Valve", "alternateName": ["Rotary Air Lock Valve", "Air Lock Valve"], "description": "Bush type and mechanical seal, all sizes. Inlet and outlet square type and Dismit design.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bush Type Rotary Valve", "alternateName": "Bush Type Rotary Air Lock Valve", "description": "All sizes, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mechanical Seal Rotary Valve", "description": "All sizes, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Square Type Rotary Valve", "description": "Square inlet and outlet type, and Dismit design." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mechanical Seal", "description": "Mechanical seals for solvent extraction plant rotary valves, all sizes." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Conveyor Parts",
+            "description": "Redler, bulk flow and leak / solvent tight conveyor spares.",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drive Shaft for Redler Conveyor", "alternateName": "Drive Shaft for Reddler Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft for Redler Conveyor", "alternateName": "Tension Shaft for Reddler Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drive Shaft for Leak / Solvent Tight Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft for Leak / Solvent Tight Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Redler Conveyor Spares", "alternateName": "Reddler Conveyor Parts", "description": "Conveyor spares including slats and flanged hubs." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bulk Flow Conveyor Components", "description": "Bulk flow conveyor flights and spares." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Chain Wheel", "description": "Segmented bolted chain wheels for Redler conveyors." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Gears, Sprockets and Rails",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Spur Gear with Pinion", "description": "Heavy and light duty, steel casting and M.S. fabricated, made to suit the plant." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Sprocket for Redler Conveyor", "alternateName": "Sprocket for Reddler Conveyor", "description": "All sizes as required." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Sprocket for Bulk Flow Conveyor", "description": "All sizes as required." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "M.S. and E.N.8 Rails", "description": "Rails for all types of extractors." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Monorails", "description": "M.S. railway rails of all sizes." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Plant Accessories",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Jet Cleaner", "description": "For 1200, 1500, 1800, 2000 and 2400 mm extractors." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Damper Assembly", "description": "For 1200, 1500, 1800 and 2000 mm extractors, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Ejector Assembly", "alternateName": "Ejector Set", "description": "For solvent, with S.S. nozzle complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bindicators", "description": "High level and low level." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Aluminium Manhole Cover", "description": "300, 400 and 500 mm." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Sight Glass Assembly", "description": "All sizes, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "High Temperature Glasses", "description": "Imported and hardened." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Gun Metal Bush", "alternateName": "Bronze Bush", "description": "All sizes." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bearing Housing", "alternateName": "Pedestal", "description": "Flanged bearing housings made to plant requirement." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Belleville Washer", "description": "Conical spring washers for extractor assemblies." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Cone Hopper", "alternateName": "Transition Piece", "description": "Stainless steel cone hoppers and transition pieces." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Scraper Blade", "description": "Stainless steel scraper blades for extractor shafts." } }
+            ]
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "Custom Solutions",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Custom Manufactured Parts", "description": "Any solvent extraction plant part manufactured to customer drawing or sample, in M.S. and S.S." } }
+            ]
+          }
+        ]
+      }
     }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
