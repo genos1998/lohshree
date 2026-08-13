@@ -1977,8 +1977,21 @@ window.addEventListener('load', () => {
 
 
 // Product catalog data — drives the grid and detail panel.
-// An item can list photos from assets/gallery/<galleryFolder>/ — those items
+//
+// An item can list photos by file name from assets/gallery/. Those items
 // become clickable in the detail panel and open the photo viewer.
+//
+// The names must be files that exist in that folder — they are the same
+// numbered photos the gallery page and the conveyor belt use. This used to
+// read from per-category sub-folders (assets/gallery/shafts/ and four more)
+// holding differently named .png files; none of those folders was ever
+// created, so all seven references 404'd. The thumbnail beside the row and
+// the viewer opened by clicking it were both broken, with no onerror
+// fallback to hide it. Point new entries at real files and check them.
+//
+// Note 29.jpg has no thumbnail yet — tools/build-gallery.py generates those
+// and has not run since it was added — so it cannot be used here until the
+// next deploy. The row thumbnail loads from assets/gallery/thumbs/.
 const catalog = [
     {
         id: 'extractor-machine-parts',
@@ -1992,9 +2005,8 @@ const catalog = [
                <rect x="6" y="7" width="9" height="10" rx="1" stroke-width="1.5"/>
                <rect x="15" y="9.75" width="7" height="4.5" rx="0.75" stroke-width="1.5"/>
                <line x1="8.5" y1="12" x2="12.5" y2="12" stroke-width="1.5" stroke-linecap="round"/>`,
-        galleryFolder: 'shafts',
         items: [
-            { name: 'Drive Shaft',          spec: 'Assembly complete, S.S. & M.S.', photos: ['drive-shaft-with-sprocket.png'] },
+            { name: 'Drive Shaft',          spec: 'Assembly complete, S.S. & M.S.' },
             { name: 'Transmission Shaft',   spec: 'Assembly complete, S.S. & M.S.' },
             { name: 'Drum Shaft Conveyor',  spec: 'Assembly complete, S.S. & M.S.' },
             { name: 'Tension Shaft',        spec: 'Assembly complete, S.S. & M.S.' },
@@ -2014,9 +2026,8 @@ const catalog = [
                      d="M12 12V5.5m0 6.5v6.5m0-6.5l5.63 3.25M12 12L6.37 15.25M12 12l5.63-3.25M12 12L6.37 8.75"/>
                <circle cx="12" cy="12" r="1.6" stroke-width="1.5"/>
                <path stroke-width="1.5" stroke-linecap="round" d="M8.5 2.5h7M8.5 21.5h7"/>`,
-        galleryFolder: 'rotary-valves',
         items: [
-            { name: 'Rotary Valve',              spec: 'Bush type / mechanical seal', photos: ['rotary-valve.png', 'square-type-rotary-valve.png'] },
+            { name: 'Rotary Valve',              spec: 'Bush type / mechanical seal'},
             { name: 'Bush Type Rotary Valve',     spec: 'All sizes' },
             { name: 'Mechanical Seal Rotary Valve', spec: 'All sizes' },
         ]
@@ -2033,13 +2044,12 @@ const catalog = [
                <circle cx="12" cy="12.5" r="1.3" stroke-width="1.5"/>
                <circle cx="17.5" cy="12.5" r="1.3" stroke-width="1.5"/>
                <rect x="9.25" y="4.25" width="5.5" height="4.75" rx="0.75" stroke-width="1.5"/>`,
-        galleryFolder: 'conveyor-parts',
         items: [
             { name: 'Drive Shaft for Redler Conveyor', spec: 'Complete' },
             { name: 'Tension Shaft for Redler Conveyor', spec: 'Complete' },
             { name: 'Drive Shaft for Leak / Solvent Tight Conveyor', spec: 'Complete' },
             { name: 'Tension Shaft for Leak / Solvent Tight Conveyor', spec: 'Complete' },
-            { name: 'Redler Parts', spec: 'Conveyor spares', photos: ['flanged-hubs.png'] },
+            { name: 'Redler Parts', spec: 'Conveyor spares' },
             { name: 'Bulk Flow Components', spec: 'Conveyor spares' },
             { name: 'M.S. & E.N8 Rails', spec: 'For all types of extractors' },
             { name: 'Monorails', spec: 'M.S. railway rails of all sizes' },
@@ -2059,9 +2069,8 @@ const catalog = [
                <circle cx="17.5" cy="17.5" r="2.4" stroke-width="1.5"/>
                <path stroke-width="1.5" stroke-linecap="round"
                      d="M19.9 17.5h1.5M15.1 17.5h-1.5M18.7 15.4l.75-1.3M16.3 15.4l-.75-1.3M16.3 19.6l-.75 1.3M18.7 19.6l.75 1.3"/>`,
-        galleryFolder: 'gears-sprockets',
         items: [
-            { name: 'Spur Gear with Pinion', spec: 'Heavy and light duty', photos: ['spur-gear.png'] },
+            { name: 'Spur Gear with Pinion', spec: 'Heavy and light duty' },
             { name: 'Sprocket for Redler Conveyor', spec: 'As required' },
             { name: 'Sprocket for Bulk Flow Conveyor', spec: 'As required' },
         ]
@@ -2078,11 +2087,10 @@ const catalog = [
                <circle cx="12" cy="12.5" r="1.1" stroke-width="1.5"/>
                <path stroke-width="1.5" stroke-linecap="round"
                      d="M12 6.6v1.5M6.1 12.5h1.5M17.9 12.5h-1.5M7.83 8.33l1.06 1.06"/>`,
-        galleryFolder: 'plant-accessories',
         items: [
             { name: 'Jet Cleaner', spec: 'For 1200 / 1500 / 1800 / 2000 / 2400 mm' },
             { name: 'Damper Assembly', spec: 'M.S. & S.S.' },
-            { name: 'Ejector Assembly', spec: 'Solvent with S.S. nozzle complete', photos: ['ejector-assembly.png', 'steel-nozzles.png'] },
+            { name: 'Ejector Assembly', spec: 'Solvent with S.S. nozzle complete' },
             { name: 'Bindicators', spec: 'High level & low level' },
             { name: 'Gun Metal Bush', spec: 'All sizes' },
             { name: 'Housing', spec: 'As per plant requirement' },
@@ -2304,9 +2312,10 @@ function selectCategory(catId, scrollTo = true) {
                         </div>
                         ${hasPhotos ? `
                         <div class="relative flex-shrink-0 self-center">
-                            <img src="assets/gallery/${cat.galleryFolder}/${item.photos[0]}"
-                                 alt="${item.name}" loading="lazy"
-                                 class="w-12 h-12 rounded-lg object-cover bg-white border border-gray-200">
+                            <img src="assets/gallery/thumbs/${item.photos[0]}"
+                                 alt="${window.partName ? window.partName(item.photos[0]) : item.name}" loading="lazy"
+                                 class="w-12 h-12 rounded-lg object-cover bg-white border border-gray-200"
+                                 onerror="this.closest('div').style.display='none';">
                             ${item.photos.length > 1 ? `
                             <span class="absolute -top-1.5 -right-1.5 bg-brand text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none shadow">
                                 +${item.photos.length - 1}
@@ -2381,7 +2390,9 @@ function openPhotoViewer(catId, itemIndex) {
     const item = cat && cat.items[itemIndex];
     if (!item || !item.photos || item.photos.length === 0) return;
 
-    pvPhotos = item.photos.map(f => `assets/gallery/${cat.galleryFolder}/${f}`);
+    // Full-size here, unlike the 48px row thumbnail, which loads from
+    // assets/gallery/thumbs/ — this one fills the screen.
+    pvPhotos = item.photos.map(f => `assets/gallery/${f}`);
     pvName   = item.name;
     pvIndex  = 0;
     renderPhotoViewer();
