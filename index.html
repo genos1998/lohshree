@@ -115,6 +115,22 @@
          valve genuinely is called a rotary air lock valve - never invented
          variants to catch extra searches.
 
+         Each itemOffered is a Service, not a Product, and that is deliberate
+         - do not "correct" it back. Google validates every Product node it
+         finds against its Product snippet rules, which require one of
+         offers, review or aggregateRating, and offers in turn requires a
+         price. This is make-to-order B2B work: there is no list price, no
+         ratings and no reviews, so a Product node here can only ever be an
+         error. Search Console reported exactly that on 18 Aug 2026 ("Either
+         'offers', 'review' or 'aggregateRating' should be specified"), and
+         the only ways to satisfy it as a Product would be inventing a price
+         or inventing ratings - the same spam problem the paragraph above
+         warns about. Service carries the name, alternateName and description
+         just as well, and Google runs no rich result check against it. For
+         the same reason there is no `material` property: it is defined on
+         Product, not Service, and every entry that had one already says
+         "M.S. and S.S." in its description.
+
          Note this is JSON, not JavaScript: it cannot carry /* */ or //
          comments. Anything that needs saying about it has to be said here. -->
     <script type="application/ld+json">
@@ -187,14 +203,14 @@
             "name": "Extractor Machine Parts",
             "description": "Shaft assemblies in M.S. and S.S. for 1200, 1500, 1800, 2000 and 2400 mm extractors.",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drive Shaft Assembly", "description": "Assembly complete, M.S. and S.S., for 1200/1500/1800/2000/2400 mm extractors.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft Assembly", "description": "Assembly complete, M.S. and S.S., for 1200/1500/1800/2000/2400 mm extractors.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Scraper Shaft Assembly", "alternateName": "Scrapper Shaft", "description": "Assembly complete with stainless steel blades, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Brush Shaft Assembly", "description": "Assembly complete, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Transmission Shaft Assembly", "description": "Assembly complete, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drum Shaft Conveyor Assembly", "description": "Assembly complete, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Counter Flange", "description": "Counter flanges for extractor shaft assemblies." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft Tightening Arrangement", "description": "Tightening arrangement with gun metal bush." } }
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drive Shaft Assembly", "description": "Assembly complete, M.S. and S.S., for 1200/1500/1800/2000/2400 mm extractors." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tension Shaft Assembly", "description": "Assembly complete, M.S. and S.S., for 1200/1500/1800/2000/2400 mm extractors." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Scraper Shaft Assembly", "alternateName": "Scrapper Shaft", "description": "Assembly complete with stainless steel blades, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brush Shaft Assembly", "description": "Assembly complete, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Transmission Shaft Assembly", "description": "Assembly complete, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drum Shaft Conveyor Assembly", "description": "Assembly complete, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Counter Flange", "description": "Counter flanges for extractor shaft assemblies." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tension Shaft Tightening Arrangement", "description": "Tightening arrangement with gun metal bush." } }
             ]
           },
           {
@@ -202,11 +218,11 @@
             "name": "Rotary Valves",
             "description": "Bush type and mechanical seal rotary valves in all sizes.",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Rotary Valve", "alternateName": ["Rotary Air Lock Valve", "Air Lock Valve"], "description": "Bush type and mechanical seal, all sizes. Inlet and outlet square type and Dismit design.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bush Type Rotary Valve", "alternateName": "Bush Type Rotary Air Lock Valve", "description": "All sizes, M.S. and S.S." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mechanical Seal Rotary Valve", "description": "All sizes, M.S. and S.S." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Square Type Rotary Valve", "description": "Square inlet and outlet type, and Dismit design." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mechanical Seal", "description": "Mechanical seals for solvent extraction plant rotary valves, all sizes." } }
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Rotary Valve", "alternateName": ["Rotary Air Lock Valve", "Air Lock Valve"], "description": "Bush type and mechanical seal, all sizes. Inlet and outlet square type and Dismit design." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bush Type Rotary Valve", "alternateName": "Bush Type Rotary Air Lock Valve", "description": "All sizes, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mechanical Seal Rotary Valve", "description": "All sizes, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Square Type Rotary Valve", "description": "Square inlet and outlet type, and Dismit design." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mechanical Seal", "description": "Mechanical seals for solvent extraction plant rotary valves, all sizes." } }
             ]
           },
           {
@@ -214,49 +230,49 @@
             "name": "Conveyor Parts",
             "description": "Redler, bulk flow and leak / solvent tight conveyor spares.",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drive Shaft for Redler Conveyor", "alternateName": "Drive Shaft for Reddler Conveyor", "description": "Assembly complete." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft for Redler Conveyor", "alternateName": "Tension Shaft for Reddler Conveyor", "description": "Assembly complete." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Drive Shaft for Leak / Solvent Tight Conveyor", "description": "Assembly complete." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Tension Shaft for Leak / Solvent Tight Conveyor", "description": "Assembly complete." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Redler Conveyor Spares", "alternateName": "Reddler Conveyor Parts", "description": "Conveyor spares including slats and flanged hubs." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bulk Flow Conveyor Components", "description": "Bulk flow conveyor flights and spares." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Chain Wheel", "description": "Segmented bolted chain wheels for Redler conveyors." } }
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drive Shaft for Redler Conveyor", "alternateName": "Drive Shaft for Reddler Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tension Shaft for Redler Conveyor", "alternateName": "Tension Shaft for Reddler Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Drive Shaft for Leak / Solvent Tight Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tension Shaft for Leak / Solvent Tight Conveyor", "description": "Assembly complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Redler Conveyor Spares", "alternateName": "Reddler Conveyor Parts", "description": "Conveyor spares including slats and flanged hubs." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bulk Flow Conveyor Components", "description": "Bulk flow conveyor flights and spares." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Chain Wheel", "description": "Segmented bolted chain wheels for Redler conveyors." } }
             ]
           },
           {
             "@type": "OfferCatalog",
             "name": "Gears, Sprockets and Rails",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Spur Gear with Pinion", "description": "Heavy and light duty, steel casting and M.S. fabricated, made to suit the plant." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Sprocket for Redler Conveyor", "alternateName": "Sprocket for Reddler Conveyor", "description": "All sizes as required." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Sprocket for Bulk Flow Conveyor", "description": "All sizes as required." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "M.S. and E.N.8 Rails", "description": "Rails for all types of extractors." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Monorails", "description": "M.S. railway rails of all sizes." } }
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Spur Gear with Pinion", "description": "Heavy and light duty, steel casting and M.S. fabricated, made to suit the plant." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sprocket for Redler Conveyor", "alternateName": "Sprocket for Reddler Conveyor", "description": "All sizes as required." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sprocket for Bulk Flow Conveyor", "description": "All sizes as required." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "M.S. and E.N.8 Rails", "description": "Rails for all types of extractors." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Monorails", "description": "M.S. railway rails of all sizes." } }
             ]
           },
           {
             "@type": "OfferCatalog",
             "name": "Plant Accessories",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Jet Cleaner", "description": "For 1200, 1500, 1800, 2000 and 2400 mm extractors." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Damper Assembly", "description": "For 1200, 1500, 1800 and 2000 mm extractors, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Ejector Assembly", "alternateName": "Ejector Set", "description": "For solvent, with S.S. nozzle complete." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bindicators", "description": "High level and low level." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Aluminium Manhole Cover", "description": "300, 400 and 500 mm." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Sight Glass Assembly", "description": "All sizes, M.S. and S.S.", "material": ["Stainless steel", "Mild steel"] } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "High Temperature Glasses", "description": "Imported and hardened." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Gun Metal Bush", "alternateName": "Bronze Bush", "description": "All sizes." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bearing Housing", "alternateName": "Pedestal", "description": "Flanged bearing housings made to plant requirement." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Belleville Washer", "description": "Conical spring washers for extractor assemblies." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Cone Hopper", "alternateName": "Transition Piece", "description": "Stainless steel cone hoppers and transition pieces." } },
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Scraper Blade", "description": "Stainless steel scraper blades for extractor shafts." } }
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Jet Cleaner", "description": "For 1200, 1500, 1800, 2000 and 2400 mm extractors." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Damper Assembly", "description": "For 1200, 1500, 1800 and 2000 mm extractors, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ejector Assembly", "alternateName": "Ejector Set", "description": "For solvent, with S.S. nozzle complete." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bindicators", "description": "High level and low level." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Aluminium Manhole Cover", "description": "300, 400 and 500 mm." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sight Glass Assembly", "description": "All sizes, M.S. and S.S." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "High Temperature Glasses", "description": "Imported and hardened." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gun Metal Bush", "alternateName": "Bronze Bush", "description": "All sizes." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bearing Housing", "alternateName": "Pedestal", "description": "Flanged bearing housings made to plant requirement." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Belleville Washer", "description": "Conical spring washers for extractor assemblies." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cone Hopper", "alternateName": "Transition Piece", "description": "Stainless steel cone hoppers and transition pieces." } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Scraper Blade", "description": "Stainless steel scraper blades for extractor shafts." } }
             ]
           },
           {
             "@type": "OfferCatalog",
             "name": "Custom Solutions",
             "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Custom Manufactured Parts", "description": "Any solvent extraction plant part manufactured to customer drawing or sample, in M.S. and S.S." } }
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom Manufactured Parts", "description": "Any solvent extraction plant part manufactured to customer drawing or sample, in M.S. and S.S." } }
             ]
           }
         ]
